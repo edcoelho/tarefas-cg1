@@ -1,72 +1,45 @@
-#include <GL/glew.h>
-#include <GL/freeglut.h>
+#include <SDL2/SDL.h>
 #include "../include/utils.h"
 #include "../include/RaioRayCasting.h"
 #include "../include/Esfera.h"
-#include <iostream>
 #include <array>
+
+// -- CONSTANTES --
+
+// Largura, altura e posição da window.
+// ATENÇÃO: O número de colunas e linhas devem ser múltiplos de 100, pois com quaisquer outros valores o desenho está bugando.
+const int nCol = 500, // largura
+          nLin = 500; // altura
+
+// -- VARIÁVEIS GLOBAIS --
 
 // Posição do olho do pintor
 ponto3D PONTO_OLHO(0, 0, 0);
 
-// --- DEFINIÇÕES ---
+// -- DEFINIÇÕES DE TIPOS -- //
 
-// Variáveis globais
-
-// Largura, altura e posição da window.
-// ATENÇÃO: O número de colunas e linhas devem ser múltiplos de 100, pois com quaisquer outros valores o desenho está bugando.
-const int nCol = 700, // largura
-          nLin = 700, // altura
-          winPosX = 0,
-          winPosY = 0;
-
-// Matriz de cores.
+// Tipo para representar uma matriz de cores.
 typedef std::array<std::array<rgb, static_cast<std::size_t>(nLin)>, static_cast<std::size_t>(nCol)> matrizCores;
 
 // --- FUNÇÕES ---
 
-// Recebe a matriz de cores "m" e desenha no framebuffer padrão do OpenGL.
-void desenharPixels(matrizCores m) {
+// Função que retorna a matriz de cores que será pintada.
+matrizCores calcularMatrizCores() {
 
-    GLubyte* PixelBuffer = new GLubyte[nCol * nLin * 3];
-    int posicao;
-
-    for (int linha = 0; linha < nLin; linha++)
-        
-        for (int coluna = 0; coluna < nCol; coluna++) {
-
-            if ((0 <= linha && linha < nLin) && (0 <= coluna && coluna < nCol)) {
-
-                posicao = (coluna + linha * nCol) * 3;
-                PixelBuffer[posicao] = m[coluna][linha].red;
-                PixelBuffer[posicao + 1] = m[coluna][linha].green;
-                PixelBuffer[posicao + 2] = m[coluna][linha].blue;
-
-            }
-
-        }
-
-    // Pede a o OpenGL para desenhar os pixels.
-    glDrawPixels(nCol, nLin, GL_RGB, GL_UNSIGNED_BYTE, PixelBuffer);
-
-    delete PixelBuffer;
-
-}
-
-// Função de display do GLUT.
-void display() {
-
-    // Tamanho da "janela" do pintor em metros e distância até ela.
+    // Tamanho da "janela" do pintor em metros e distância até a tela.
     double wJanela = 3.0,
            hJanela = 3.0,
            dJanela = 3.0;
 
-    // Tamanho do raio, posição do centro e cor da esfera.
-    double rEsfera = 1,
-           zCentroEsfera = -1*(dJanela + rEsfera + 1);
+    // Tamanho do raio da esfera.
+    double rEsfera = 1;
 
-    ponto3D centroEsfera(0, 0, zCentroEsfera);
-    rgb esfColor(255, 0, 0);
+    // Posição do centro da esfera.
+    ponto3D centroEsfera(0, 0, -1*(dJanela + rEsfera + 1));
+
+    // Cor da esfera e cor do background.
+    const rgb esfColor(255, 0, 0),
+              bgColor(100, 100, 100);
 
     // Dimensões dos retângulos da tela de mosquito na janela do pintor.
     double Dx = (double) wJanela/nCol,
@@ -77,15 +50,10 @@ void display() {
     // Criando um ponteiro para um objeto raio para o ray casting.
     RaioRayCasting* raio;
     // Criando a matriz de cores que serão pintadas na janela.
-    matrizCores canvas;
+    matrizCores cores;
 
     // Coordenadas do centro de um retângulo na tela de mosquito.
     double cX, cY;
-
-    // Cor do background.
-    const rgb bgColor(100, 100, 100);
-
-    glClear(GL_COLOR_BUFFER_BIT);
 
     // Iterando na janela do pintor.
     for (int l = 0; l < nLin; l++) {
@@ -100,9 +68,9 @@ void display() {
             raio = new RaioRayCasting(PONTO_OLHO, ponto3D(cX, cY, -1.0*dJanela));
 
             if (raio->houveInterseccao(esfera))
-                canvas[c][l] = esfColor;
+                cores[c][l] = esfColor;
             else
-                canvas[c][l] = bgColor;
+                cores[c][l] = bgColor;
 
             // Desalocando espaço na memória em que estava o raio.
             delete raio;
@@ -111,48 +79,101 @@ void display() {
 
     }
 
-    // Passando a matriz de cores do canvas para ser desenhada.
-    desenharPixels(canvas);
-    // Realizando a transferência do conteúdo do back buffer para o front buffer.
-    glutSwapBuffers();
+    return cores;
 
 }
 
-int main(int argc, char *argv[]) {
+// Função para desenhar os pixels de acordo com uma matriz de cores.
+void desenharPixels(SDL_Renderer* renderer, matrizCores m) {
 
-    GLenum res;
-    const rgb bgColor(100, 100, 100);
+    // Limpando o renderer antes de desenhar os pixels.
+    SDL_RenderClear(renderer);
 
-    // Inicializando FreeGLUT.
-    glutInit(&argc, argv);
+    for (int l = 0; l < nLin; l++)
+        
+        for (int c = 0; c < nCol; c++) 
 
-    // Configurando o display mode do GLUT.
-    // GLUT_RGBA habilita o sistema RGB de cores com o canal alpha.
-    // GLUT_DOUBLE habilita o uso de double buffering, que permitirá que existam dois buffers: o front buffer, que guardará o frame atualmente exibido, e o back buffer, que será onde o próximo frame será renderizado. Isso impede problemas de tearing que ocorreriam se mostrassemos o frame enquanto ele está sendo renderizado.
-    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);
+            if ((0 <= l && l < nLin) && (0 <= c && c < nCol)) {
 
-    // Configurando tamanho e posição da janela.
-    glutInitWindowSize(nCol, nLin);
-    glutInitWindowPosition(winPosX, winPosY);
+                // Definindo a cor que será pintada. Essa função segue o padrão RGBA, mas o canal alpha está sendo ignorado.
+                SDL_SetRenderDrawColor(renderer, m[c][l].red, m[c][l].green, m[c][l].blue, 255);
 
-    // Criando a janela.
-    glutCreateWindow("CG I - Tarefa 1 - Esfera com o centro no eixo z negativo.");
+                // Pintando o pixel.
+                SDL_RenderDrawPoint(renderer, c, l);
 
-    // Inicializando o GLEW. Isso deve ser feito depois da criação do contexto OpenGL.
-    res = glewInit();
-    if (res != GLEW_OK) {
-        std::cout << "Erro ao inicializar o GLEW: " << glewGetErrorString(res) << std::endl;
+            }
+    
+    // Atualizando a janela com o renderer pintado.
+    SDL_RenderPresent(renderer);
+
+}
+
+int main(int argc, char* argv[]) {
+
+    SDL_Window* window;
+    SDL_Renderer* renderer;
+    SDL_Event event; // Variável para lidar com eventos na SDL.
+    bool repetirLoop = true; // Variável de controle do loop principal.
+    matrizCores pixelBuffer; // Matriz de cores
+
+    // Inicializando o subsistema de vídeo da SDL.
+    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+
+        SDL_Log("Erro ao inicializar o SDL! SDL Error: %s", SDL_GetError());
         return EXIT_FAILURE;
+
     }
 
-    // Configurando a cor da tela ao ser limpa. Cada valor corresponde a um float que deve variar entre 0 e 1. Como cada canal de cor tem 256 valores possíveis, cada valor deve ser um múltiplo de 1/255.
-    glClearColor(((float) bgColor.red)/255.0f, ((float) bgColor.green)/255.0f, ((float) bgColor.blue)/255.0f, 1.0f);
+    // Criando uma janela.
+    window = SDL_CreateWindow(
+        "CG I - Tarefa 1 - Esfera com o centro no eixo z negativo.", // Título da janela.
+        SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, // Posição inicial da janela (x, y).
+        nCol, nLin, // Tamanho em pixels da janela (x, y).
+        SDL_WINDOW_OPENGL // Flags
+    );
 
-    // Configurando uma função callback para a renderização.
-    glutDisplayFunc(display);
+    // Checando se a janela foi criada com sucesso.
+    if (window == NULL) {
 
-    // Entrando no loop principal do GLUT que vai processar os eventos.
-    glutMainLoop();
+        SDL_Log("Erro ao criar a janela! SDL Error: %s", SDL_GetError());
+        SDL_Quit();
+        return EXIT_FAILURE;
+
+    }
+
+    // Criando o contexto de renderização para a janela.
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    if (renderer == NULL) {
+
+        SDL_Log("Erro ao criar o renderer! SDL Error: %s", SDL_GetError());
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+        return EXIT_FAILURE;
+
+    }
+    
+    // Loop principal onde é feita as interações com a janela.
+    while (repetirLoop) {
+
+        // Lidando com eventos.
+        while (SDL_PollEvent(&event)) 
+            
+            // Para o loop principal se o botão de fechar da janela for clicado ou a tecla "Q" for pressionada.
+            if (event.type == SDL_QUIT || (event.type == SDL_KEYUP && SDL_GetKeyName(event.key.keysym.sym) == "Q"))
+
+                repetirLoop = false;
+
+        // Chamando a função para calcular a matriz de cores que será pintada.
+        pixelBuffer = calcularMatrizCores();
+
+        // Chamando a função para pintar os pixels.
+        desenharPixels(renderer, pixelBuffer);
+
+    }
+
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    SDL_Quit();
 
     return EXIT_SUCCESS;
 

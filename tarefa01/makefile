@@ -1,19 +1,22 @@
 CXXFLAGS = -pedantic-errors
-LDLIBS = -lGL -lglut -lGLEW -lm
+LDLIBS = -lSDL2
 
-# Diretórios importantes
+# Diretórios importantes.
 SRCDIR = src/
 INCLUDEDIR = include/
 BUILDDIR = build/
 
 ALL: main
 
+# Target para gerar executável para debugging.
 debug: CXXFLAGS += -g
 debug: clean main
 
+# Target para criar o diretório build.
 build_dir:
-	if [ ! -d "build" ]; then mkdir "build"; fi
+	if [ ! -d "$(BUILDDIR)" ]; then mkdir "$(BUILDDIR)"; fi
 
+# Targets para compilação e ligação.
 main: build_dir main.o
 	$(CXX) $(CXXFLAGS) $(BUILDDIR)*.o -o main $(LDLIBS)
 
@@ -29,5 +32,6 @@ Esfera.o: utils.o
 utils.o:
 	$(CXX) $(CXXFLAGS) -c $(SRCDIR)utils.cpp -o $(BUILDDIR)utils.o
 
+# Target para apagar objetos e executável.
 clean:
 	rm -rf $(BUILDDIR) main

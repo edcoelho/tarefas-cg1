@@ -1,11 +1,9 @@
-#include <GL/glew.h>
-#include <GL/freeglut.h>
 #include <array>
 
 #ifndef UTILS_H
 #define UTILS_H
 
-// --- ESTRUTURAS E TIPOS ---
+// --- DEFINIÇÕES DE TIPOS E ESTRUTURAS ---
 
 // Canal de cor no padrão RGB. Possui 1 byte sem sinal, podendo assumir um valor inteiro no intervalo [0, 255].
 typedef unsigned char canalCor;
