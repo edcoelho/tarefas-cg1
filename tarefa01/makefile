@@ -6,31 +6,28 @@ SRCDIR = src/
 INCLUDEDIR = include/
 BUILDDIR = build/
 
-ALL: main
+# Lista de arquivos de objetos
+OBJS = $(BUILDDIR)main.o $(BUILDDIR)utils.o $(BUILDDIR)RaioRayCasting.o $(BUILDDIR)Esfera.o
+
+ALL: build_dir main
 
 # Target para gerar executável para debugging.
 debug: CXXFLAGS += -g
-debug: clean main
+debug: clean ALL
+
+# Targets para compilação e ligação.
+main: $(OBJS)
+	$(CXX) $(CXXFLAGS) $(OBJS) -o $@ $(LDLIBS)
+
+$(BUILDDIR)main.o: $(SRCDIR)main.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+$(BUILDDIR)%.o: $(SRCDIR)%.cpp $(INCLUDEDIR)%.h
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 # Target para criar o diretório build.
 build_dir:
 	if [ ! -d "$(BUILDDIR)" ]; then mkdir "$(BUILDDIR)"; fi
-
-# Targets para compilação e ligação.
-main: build_dir main.o
-	$(CXX) $(CXXFLAGS) $(BUILDDIR)*.o -o main $(LDLIBS)
-
-main.o: RaioRayCasting.o Esfera.o
-	$(CXX) $(CXXFLAGS) -c $(SRCDIR)main.cpp -o $(BUILDDIR)main.o
-
-RaioRayCasting.o: utils.o Esfera.o
-	$(CXX) $(CXXFLAGS) -c $(SRCDIR)RaioRayCasting.cpp -o $(BUILDDIR)RaioRayCasting.o
-
-Esfera.o: utils.o
-	$(CXX) $(CXXFLAGS) -c $(SRCDIR)Esfera.cpp -o $(BUILDDIR)Esfera.o
-
-utils.o:
-	$(CXX) $(CXXFLAGS) -c $(SRCDIR)utils.cpp -o $(BUILDDIR)utils.o
 
 # Target para apagar objetos e executável.
 clean:
