@@ -11,10 +11,25 @@
 const int nCol = 500, // largura
           nLin = 500; // altura
 
+// Cor da esfera e cor do background.
+const rgb esfColor(255, 0, 0),
+          bgColor(100, 100, 100);
+
 // -- VARIÁVEIS GLOBAIS --
 
+// Tamanho da "janela" do pintor em metros e distância até o olho.
+double wJanela = 3.0,
+       hJanela = (nLin / nCol) * 3.0,
+       dJanela = 3.0;
+
+// Tamanho do raio da esfera.
+double rEsfera = 1;
+
+// Posição do centro da esfera.
+ponto3D centroEsfera(0, 0, -(dJanela + rEsfera + 1));
+
 // Posição do olho do pintor
-ponto3D PONTO_OLHO(0, 0, 0);
+ponto3D ponto_olho(0, 0, 0);
 
 // -- DEFINIÇÕES DE TIPOS -- //
 
@@ -26,25 +41,6 @@ typedef std::array<std::array<rgb, static_cast<std::size_t>(nLin)>, static_cast<
 // Função que retorna a matriz de cores que será pintada.
 matrizCores calcularMatrizCores() {
 
-    // Tamanho da "janela" do pintor em metros e distância até a tela.
-    double wJanela = 3.0,
-           hJanela = 3.0,
-           dJanela = 3.0;
-
-    // Tamanho do raio da esfera.
-    double rEsfera = 1;
-
-    // Posição do centro da esfera.
-    ponto3D centroEsfera(0, 0, -1*(dJanela + rEsfera + 1));
-
-    // Cor da esfera e cor do background.
-    const rgb esfColor(255, 0, 0),
-              bgColor(100, 100, 100);
-
-    // Dimensões dos retângulos da tela de mosquito na janela do pintor.
-    double Dx = (double) wJanela/nCol,
-           Dy = (double) hJanela/nLin;
-
     // Criando a esfera.
     Esfera esfera(centroEsfera, rEsfera, esfColor);
     // Criando um ponteiro para um objeto raio para o ray casting.
@@ -52,6 +48,9 @@ matrizCores calcularMatrizCores() {
     // Criando a matriz de cores que serão pintadas na janela.
     matrizCores cores;
 
+    // Dimensões dos retângulos da tela de mosquito na janela do pintor.
+    double Dx = wJanela/((double) nCol),
+           Dy = hJanela/((double) nLin);
     // Coordenadas do centro de um retângulo na tela de mosquito.
     double cX, cY;
 
@@ -62,10 +61,10 @@ matrizCores calcularMatrizCores() {
         
         for (int c = 0; c < nCol; c++) {
 
-            cX = (double) -1*wJanela/2.0 + Dx/2.0 + c*Dx;
+            cX = (double) -wJanela/2.0 + Dx/2.0 + c*Dx;
 
             // Lançando o raio.
-            raio = new RaioRayCasting(PONTO_OLHO, ponto3D(cX, cY, -1.0*dJanela));
+            raio = new RaioRayCasting(ponto_olho, ponto3D(cX, cY, -dJanela));
 
             if (raio->houveInterseccao(esfera))
                 cores[c][l] = esfColor;
@@ -84,7 +83,7 @@ matrizCores calcularMatrizCores() {
 }
 
 // Função para desenhar os pixels de acordo com uma matriz de cores.
-void desenharPixels(SDL_Renderer* renderer, matrizCores m) {
+void desenharPixels(SDL_Renderer* renderer, matrizCores &m) {
 
     // Limpando o renderer antes de desenhar os pixels.
     SDL_RenderClear(renderer);
@@ -114,9 +113,9 @@ int main(int argc, char* argv[]) {
     SDL_Renderer* renderer;
     SDL_Event event; // Variável para lidar com eventos na SDL.
     bool repetirLoop = true; // Variável de controle do loop principal.
-    matrizCores pixelBuffer; // Matriz de cores
+    matrizCores pixelBuffer; // Matriz de cores que será pintada.
 
-    // Inicializando o subsistema de vídeo da SDL.
+    // Inicializando o subsistema de vídeo e de input da SDL.
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 
         SDL_Log("Erro ao inicializar o SDL! SDL Error: %s", SDL_GetError());
@@ -159,7 +158,7 @@ int main(int argc, char* argv[]) {
         while (SDL_PollEvent(&event)) 
             
             // Para o loop principal se o botão de fechar da janela for clicado ou a tecla "Q" for pressionada.
-            if (event.type == SDL_QUIT || (event.type == SDL_KEYUP && SDL_GetKeyName(event.key.keysym.sym) == "Q"))
+            if (event.type == SDL_QUIT || (event.type == SDL_KEYUP && !strcmp(SDL_GetKeyName(event.key.keysym.sym), "Q")))
 
                 repetirLoop = false;
 
