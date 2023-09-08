@@ -1,3 +1,4 @@
+#include <eigen3/Eigen/Core>
 #include "utils.h"
 #include "Esfera.h"
 
@@ -10,14 +11,17 @@ class RaioRayCasting {
         // Ponto inicial.
         ponto3D pInicial;
         // Vetor direção.
-        vetor3D vDirecao;
+        Eigen::Vector3d vDirecao;
 
     public:
+        // Flag para os vetores do Eigen serem alocados adequadamente.
+        EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+
         // --- CONSTRUTORES ---
 
         // pI: ponto inicial do raio
         // vD: vetor direção
-        RaioRayCasting(ponto3D pI, vetor3D vD);
+        RaioRayCasting(ponto3D pI, Eigen::Vector3d vD);
         // pI: ponto inicial do raio
         // pX: outro ponto qualquer do raio
         RaioRayCasting(ponto3D pI, ponto3D pX);
@@ -37,8 +41,8 @@ class RaioRayCasting {
         ponto3D getPInicial();
         void setPInicial(ponto3D pI);
 
-        vetor3D getVDirecao();
-        void setVDirecao(vetor3D vD);
+        Eigen::Vector3d getVDirecao();
+        void setVDirecao(Eigen::Vector3d vD);
 
 };
 

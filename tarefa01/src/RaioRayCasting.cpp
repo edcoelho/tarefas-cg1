@@ -1,7 +1,9 @@
-#include "../include/RaioRayCasting.h"
+#include <eigen3/Eigen/Core>
 #include <cmath>
+#include "../include/RaioRayCasting.h"
+#include "../include/Esfera.h"
 
-RaioRayCasting::RaioRayCasting(ponto3D pI, vetor3D vD) {
+RaioRayCasting::RaioRayCasting(ponto3D pI, Eigen::Vector3d vD) {
 
     this->setPInicial(pI);
     this->setVDirecao(vD);
@@ -9,11 +11,11 @@ RaioRayCasting::RaioRayCasting(ponto3D pI, vetor3D vD) {
 }
 RaioRayCasting::RaioRayCasting(ponto3D pI, ponto3D pX) {
 
-    vetor3D vD;
+    Eigen::Vector3d vD;
 
     // vD = (pX - pI) / mod(pX - pI)
-    vD = pontoMenosPonto(pX, pI);
-    vD = normalizaVetor(vD);
+    vD = (pX - pI).matrix();
+    vD.normalize();
 
     this->setPInicial(pI);
     this->setVDirecao(vD);
@@ -23,16 +25,16 @@ RaioRayCasting::RaioRayCasting(ponto3D pI, ponto3D pX) {
 double RaioRayCasting::escalarInterseccao(Esfera esf) {
 
     double delta = 0.0, a = 0.0, b = 0.0, c = 0.0, raiz = 0.0, raioEsf = esf.getRaio(), aux;
-    vetor3D vDr = this->getVDirecao(), vAux;
+    Eigen::Vector3d vDr = this->getVDirecao(), vAux;
     ponto3D pInicial = this->getPInicial(), centroEsf = esf.getCentro();
 
     // a = vDirecao . vDirecao
-    a = produtoEscalar(vDr, vDr);
+    a = vDr.dot(vDr);
     // b = 2 ((pInicial - centroEsf) . vDr)
-    vAux = pontoMenosPonto(pInicial, centroEsf);
-    b = 2.0 * produtoEscalar(vAux, vDr);
+    vAux = (pInicial - centroEsf).matrix();
+    b = 2.0 * vAux.dot(vDr);
     // c = (pInicial - centroEsf) . (pInicial - centroEsf) - raioEsf²
-    c = produtoEscalar(vAux, vAux) - std::pow(raioEsf, 2);
+    c = vAux.dot(vAux) - std::pow(raioEsf, 2);
 
     //delta = b² - 4ac
     delta = std::pow(b, 2) - 4*a*c;
@@ -60,16 +62,16 @@ double RaioRayCasting::escalarInterseccao(Esfera esf) {
 bool RaioRayCasting::houveInterseccao(Esfera esf) {
 
     double delta = 0.0, a = 0.0, b = 0.0, c = 0.0, raioEsf = esf.getRaio();
-    vetor3D vDr = this->getVDirecao(), vAux;
+    Eigen::Vector3d vDr = this->getVDirecao(), vAux;
     ponto3D pInicial = this->getPInicial(), centroEsf = esf.getCentro();
 
     // a = vDirecao . vDirecao
-    a = produtoEscalar(vDr, vDr);
+    a = vDr.dot(vDr);
     // b = 2 ((pInicial - centroEsf) . vDr)
-    vAux = pontoMenosPonto(pInicial, centroEsf);
-    b = 2.0 * produtoEscalar(vAux, vDr);
+    vAux = (pInicial - centroEsf).matrix();
+    b = 2.0 * vAux.dot(vDr);
     // c = (pInicial - centroEsf) . (pInicial - centroEsf) - raioEsf²
-    c = produtoEscalar(vAux, vAux) - std::pow(raioEsf, 2);
+    c = vAux.dot(vAux) - std::pow(raioEsf, 2);
 
     //delta = b² - 4ac
     delta = std::pow(b, 2) - 4*a*c;
@@ -89,12 +91,12 @@ void RaioRayCasting::setPInicial(ponto3D pI) {
 
 }
 
-vetor3D RaioRayCasting::getVDirecao() {
+Eigen::Vector3d RaioRayCasting::getVDirecao() {
 
     return this->vDirecao;
 
 }
-void RaioRayCasting::setVDirecao(vetor3D vD) {
+void RaioRayCasting::setVDirecao(Eigen::Vector3d vD) {
 
     this->vDirecao = vD;
 

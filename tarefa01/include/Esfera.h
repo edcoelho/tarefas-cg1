@@ -1,4 +1,5 @@
 #include "utils.h"
+#include <eigen3/Eigen/Core>
 
 #ifndef ESFERA_H
 #define ESFERA_H
@@ -11,6 +12,9 @@ class Esfera {
         rgb cor;
 
     public:
+        // Flag para os vetores do Eigen serem alocados adequadamente.
+        EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+
         // --- CONSTRUTORES ---
 
         Esfera(ponto3D c, double r, rgb cr);
