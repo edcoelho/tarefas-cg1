@@ -112,7 +112,8 @@ int main(int argc, char* argv[]) {
     SDL_Window* window;
     SDL_Renderer* renderer;
     SDL_Event event; // Variável para lidar com eventos na SDL.
-    bool repetirLoop = true; // Variável de controle do loop principal.
+    bool repetirLoop = true, // Variável de controle do loop principal.
+         atualizarJanela = true; // Variável para controlar se a matriz de cores deve ser calculada e desenhada.
     matrizCores pixelBuffer; // Matriz de cores que será pintada.
 
     // Inicializando o subsistema de vídeo e de input da SDL.
@@ -157,16 +158,31 @@ int main(int argc, char* argv[]) {
         // Lidando com eventos.
         while (SDL_PollEvent(&event)) 
             
-            // Para o loop principal se o botão de fechar da janela for clicado ou a tecla "Q" for pressionada.
-            if (event.type == SDL_QUIT || (event.type == SDL_KEYUP && !strcmp(SDL_GetKeyName(event.key.keysym.sym), "Q")))
+            // Para o loop principal se o botão de fechar da janela for clicado.
+            if (event.type == SDL_QUIT)
 
                 repetirLoop = false;
 
-        // Chamando a função para calcular a matriz de cores que será pintada.
-        pixelBuffer = calcularMatrizCores();
+            else if (event.type == SDL_KEYUP)
 
-        // Chamando a função para pintar os pixels.
-        desenharPixels(renderer, pixelBuffer);
+                // Para o loop principal se a tecla "Q" for pressionada.
+                if (!strcmp(SDL_GetKeyName(event.key.keysym.sym), "Q")) repetirLoop = false;
+
+                // Força uma atualização da janela se a tecla "F5" for pressionada.
+                else if (!strcmp(SDL_GetKeyName(event.key.keysym.sym), "F5")) atualizarJanela = true;
+
+        // Calcula e desenha a matriz de cores apenas se for necessário para otimizar o programa.
+        if (atualizarJanela) {
+
+            // Chamando a função para calcular a matriz de cores que será pintada.
+            pixelBuffer = calcularMatrizCores();
+
+            // Chamando a função para pintar os pixels.
+            desenharPixels(renderer, pixelBuffer);
+
+            atualizarJanela = false;
+        
+        }
 
     }
 
