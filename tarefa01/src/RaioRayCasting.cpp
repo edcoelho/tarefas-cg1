@@ -24,9 +24,17 @@ RaioRayCasting::RaioRayCasting(ponto3D pI, ponto3D pX) {
 
 double RaioRayCasting::escalarInterseccao(Esfera esf) {
 
-    double delta = 0.0, a = 0.0, b = 0.0, c = 0.0, raiz = 0.0, raioEsf = esf.getRaio(), aux;
-    Eigen::Vector3d vDr = this->getVDirecao(), vAux;
-    ponto3D pInicial = this->getPInicial(), centroEsf = esf.getCentro();
+    double delta = 0.0, // Delta da equação de 2º grau.
+           a = 0.0, b = 0.0, c = 0.0, // Coscientes da equação de 2º grau.
+           raiz = 0.0, // Raíz da equação.
+           raioEsf = esf.getRaio(), // Raio da esfera.
+           aux; // Variável para auxiliar nos cálculos.
+
+    Eigen::Vector3d vDr = this->getVDirecao(),
+                    vAux; // Vetor para auxiliar nos cálculos.
+
+    ponto3D pInicial = this->getPInicial(), // Ponto inicial do raio.
+            centroEsf = esf.getCentro(); // Ponto do centro da esfera.
 
     // a = vDirecao . vDirecao
     a = vDr.dot(vDr);
@@ -61,9 +69,15 @@ double RaioRayCasting::escalarInterseccao(Esfera esf) {
 
 bool RaioRayCasting::houveInterseccao(Esfera esf) {
 
-    double delta = 0.0, a = 0.0, b = 0.0, c = 0.0, raioEsf = esf.getRaio();
-    Eigen::Vector3d vDr = this->getVDirecao(), vAux;
-    ponto3D pInicial = this->getPInicial(), centroEsf = esf.getCentro();
+    double delta = 0.0, // Delta da equação de 2º grau.
+           a = 0.0, b = 0.0, c = 0.0, // Coscientes da equação de 2º grau.
+           raioEsf = esf.getRaio(); // Raio da esfera.
+
+    Eigen::Vector3d vDr = this->getVDirecao(),
+                    vAux; // Vetor para auxiliar nos cálculos.
+
+    ponto3D pInicial = this->getPInicial(), // Ponto inicial do raio.
+            centroEsf = esf.getCentro(); // Ponto do centro da esfera.
 
     // a = vDirecao . vDirecao
     a = vDr.dot(vDr);
