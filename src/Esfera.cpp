@@ -1,5 +1,5 @@
-#include "../include/utils.h"
-#include "../include/Esfera.h"
+#include "../include/utils.hpp"
+#include "../include/Esfera.hpp"
 #include <eigen3/Eigen/Core>
 
 Esfera::Esfera(ponto3D c, double r, rgb cr) {

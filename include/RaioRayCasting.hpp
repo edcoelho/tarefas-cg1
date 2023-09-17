@@ -1,9 +1,9 @@
 #include <eigen3/Eigen/Core>
-#include "utils.h"
-#include "Esfera.h"
+#include "utils.hpp"
+#include "Esfera.hpp"
 
-#ifndef RAIORAYCASTING_H
-#define RAIORAYCASTING_H
+#ifndef RAIORAYCASTING_HPP
+#define RAIORAYCASTING_HPP
 
 class RaioRayCasting {
 

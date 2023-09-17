@@ -1,8 +1,8 @@
-#include "utils.h"
+#include "utils.hpp"
 #include <eigen3/Eigen/Core>
 
-#ifndef ESFERA_H
-#define ESFERA_H
+#ifndef ESFERA_HPP
+#define ESFERA_HPP
 
 class Esfera {
 

@@ -1,7 +1,7 @@
 #include <SDL2/SDL.h>
-#include "../include/utils.h"
-#include "../include/RaioRayCasting.h"
-#include "../include/Esfera.h"
+#include "../include/utils.hpp"
+#include "../include/RaioRayCasting.hpp"
+#include "../include/Esfera.hpp"
 #include <array>
 
 // -- CONSTANTES --

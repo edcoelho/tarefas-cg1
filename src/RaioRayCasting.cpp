@@ -1,7 +1,7 @@
 #include <eigen3/Eigen/Core>
 #include <cmath>
-#include "../include/RaioRayCasting.h"
-#include "../include/Esfera.h"
+#include "../include/RaioRayCasting.hpp"
+#include "../include/Esfera.hpp"
 
 RaioRayCasting::RaioRayCasting(ponto3D pI, Eigen::Vector3d vD) {
 

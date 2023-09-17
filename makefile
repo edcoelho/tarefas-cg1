@@ -22,7 +22,7 @@ main: $(OBJS)
 $(BUILDDIR)main.o: $(SRCDIR)main.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-$(BUILDDIR)%.o: $(SRCDIR)%.cpp $(INCLUDEDIR)%.h
+$(BUILDDIR)%.o: $(SRCDIR)%.cpp $(INCLUDEDIR)%.hpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 # Target para criar o diretório build.
