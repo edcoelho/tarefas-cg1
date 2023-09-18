@@ -1,8 +1,8 @@
-#include "RaioRayCasting.hpp"
-#include "utils.hpp"
-
 #ifndef SOLIDO_HPP
 #define SOLIDO_HPP
+
+#include "RaioRayCasting.hpp"
+#include "utils.hpp"
 
 class Solido {
 

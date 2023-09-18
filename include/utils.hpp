@@ -1,8 +1,8 @@
-#include <eigen3/Eigen/Core>
-#include <array>
-
 #ifndef UTILS_HPP
 #define UTILS_HPP
+
+#include <eigen3/Eigen/Core>
+#include <array>
 
 // --- DEFINIÇÕES DE TIPOS E ESTRUTURAS ---
 

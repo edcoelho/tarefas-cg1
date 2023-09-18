@@ -1,8 +1,8 @@
-#include <eigen3/Eigen/Core>
-#include "utils.hpp"
-
 #ifndef RAIORAYCASTING_HPP
 #define RAIORAYCASTING_HPP
+
+#include <eigen3/Eigen/Core>
+#include "utils.hpp"
 
 class RaioRayCasting {
 

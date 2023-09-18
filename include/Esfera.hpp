@@ -1,9 +1,9 @@
+#ifndef ESFERA_HPP
+#define ESFERA_HPP
+
 #include "Solido.hpp"
 #include "utils.hpp"
 #include <eigen3/Eigen/Core>
-
-#ifndef ESFERA_HPP
-#define ESFERA_HPP
 
 class Esfera : public Solido {
 
