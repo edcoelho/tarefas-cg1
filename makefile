@@ -1,34 +1,38 @@
-CXXFLAGS = -pedantic-errors
-LDLIBS = -lSDL2
+CXXFLAGS := -pedantic-errors
+LDLIBS := -lSDL2
 
 # Diretórios importantes.
-SRCDIR = src/
-INCLUDEDIR = include/
-BUILDDIR = build/
+SRC_DIR := src/
+INCLUDE_DIR := include/
+BUILD_DIR := build/
 
-# Lista de arquivos de objetos
-OBJS = $(BUILDDIR)main.o $(BUILDDIR)RaioRayCasting.o $(BUILDDIR)Esfera.o $(BUILDDIR)Solido.o
+# Lista de arquivos .cpp
+SRC_FILES := $(wildcard $(SRC_DIR)*.cpp)
 
-ALL: build_dir main
+# Lista de arquivos .o
+OBJ_FILES := $(patsubst $(SRC_DIR)%.cpp, $(BUILD_DIR)%.o, $(SRC_FILES))
+
+ALL: $(BUILD_DIR) main
 
 # Target para gerar executável para debugging.
 debug: CXXFLAGS += -g
 debug: clean ALL
 
-# Targets para compilação e ligação.
-main: $(OBJS)
-	$(CXX) $(CXXFLAGS) $(OBJS) -o $@ $(LDLIBS)
+# Target para ligação.
+main: $(OBJ_FILES)
+	$(CXX) $(CXXFLAGS) $(OBJ_FILES) -o $@ $(LDLIBS)
 
-$(BUILDDIR)main.o: $(SRCDIR)main.cpp
+# Targets para compilação.
+$(BUILD_DIR)main.o: $(SRC_DIR)main.cpp $(INCLUDE_DIR)utils.hpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-$(BUILDDIR)%.o: $(SRCDIR)%.cpp $(INCLUDEDIR)%.hpp
+$(BUILD_DIR)%.o: $(SRC_DIR)%.cpp $(INCLUDE_DIR)%.hpp $(INCLUDE_DIR)utils.hpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 # Target para criar o diretório build.
-build_dir:
-	if [ ! -d "$(BUILDDIR)" ]; then mkdir "$(BUILDDIR)"; fi
+$(BUILD_DIR):
+	if [ ! -d "$(BUILD_DIR)" ]; then mkdir "$(BUILD_DIR)"; fi
 
 # Target para apagar objetos e executável.
 clean:
-	rm -rf $(BUILDDIR) main
+	rm -rf $(BUILD_DIR) *.o main
