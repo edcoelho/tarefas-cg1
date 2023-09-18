@@ -10,6 +10,8 @@ class Solido {
         rgb cor;
 
     public:
+        // Flag para os vetores do Eigen serem alocados adequadamente.
+        EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
         // --- GETTERS E SETTERS ---
 

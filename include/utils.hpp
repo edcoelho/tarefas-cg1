@@ -10,28 +10,7 @@
 // Funciona como um array da biblioteca Eigen.
 typedef Eigen::Array3d ponto3D;
 
-// Canal de cor no padrão RGB. Possui 1 byte sem sinal, podendo assumir um valor inteiro no intervalo [0, 255].
-typedef unsigned char canalCor;
-
 // Estrutura para ajudar na representação de uma cor.
-struct rgb {
-
-    canalCor red;
-    canalCor green;
-    canalCor blue;
-
-    rgb() {
-        red = 0;
-        green = 0;
-        blue = 0;
-    }
-
-    rgb(canalCor r, canalCor g, canalCor b) {
-        red = r;
-        green = g;
-        blue = b;
-    }
-
-};
+typedef Eigen::Vector<u_int8_t, 3> rgb;
 
 #endif

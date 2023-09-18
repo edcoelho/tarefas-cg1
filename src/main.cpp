@@ -1,13 +1,14 @@
 #include <SDL2/SDL.h>
 #include "../include/utils.hpp"
+#include "../include/Cena.hpp"
 #include "../include/RaioRayCasting.hpp"
 #include "../include/Esfera.hpp"
 #include <array>
+#include <memory>
 
 // -- CONSTANTES --
 
 // Largura, altura e posição da window.
-// ATENÇÃO: O número de colunas e linhas devem ser múltiplos de 100, pois com quaisquer outros valores o desenho está bugando.
 const int nCol = 500, // largura
           nLin = 500; // altura
 
@@ -41,10 +42,10 @@ typedef std::array<std::array<rgb, static_cast<std::size_t>(nLin)>, static_cast<
 // Função que retorna a matriz de cores que será pintada.
 matrizCores calcularMatrizCores() {
 
-    // Criando a esfera.
-    Esfera esfera(centroEsfera, rEsfera, esfColor);
+    // Criando a cena.
+    Cena cena(bgColor);
     // Criando um ponteiro para um objeto raio para o ray casting.
-    RaioRayCasting* raio;
+    std::unique_ptr<RaioRayCasting> raio;
     // Criando a matriz de cores que serão pintadas na janela.
     matrizCores cores;
 
@@ -64,15 +65,8 @@ matrizCores calcularMatrizCores() {
             cX = (double) -wJanela/2.0 + Dx/2.0 + c*Dx;
 
             // Lançando o raio.
-            raio = new RaioRayCasting(ponto_olho, ponto3D(cX, cY, -dJanela));
-
-            if (esfera.houveInterseccao(*raio))
-                cores[c][l] = esfColor;
-            else
-                cores[c][l] = bgColor;
-
-            // Desalocando espaço na memória em que estava o raio usado para poder lançar um novo raio.
-            delete raio;
+            raio = std::make_unique<RaioRayCasting>(ponto_olho, ponto3D(cX, cY, -dJanela));
+            cores[c][l] = cena.corInterseccao(*raio);
 
         }
 
@@ -95,7 +89,7 @@ void desenharPixels(SDL_Renderer* renderer, matrizCores &m) {
             if ((0 <= l && l < nLin) && (0 <= c && c < nCol)) {
 
                 // Definindo a cor que será pintada. Essa função segue o padrão RGBA, mas o canal alpha está sendo ignorado.
-                SDL_SetRenderDrawColor(renderer, m[c][l].red, m[c][l].green, m[c][l].blue, 255);
+                SDL_SetRenderDrawColor(renderer, m[c][l](0), m[c][l](1), m[c][l](2), 255);
 
                 // Pintando o pixel.
                 SDL_RenderDrawPoint(renderer, c, l);
@@ -126,7 +120,7 @@ int main(int argc, char* argv[]) {
 
     // Criando uma janela.
     window = SDL_CreateWindow(
-        "CG I - Tarefa 1 - Esfera com o centro no eixo z negativo.", // Título da janela.
+        "Janela", // Título da janela.
         SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, // Posição inicial da janela (x, y).
         nCol, nLin, // Tamanho em pixels da janela (x, y).
         SDL_WINDOW_OPENGL // Flags
