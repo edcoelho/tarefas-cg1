@@ -1,6 +1,5 @@
 #include <eigen3/Eigen/Core>
 #include "utils.hpp"
-#include "Esfera.hpp"
 
 #ifndef RAIORAYCASTING_HPP
 #define RAIORAYCASTING_HPP
@@ -25,16 +24,6 @@ class RaioRayCasting {
         // pI: ponto inicial do raio
         // pX: outro ponto qualquer do raio
         RaioRayCasting(ponto3D pI, ponto3D pX);
-
-        // --- MÉTODOS ---
-
-        // Se o raio intersectar a esfera "esf", retorna o escalar que é a distância entre o ponto inicial do raio e o ponto de intersecção mais próximo.
-        // Se o raio tangenciar a esfera "esf", retorna o escalar que é a distância entre o ponto inicial do raio e o ponto onde o raio tangenciou.
-        // Se não houver intersecção, retorna -1.
-        double escalarInterseccao(Esfera esf);
-
-        // Retorna true se o raio intersectar ou tangenciar a esfera "esf", caso contrário retorna false.
-        bool houveInterseccao(Esfera esf);
 
         // --- GETTERS E SETTERS ---
 

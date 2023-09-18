@@ -1,4 +1,3 @@
-#include "../include/utils.hpp"
 #include "../include/Esfera.hpp"
 #include <eigen3/Eigen/Core>
 
@@ -32,13 +31,47 @@ void Esfera::setRaio(double r) {
 
 }
 
-rgb Esfera::getCor() {
+double Esfera::escalarInterseccao(RaioRayCasting& raio) {
 
-    return this->cor;
+    double delta = 0.0, // Delta da equação de 2º grau.
+           a = 0.0, b = 0.0, c = 0.0; // Coscientes da equação de 2º grau.
+
+    Eigen::Vector3d vAux; // Vetor para auxiliar nos cálculos.
+
+    // a = vDirecao . vDirecao
+    a = raio.getVDirecao().dot(raio.getVDirecao());
+    // b = 2 ((pInicial - centroEsf) . vDirecao)
+    vAux = (raio.getPInicial() - this->getCentro()).matrix();
+    b = 2.0 * vAux.dot(raio.getVDirecao());
+    // c = (pInicial - centroEsf) . (pInicial - centroEsf) - raioEsf²
+    c = vAux.dot(vAux) - std::pow(this->getRaio(), 2);
+
+    //delta = b² - 4ac
+    delta = std::pow(b, 2) - 4*a*c;
+
+    if (delta >= 0) return true; else return false;
 
 }
-void Esfera::setCor(rgb c) {
 
-    this->cor = c;
+        
+bool Esfera::houveInterseccao(RaioRayCasting& raio) {
+
+    double delta = 0.0, // Delta da equação de 2º grau.
+           a = 0.0, b = 0.0, c = 0.0; // Coscientes da equação de 2º grau.
+
+    Eigen::Vector3d vAux; // Vetor para auxiliar nos cálculos.
+
+    // a = vDirecao . vDirecao
+    a = raio.getVDirecao().dot(raio.getVDirecao());
+    // b = 2 ((pInicial - centroEsf) . vDirecao)
+    vAux = (raio.getPInicial() - this->getCentro()).matrix();
+    b = 2.0 * vAux.dot(raio.getVDirecao());
+    // c = (pInicial - centroEsf) . (pInicial - centroEsf) - raioEsf²
+    c = vAux.dot(vAux) - std::pow(this->getRaio(), 2);
+
+    //delta = b² - 4ac
+    delta = std::pow(b, 2) - 4*a*c;
+
+    if (delta >= 0) return true; else return false;
 
 }

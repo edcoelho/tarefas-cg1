@@ -7,7 +7,7 @@ INCLUDEDIR = include/
 BUILDDIR = build/
 
 # Lista de arquivos de objetos
-OBJS = $(BUILDDIR)main.o $(BUILDDIR)RaioRayCasting.o $(BUILDDIR)Esfera.o
+OBJS = $(BUILDDIR)main.o $(BUILDDIR)RaioRayCasting.o $(BUILDDIR)Esfera.o $(BUILDDIR)Solido.o
 
 ALL: build_dir main
 

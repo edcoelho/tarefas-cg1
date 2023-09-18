@@ -1,7 +1,5 @@
-#include <eigen3/Eigen/Core>
-#include <cmath>
 #include "../include/RaioRayCasting.hpp"
-#include "../include/Esfera.hpp"
+#include <eigen3/Eigen/Core>
 
 RaioRayCasting::RaioRayCasting(ponto3D pI, Eigen::Vector3d vD) {
 
@@ -19,78 +17,6 @@ RaioRayCasting::RaioRayCasting(ponto3D pI, ponto3D pX) {
 
     this->setPInicial(pI);
     this->setVDirecao(vD);
-
-}
-
-double RaioRayCasting::escalarInterseccao(Esfera esf) {
-
-    double delta = 0.0, // Delta da equação de 2º grau.
-           a = 0.0, b = 0.0, c = 0.0, // Coscientes da equação de 2º grau.
-           raiz = 0.0, // Raíz da equação.
-           raioEsf = esf.getRaio(), // Raio da esfera.
-           aux; // Variável para auxiliar nos cálculos.
-
-    Eigen::Vector3d vDr = this->getVDirecao(),
-                    vAux; // Vetor para auxiliar nos cálculos.
-
-    ponto3D pInicial = this->getPInicial(), // Ponto inicial do raio.
-            centroEsf = esf.getCentro(); // Ponto do centro da esfera.
-
-    // a = vDirecao . vDirecao
-    a = vDr.dot(vDr);
-    // b = 2 ((pInicial - centroEsf) . vDr)
-    vAux = (pInicial - centroEsf).matrix();
-    b = 2.0 * vAux.dot(vDr);
-    // c = (pInicial - centroEsf) . (pInicial - centroEsf) - raioEsf²
-    c = vAux.dot(vAux) - std::pow(raioEsf, 2);
-
-    //delta = b² - 4ac
-    delta = std::pow(b, 2) - 4*a*c;
-
-    // raiz = (-b +- sqrt(delta))/2a
-    if (delta > 0) {
-        
-        // Escolhendo a menor raíz.
-        raiz = (-1*b + std::sqrt(delta)) / 2*a;
-        aux = (-1*b - std::sqrt(delta)) / 2*a;
-        if (aux < raiz) raiz = aux;
-
-    } else if (delta = 0)
-        
-        raiz = -1*b / 2*a;
-
-    else
-
-        raiz = -1;
-
-
-    return raiz;
-}
-
-bool RaioRayCasting::houveInterseccao(Esfera esf) {
-
-    double delta = 0.0, // Delta da equação de 2º grau.
-           a = 0.0, b = 0.0, c = 0.0, // Coscientes da equação de 2º grau.
-           raioEsf = esf.getRaio(); // Raio da esfera.
-
-    Eigen::Vector3d vDr = this->getVDirecao(),
-                    vAux; // Vetor para auxiliar nos cálculos.
-
-    ponto3D pInicial = this->getPInicial(), // Ponto inicial do raio.
-            centroEsf = esf.getCentro(); // Ponto do centro da esfera.
-
-    // a = vDirecao . vDirecao
-    a = vDr.dot(vDr);
-    // b = 2 ((pInicial - centroEsf) . vDr)
-    vAux = (pInicial - centroEsf).matrix();
-    b = 2.0 * vAux.dot(vDr);
-    // c = (pInicial - centroEsf) . (pInicial - centroEsf) - raioEsf²
-    c = vAux.dot(vAux) - std::pow(raioEsf, 2);
-
-    //delta = b² - 4ac
-    delta = std::pow(b, 2) - 4*a*c;
-
-    if (delta >= 0) return true; else return false;
 
 }
 

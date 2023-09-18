@@ -66,12 +66,12 @@ matrizCores calcularMatrizCores() {
             // Lançando o raio.
             raio = new RaioRayCasting(ponto_olho, ponto3D(cX, cY, -dJanela));
 
-            if (raio->houveInterseccao(esfera))
+            if (esfera.houveInterseccao(*raio))
                 cores[c][l] = esfColor;
             else
                 cores[c][l] = bgColor;
 
-            // Desalocando espaço na memória em que estava o raio.
+            // Desalocando espaço na memória em que estava o raio usado para poder lançar um novo raio.
             delete raio;
 
         }
