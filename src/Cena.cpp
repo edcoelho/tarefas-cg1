@@ -64,6 +64,8 @@ rgb Cena::corInterseccao(RaioRayCasting& raio) {
 
     // Cor que será retornada.
     rgb cor = this->getCorFundo();
+    // K especulamento do sólido.
+    rgb kE;
 
     // -------------------------------------------------------
     // --- CÁLCULO DA COR BASE DA INTERSECÇÃO MAIS PRÓXIMA ---
@@ -138,8 +140,10 @@ rgb Cena::corInterseccao(RaioRayCasting& raio) {
         // iD = iD * (l . n)
         iD = iD * aux;
 
+        kE = this->solidos.at(indiceSolido)->getMaterial().getKE();
+
         // iE = I @ K
-        iE = this->getFonteLuz()->getIntensidade() * cor.cast<float>();
+        iE = this->getFonteLuz()->getIntensidade() * kE.cast<float>();
 
         // Vetor que sai do sólido e vai em direção ao olho do câmera.
         v = this->solidos.at(indiceSolido)->vetorUnit(pInt, raio.getPInicial());
