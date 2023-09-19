@@ -132,7 +132,7 @@ int main(int argc, char* argv[]) {
 
     // Criando uma janela.
     window = SDL_CreateWindow(
-        "Janela", // Título da janela.
+        "CG I - Tarefa 02 - Esfera iluminada por uma fonte de luz pontual.", // Título da janela.
         SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, // Posição inicial da janela (x, y).
         nCol, nLin, // Tamanho em pixels da janela (x, y).
         SDL_WINDOW_OPENGL // Flags
