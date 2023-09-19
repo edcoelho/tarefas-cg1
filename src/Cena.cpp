@@ -48,8 +48,8 @@ rgb Cena::corInterseccao(RaioRayCasting& raio) {
     int indiceSolido = -1;
     // Distância do ponto inicial ao ponto de intersecção (t_int).
     double tInt, minTInt = -1.0;
-    // Variável para auxiliar nos cálculos.
-    double aux;
+    // Variável para auxiliar nos cálculos. (m = expoente de espelhamento)
+    double aux, m;
 
     // Vetores para auxiliar nos cálculos (vetorLuzPontual, vetorNormalPonto, vetorVisao, vetorReflexoLuz)
     Eigen::Vector3d l, n, v, r;
@@ -151,8 +151,10 @@ rgb Cena::corInterseccao(RaioRayCasting& raio) {
 
         aux = aux < 0 ? 0 : aux;
 
+        m = this->solidos.at(indiceSolido)->getMaterial().getExpEsp();
+
         // iE = iE * (v . r)^m
-        iE = iE * std::pow(aux, 5);
+        iE = iE * std::pow(aux, m);
 
         for (int i = 0; i < 3; i++) {
 
