@@ -1,18 +1,14 @@
 #include "../include/RaioRayCasting.hpp"
 #include <eigen3/Eigen/Core>
 
-RaioRayCasting::RaioRayCasting(ponto3D pI, Eigen::Vector3d vD) {
+RaioRayCasting::RaioRayCasting() {}
 
-    this->setPInicial(pI);
-    this->setVDirecao(vD);
-
-}
 RaioRayCasting::RaioRayCasting(ponto3D pI, ponto3D pX) {
 
     Eigen::Vector3d vD;
 
     // vD = (pX - pI) / mod(pX - pI)
-    vD = (pX - pI).matrix();
+    vD = pX - pI;
     vD.normalize();
 
     this->setPInicial(pI);
@@ -39,5 +35,16 @@ Eigen::Vector3d RaioRayCasting::getVDirecao() {
 void RaioRayCasting::setVDirecao(Eigen::Vector3d vD) {
 
     this->vDirecao = vD;
+
+}
+
+ponto3D RaioRayCasting::pontoDoRaio(double escalar) {
+
+    ponto3D pX;
+
+    // P(t) = Pin + dr*t
+    pX = this->getPInicial() + (this->getVDirecao() * escalar);
+
+    return pX;
 
 }

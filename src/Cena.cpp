@@ -1,8 +1,38 @@
 #include "../include/Cena.hpp"
+#include <cmath>
+
+Cena::Cena() {
+
+    // Definindo preto como a cor de fundo padrão.
+    this->setCorFundo(rgb(0, 0, 0));
+    
+}
 
 Cena::Cena(rgb cf) {
 
-    this->corFundo = cf;
+    this->setCorFundo(cf);
+
+}
+
+rgb Cena::getCorFundo() {
+
+    return this->corFundo;
+
+}
+void Cena::setCorFundo(rgb cor) {
+
+    this->corFundo = cor;
+
+}
+
+std::unique_ptr<LuzPontual>& Cena::getFonteLuz() {
+
+    return this->fonteLuz;
+
+}
+void Cena::setFonteLuz(std::unique_ptr<LuzPontual> luz) {
+
+    this->fonteLuz = std::move(luz);
 
 }
 
@@ -18,9 +48,26 @@ rgb Cena::corInterseccao(RaioRayCasting& raio) {
     int indiceSolido = -1;
     // Distância do ponto inicial ao ponto de intersecção (t_int).
     double tInt, minTInt = -1.0;
+    // Variável para auxiliar nos cálculos.
+    double aux;
+
+    // Vetores para auxiliar nos cálculos (vetorLuzPontual, vetorNormalPonto, vetorVisao, vetorReflexoLuz)
+    Eigen::Vector3d l, n, v, r;
+
+    // Ponto da intersecção.
+    ponto3D pInt;
+
+    // Intensidades difusa e especular da fonte luminosa que vem do ponto intersectado.
+    i_luz iD, iE;
+    // Intensidade da energia luminosa que vai para o olho do câmera.
+    i_luz iEye;
 
     // Cor que será retornada.
-    rgb cor = this->corFundo;
+    rgb cor = this->getCorFundo();
+
+    // -------------------------------------------------------
+    // --- CÁLCULO DA COR BASE DA INTERSECÇÃO MAIS PRÓXIMA ---
+    // -------------------------------------------------------
 
     // Checar intersecção apenas se houver sólidos na cena.
     if (this->solidos.size() >= 1) {
@@ -60,8 +107,58 @@ rgb Cena::corInterseccao(RaioRayCasting& raio) {
 
         }
 
-        // Se algum sólido foi intersectado, pega a cor do sólido que foi intersectado primeiro.s
-        if (indiceSolido >= 0) cor = this->solidos.at(indiceSolido)->getCor();
+        // Se algum sólido foi intersectado, pega a cor do sólido que foi intersectado primeiro.
+        if (indiceSolido >= 0) cor = this->solidos.at(indiceSolido)->getMaterial().getCor();
+
+    }
+
+    // -----------------------------
+    // --- CÁLCULO DA ILUMINAÇÃO ---
+    // -----------------------------
+
+    // Antes de calcular as intensidades de luz, checa se houve alguma intersecção e se tem um ponto de luz presente na cena.
+    if (indiceSolido != -1 && this->getFonteLuz() != nullptr) {
+
+        pInt = raio.pontoDoRaio(minTInt);
+
+        // iD = I @ K
+        iD = this->getFonteLuz()->getIntensidade() * cor.cast<float>();
+
+        // Vetor que sai do sólido e vai em direção ao ponto de luz.
+        l = this->solidos.at(indiceSolido)->vetorLuzPontual(pInt, *(this->getFonteLuz()));
+        // Vetor normal ao sólido no ponto de intersecção.
+        n = this->solidos.at(indiceSolido)->vetorNormalPonto(pInt);
+
+        // aux = (l . n)
+        aux = l.dot(n);
+
+        // Se o produto escalar for negativo, ou seja, se o ângulo entre l e n está no intervalo (90º, 270º), então a intensidade difusa é zerada.
+        aux = aux < 0 ? 0 : aux;
+        
+        // iD = iD * (l . n)
+        iD = iD * aux;
+
+        // iE = I @ K
+        iE = this->getFonteLuz()->getIntensidade() * cor.cast<float>();
+
+        // Vetor que sai do sólido e vai em direção ao olho do câmera.
+        v = this->solidos.at(indiceSolido)->vetorUnit(pInt, raio.getPInicial());
+        // Vetor "reflexo" da luz no sólido.
+        r = this->solidos.at(indiceSolido)->vetorReflexo(pInt, *(this->getFonteLuz()));
+
+        // aux = v . r
+        aux = v.dot(r);
+
+        aux = aux < 0 ? 0 : aux;
+
+        // iE = iE * (v . r)^m
+        iE = iE * std::pow(aux, 5);
+
+        for (int i = 0; i < 3; i++) {
+
+            cor(i) = (iD(i) + iE(i)) > 255 ? 255 : (canalRGB) (iD(i) + iE(i));
+
+        }
 
     }
 

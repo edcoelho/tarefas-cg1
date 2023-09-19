@@ -9,8 +9,8 @@
 // -- CONSTANTES --
 
 // Largura, altura e posição da window.
-const int nCol = 500, // largura
-          nLin = 500; // altura
+const int nCol = 700, // largura
+          nLin = 700; // altura
 
 // Cor da esfera e cor do background.
 const rgb esfColor(255, 0, 0),
@@ -25,6 +25,12 @@ double wJanela = 3.0,
 
 // Tamanho do raio da esfera.
 double rEsfera = 1;
+
+// Intensidade da fonte de luz pontual.
+i_luz I_F(0.7, 0.7, 0.7);
+
+// Posição da fonte de luz pontual.
+ponto3D P_F(0, 5, 0);
 
 // Posição do centro da esfera.
 ponto3D centroEsfera(0, 0, -(dJanela + rEsfera + 1));
@@ -54,6 +60,12 @@ matrizCores calcularMatrizCores() {
            Dy = hJanela/((double) nLin);
     // Coordenadas do centro de um retângulo na tela de mosquito.
     double cX, cY;
+
+    // Inserindo o ponto de luz na cena.
+    cena.setFonteLuz(std::make_unique<LuzPontual>(P_F, I_F));
+
+    // Inserindo a esfera na cena.
+    cena.inserirSolido(std::make_unique<Esfera>(centroEsfera, rEsfera, Material(esfColor, 7)));
 
     // Iterando na janela do pintor.
     for (int l = 0; l < nLin; l++) {

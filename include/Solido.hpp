@@ -2,21 +2,28 @@
 #define SOLIDO_HPP
 
 #include "RaioRayCasting.hpp"
+#include "LuzPontual.hpp"
+#include "Material.hpp"
 #include "utils.hpp"
 
 class Solido {
 
     private:
-        rgb cor;
+        Material material;
 
     public:
         // Flag para os vetores do Eigen serem alocados adequadamente.
         EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
+        // --- CONSTRUTORES ---
+
+        Solido();
+        Solido(Material m);
+
         // --- GETTERS E SETTERS ---
 
-        rgb getCor();
-        void setCor(rgb c);
+        Material getMaterial();
+        void setMaterial(Material m);
 
         // --- MÉTODOS ---
 
@@ -26,6 +33,18 @@ class Solido {
 
         // Retorna true se o sólido for intersectado ou tangenciado pelo RaioRayCasting "raio", em caso contrário retorna false.
         virtual bool houveInterseccao(RaioRayCasting& raio) = 0;
+
+        // Retorna o vetor unitário normal a superfície do sólido num ponto.
+        virtual Eigen::Vector3d vetorNormalPonto(ponto3D ponto) = 0;
+
+        // Retorna o vetor unitário que vai de um ponto da superfície do sólido até uma luz pontual.
+        virtual Eigen::Vector3d vetorLuzPontual(ponto3D ponto, LuzPontual& luz);
+
+        // Retorna o vetor unitário que é reflexo do vetor unitário que vai de um ponto da superfície do sólido até uma luz pontual
+        virtual Eigen::Vector3d vetorReflexo(ponto3D ponto, LuzPontual& luz);
+
+        // Retorna o vetor unitário que vai de um ponto p0 da superfície do sólido até um ponto pX qualquer.
+        virtual Eigen::Vector3d vetorUnit(ponto3D p0, ponto3D pX);
 
 };
 

@@ -1,6 +1,7 @@
 #ifndef ESFERA_HPP
 #define ESFERA_HPP
 
+#include "Material.hpp"
 #include "Solido.hpp"
 #include "utils.hpp"
 #include <eigen3/Eigen/Core>
@@ -17,7 +18,8 @@ class Esfera : public Solido {
 
         // --- CONSTRUTORES ---
 
-        Esfera(ponto3D c, double r, rgb cr);
+        Esfera();
+        Esfera(ponto3D c, double r, Material m);
 
         // --- GETTERS E SETTERS ---
 
@@ -35,6 +37,9 @@ class Esfera : public Solido {
 
         // Retorna true se o sólido for intersectado ou tangenciado pelo RaioRayCasting "raio", em caso contrário retorna false.
         bool houveInterseccao(RaioRayCasting& raio) override;
+
+        // Retorna o vetor unitário normal a superfície da esfera num ponto.
+        Eigen::Vector3d vetorNormalPonto(ponto3D ponto) override;
 
 };
 

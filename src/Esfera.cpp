@@ -1,11 +1,18 @@
 #include "../include/Esfera.hpp"
 #include <eigen3/Eigen/Core>
 
-Esfera::Esfera(ponto3D c, double r, rgb cr) {
+Esfera::Esfera() {
+
+    this->setCentro(ponto3D(0,0,0));
+    this->setRaio(1);
+
+}
+
+Esfera::Esfera(ponto3D c, double r, Material m) {
 
     this->setCentro(c);
     this->setRaio(r);
-    this->setCor(cr);
+    this->setMaterial(m);
 
 }
 
@@ -43,7 +50,7 @@ double Esfera::escalarInterseccao(RaioRayCasting& raio) {
     // a = vDirecao . vDirecao
     a = raio.getVDirecao().dot(raio.getVDirecao());
     // b = 2 ((pInicial - centroEsf) . vDirecao)
-    vAux = (raio.getPInicial() - this->getCentro()).matrix();
+    vAux = raio.getPInicial() - this->getCentro();
     b = 2.0 * vAux.dot(raio.getVDirecao());
     // c = (pInicial - centroEsf) . (pInicial - centroEsf) - raioEsf²
     c = vAux.dot(vAux) - std::pow(this->getRaio(), 2);
@@ -80,7 +87,7 @@ bool Esfera::houveInterseccao(RaioRayCasting& raio) {
     // a = vDirecao . vDirecao
     a = raio.getVDirecao().dot(raio.getVDirecao());
     // b = 2 ((pInicial - centroEsf) . vDirecao)
-    vAux = (raio.getPInicial() - this->getCentro()).matrix();
+    vAux = raio.getPInicial() - this->getCentro();
     b = 2.0 * vAux.dot(raio.getVDirecao());
     // c = (pInicial - centroEsf) . (pInicial - centroEsf) - raioEsf²
     c = vAux.dot(vAux) - std::pow(this->getRaio(), 2);
@@ -89,5 +96,17 @@ bool Esfera::houveInterseccao(RaioRayCasting& raio) {
     delta = std::pow(b, 2) - 4*a*c;
 
     if (delta >= 0) return true; else return false;
+
+}
+
+
+Eigen::Vector3d Esfera::vetorNormalPonto(ponto3D ponto) {
+
+    Eigen::Vector3d n;
+    
+    n = ponto - this->getCentro();
+    n.normalize();
+
+    return n;
 
 }

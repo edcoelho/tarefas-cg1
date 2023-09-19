@@ -18,9 +18,8 @@ class RaioRayCasting {
 
         // --- CONSTRUTORES ---
 
-        // pI: ponto inicial do raio
-        // vD: vetor direção
-        RaioRayCasting(ponto3D pI, Eigen::Vector3d vD);
+        RaioRayCasting();
+
         // pI: ponto inicial do raio
         // pX: outro ponto qualquer do raio
         RaioRayCasting(ponto3D pI, ponto3D pX);
@@ -32,6 +31,11 @@ class RaioRayCasting {
 
         Eigen::Vector3d getVDirecao();
         void setVDirecao(Eigen::Vector3d vD);
+
+        // --- MÉTODOS ---
+
+        // Retorna um ponto do raio que está a uma distância "escalar" do ponto inicial.
+        ponto3D pontoDoRaio(double escalar);
 
 };
 
