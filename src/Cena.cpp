@@ -1,6 +1,5 @@
 #include "../include/Cena.hpp"
 #include <cmath>
-#include <iostream>
 
 Cena::Cena() {
 
@@ -9,9 +8,10 @@ Cena::Cena() {
     
 }
 
-Cena::Cena(rgb cf) {
+Cena::Cena(rgb cf, i_luz I) {
 
     this->setCorFundo(cf);
+    this->setIA(I);
 
 }
 
@@ -37,6 +37,17 @@ void Cena::setFonteLuz(std::unique_ptr<LuzPontual> luz) {
 
 }
 
+i_luz Cena::getIA() {
+
+    return this->iA;
+
+}
+void Cena::setIA(i_luz I) {
+
+    this->iA = fixIntensidade(I);
+
+}
+
 void Cena::inserirSolido(std::unique_ptr<Solido> solido) {
 
     this->solidos.push_back(std::move(solido));
@@ -58,13 +69,13 @@ rgb Cena::corInterseccao(RaioRayCasting& raio) {
     // Ponto da intersecção.
     ponto3D pInt;
 
-    // Intensidades difusa e especular da fonte luminosa que vem do ponto intersectado.
-    i_luz iD, iE;
+    // Intensidades ambiente, difusa e especular da energia luminosa que vem do ponto intersectado.
+    i_luz iA, iD, iE;
     // Intensidade final da energia luminosa que vai para a câmera.
     i_luz iF = RGBParaI(this->getCorFundo());
 
-    // K difusão do sólido e K especulamento do sólido.
-    i_luz kD, kE;
+    // K ambiente do sólido, K difusão do sólido e K especulamento do sólido.
+    i_luz kA, kD, kE;
 
     // -------------------------------------------------------
     // --- CÁLCULO DA COR BASE DA INTERSECÇÃO MAIS PRÓXIMA ---
@@ -119,10 +130,18 @@ rgb Cena::corInterseccao(RaioRayCasting& raio) {
 
         pInt = raio.pontoDoRaio(minTInt);
 
+        // Conseguindo o K ambiente do sólido.
+        kA = this->solidos.at(indiceSolido)->getMaterial().getKA();
+
+        // iA = Ia @ kA
+        // Ia: intensidade da luz ambiente.
+        iA = this->getIA() * kA;
+
+        // Conseguindo o K difuso do sólido.
         kD = this->solidos.at(indiceSolido)->getMaterial().getKD();
 
         // iD = I @ Kd
-        iD = this->getFonteLuz()->getIntensidade() * kD.cast<float>();
+        iD = this->getFonteLuz()->getIntensidade() * kD;
 
         // Vetor que sai do sólido e vai em direção ao ponto de luz.
         l = this->solidos.at(indiceSolido)->vetorLuzPontual(pInt, *(this->getFonteLuz()));
@@ -138,10 +157,11 @@ rgb Cena::corInterseccao(RaioRayCasting& raio) {
         // iD = iD * (l . n)
         iD = iD * aux;
 
+        // Conseguindo o K especular do sólido.
         kE = this->solidos.at(indiceSolido)->getMaterial().getKE();
 
         // iE = I @ Ke
-        iE = this->getFonteLuz()->getIntensidade() * kE.cast<float>();
+        iE = this->getFonteLuz()->getIntensidade() * kE;
 
         // Vetor que sai do sólido e vai em direção ao olho do câmera.
         v = this->solidos.at(indiceSolido)->vetorUnit(pInt, raio.getPInicial());
@@ -159,7 +179,7 @@ rgb Cena::corInterseccao(RaioRayCasting& raio) {
         iE = iE * std::pow(aux, m);
 
         // Somando as intensidades para obter a intensidade final que vai para a câmera.
-        iF = iD + iE;
+        iF = iA + iD + iE;
 
         // Trazendo os valores da intensidade final para dentro do intervalo [0,1].
         iF = fixIntensidade(iF);
