@@ -19,4 +19,15 @@ typedef Eigen::Array<canalRGB, 3, 1> rgb;
 // Estrutura para representar a intensidade de uma fonte de luz.
 typedef Eigen::Array3f i_luz;
 
+// --- FUNÇÕES ---
+
+// Traz os valores de uma intensidade de luz que estão fora do intervalo [0,1] para o seu limite.
+i_luz fixIntensidade(i_luz I);
+
+// Converte uma cor rgb para intensidade de luz.
+i_luz RGBParaI(rgb cor);
+
+// Converte uma intensidade de luz para uma cor RGB.
+rgb IParaRGB(i_luz I);
+
 #endif

@@ -7,8 +7,10 @@ class Material {
 
     private:
         rgb cor;
+        // K difusão
+        i_luz kD;
         // K especulamento (cor da luz "refletida" pelo sólido)
-        rgb kE;
+        i_luz kE;
         // Expoente de espelhamento.
         double expEsp;
 
@@ -19,15 +21,18 @@ class Material {
         // --- CONSTRUTORES ---
 
         Material();
-        Material(rgb c, rgb k, double e);
+        Material(rgb c, i_luz kd, i_luz ke, double e);
 
         // --- GETTERS E SETTERS ---
 
         rgb getCor();
         void setCor(rgb c);
 
-        rgb getKE();
-        void setKE(rgb k);
+        i_luz getKD();
+        void setKD(i_luz k);
+
+        i_luz getKE();
+        void setKE(i_luz k);
 
         double getExpEsp();
         void setExpEsp(double e);

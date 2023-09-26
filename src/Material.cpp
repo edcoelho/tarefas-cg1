@@ -3,15 +3,17 @@
 Material::Material() {
 
     this->setCor(rgb(150, 150, 150));
-    this->setKE(rgb(255, 255, 255));
+    this->setKD(RGBParaI(this->getCor()));
+    this->setKE(i_luz(1, 1, 1));
     this->setExpEsp(10);
 
 }
 
-Material::Material(rgb c, rgb k, double e) {
+Material::Material(rgb c, i_luz kd, i_luz ke, double e) {
 
     this->setCor(c);
-    this->setKE(k);
+    this->setKD(kd);
+    this->setKE(ke);
     this->setExpEsp(e);
 
 }
@@ -27,14 +29,25 @@ void Material::setCor(rgb c) {
 
 }
 
-rgb Material::getKE() {
+i_luz Material::getKD() {
+
+    return this->kD;
+    
+}
+void Material::setKD(i_luz k) {
+
+    this->kD = fixIntensidade(k);
+   
+}
+
+i_luz Material::getKE() {
 
     return this->kE;
     
 }
-void Material::setKE(rgb k) {
+void Material::setKE(i_luz k) {
 
-    this->kE = k;
+    this->kE = fixIntensidade(k);
    
 }
 
