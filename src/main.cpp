@@ -39,6 +39,9 @@ ponto3D centroEsfera(0, 0, -(dJanela + rEsfera + 1));
 // Posição do olho do pintor
 ponto3D ponto_olho(0, 0, 0);
 
+// Intensidade da luz ambiente.
+i_luz I_A(0.3f, 0.3f, 0.3f);
+
 // -- DEFINIÇÕES DE TIPOS -- //
 
 // Tipo para representar uma matriz de cores.
@@ -50,7 +53,7 @@ typedef std::array<std::array<rgb, static_cast<std::size_t>(nLin)>, static_cast<
 matrizCores calcularMatrizCores() {
 
     // Criando a cena.
-    Cena cena(bgColor);
+    Cena cena(bgColor, I_A);
     // Criando um ponteiro para um objeto raio para o ray casting.
     std::unique_ptr<RaioRayCasting> raio;
     // Criando a matriz de cores que serão pintadas na janela.
@@ -66,7 +69,7 @@ matrizCores calcularMatrizCores() {
     cena.setFonteLuz(std::make_unique<LuzPontual>(P_F, I_F));
 
     // Inserindo a esfera na cena.
-    cena.inserirSolido(std::make_unique<Esfera>(centroEsfera, rEsfera, Material(esfColor, RGBParaI(esfColor), i_luz(1, 1, 1), 5)));
+    cena.inserirSolido(std::make_unique<Esfera>(centroEsfera, rEsfera, Material(esfColor, RGBParaI(esfColor), RGBParaI(esfColor), i_luz(1, 1, 1), 5)));
 
     // Iterando na janela do pintor.
     for (int l = 0; l < nLin; l++) {
