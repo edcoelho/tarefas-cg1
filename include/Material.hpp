@@ -6,7 +6,6 @@
 class Material {
 
     private:
-        rgb cor;
         // K ambiente
         i_luz kA;
         // K difusão
@@ -23,12 +22,9 @@ class Material {
         // --- CONSTRUTORES ---
 
         Material();
-        Material(rgb c, i_luz ka, i_luz kd, i_luz ke, double e);
+        Material(i_luz ka, i_luz kd, i_luz ke, double e);
 
         // --- GETTERS E SETTERS ---
-
-        rgb getCor();
-        void setCor(rgb c);
 
         i_luz getKA();
         void setKA(i_luz k);
