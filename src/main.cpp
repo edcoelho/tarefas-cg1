@@ -65,7 +65,7 @@ matrizCores calcularMatrizCores() {
     cena.setFonteLuz(std::make_unique<LuzPontual>(P_F, I_F));
 
     // Inserindo a esfera na cena.
-    cena.inserirSolido(std::make_unique<Esfera>(centroEsfera, rEsfera, Material(esfColor, rgb(255, 255, 255), 5)));
+    cena.inserirSolido(std::make_unique<Esfera>(centroEsfera, rEsfera, Material(esfColor, RGBParaI(esfColor), i_luz(1, 1, 1), 5)));
 
     // Iterando na janela do pintor.
     for (int l = 0; l < nLin; l++) {
