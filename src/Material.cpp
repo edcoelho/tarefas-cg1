@@ -2,32 +2,19 @@
 
 Material::Material() {
 
-    this->setCor(rgb(150, 150, 150));
     this->setKA(i_luz(0, 0, 0));
-    this->setKD(RGBParaI(this->getCor()));
+    this->setKD(RGBParaI(rgb(150, 150, 150)));
     this->setKE(i_luz(1, 1, 1));
     this->setExpEsp(10);
 
 }
 
-Material::Material(rgb c, i_luz ka, i_luz kd, i_luz ke, double e) {
+Material::Material(i_luz ka, i_luz kd, i_luz ke, double e) {
 
-    this->setCor(c);
     this->setKA(ka);
     this->setKD(kd);
     this->setKE(ke);
     this->setExpEsp(e);
-
-}
-
-rgb Material::getCor() {
-    
-    return this->cor;
-
-}
-void Material::setCor(rgb c) {
-
-    this->cor = c;
 
 }
 
