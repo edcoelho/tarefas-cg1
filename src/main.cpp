@@ -3,6 +3,7 @@
 #include "../include/Cena.hpp"
 #include "../include/RaioRayCasting.hpp"
 #include "../include/Esfera.hpp"
+#include "../include/Plano.hpp"
 #include <array>
 #include <memory>
 
