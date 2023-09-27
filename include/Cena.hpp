@@ -18,8 +18,6 @@ class Cena {
         rgb corFundo;
         // Luz pontual presente na cena.
         std::unique_ptr<LuzPontual> fonteLuz;
-        // Intensidade da luz ambiente.
-        i_luz iA;
         
     public:
         // Flag para os vetores do Eigen serem alocados adequadamente.
@@ -29,8 +27,7 @@ class Cena {
 
         Cena();
         // cf: cor de fundo
-        // I: intensidade da luz ambiente
-        Cena(rgb cf, i_luz I);
+        Cena(rgb cf);
 
         // --- GETTERS E SETTERS ---
 
@@ -39,9 +36,6 @@ class Cena {
 
         std::unique_ptr<LuzPontual>& getFonteLuz();
         void setFonteLuz(std::unique_ptr<LuzPontual> luz);
-
-        i_luz getIA();
-        void setIA(i_luz I);
 
         // --- MÉTODOS ---
 
