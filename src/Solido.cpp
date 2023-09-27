@@ -23,24 +23,18 @@ void Solido::setMaterial(Material m) {
 
 Eigen::Vector3d Solido::vetorLuzPontual(ponto3D ponto, LuzPontual& luz) {
 
-    Eigen::Vector3d l;
-    
-    l = luz.getPosicao() - ponto;
-    l.normalize();
-
-    return l;
+    return luz.getPosicao() - ponto;
 
 }
 
 Eigen::Vector3d Solido::vetorReflexo(ponto3D ponto, LuzPontual& luz) {
 
     Eigen::Vector3d n = this->vetorNormalPonto(ponto),
-                    l = this->vetorLuzPontual(ponto, luz),
-                    r;
+                    l = this->vetorLuzPontual(ponto, luz);
 
-    r = ((2 * l.dot(n)) * n) - l;
+    l.normalize();
 
-    return r;
+    return ((2 * l.dot(n)) * n) - l;
 
 }
 
