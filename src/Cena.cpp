@@ -75,7 +75,7 @@ rgb Cena::corInterseccao(RaioRayCasting& raio) {
 
         // Checando o primeiro sólido.
         tInt = this->solidos.at(0)->escalarInterseccao(raio);
-        if (tInt > 0.0) {
+        if (tInt >= 0.0) {
             
             minTInt = tInt;
             indiceSolido = 0;
@@ -87,10 +87,10 @@ rgb Cena::corInterseccao(RaioRayCasting& raio) {
 
             tInt = this->solidos.at(i)->escalarInterseccao(raio);
 
-            if (tInt > 0.0)
+            if (tInt >= 0.0)
 
                 // Checando se o sólido anterior foi intersectado também.
-                if (minTInt > 0) {
+                if (minTInt >= 0) {
 
                     if (tInt < minTInt) {
 
