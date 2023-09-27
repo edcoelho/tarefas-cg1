@@ -37,7 +37,7 @@ class Solido {
         // Retorna o vetor unitário normal a superfície do sólido num ponto.
         virtual Eigen::Vector3d vetorNormalPonto(ponto3D ponto) = 0;
 
-        // Retorna o vetor NÃO UNITÁRIO que vai de um ponto da superfície do sólido até uma luz pontual.
+        // Retorna o vetor unitário que vai de um ponto da superfície do sólido até uma luz pontual.
         virtual Eigen::Vector3d vetorLuzPontual(ponto3D ponto, LuzPontual& luz);
 
         // Retorna o vetor unitário que é reflexo do vetor unitário que vai de um ponto da superfície do sólido até uma luz pontual
