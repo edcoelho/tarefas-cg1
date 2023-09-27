@@ -12,8 +12,6 @@ LuzPontual::LuzPontual(double x, double y, double z, float Ir, float Ig, float I
     ponto3D pos(x, y, z);
     i_luz I(Ir, Ig, Ib);
 
-    I = fixIntensidade(I);
-
     this->setPosicao(pos);
     this->setIntensidade(I);
 
@@ -46,6 +44,6 @@ i_luz LuzPontual::getIntensidade() {
 }
 void LuzPontual::setIntensidade(i_luz I) {
 
-    this->intensidade = fixIntensidade(I);
+    this->intensidade = I;
 
 }

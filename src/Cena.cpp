@@ -1,6 +1,5 @@
 #include "../include/Cena.hpp"
 #include <cmath>
-#include <iostream>
 
 Cena::Cena() {
 
@@ -60,11 +59,13 @@ rgb Cena::corInterseccao(RaioRayCasting& raio) {
 
     // Intensidades difusa e especular da fonte luminosa que vem do ponto intersectado.
     i_luz iD, iE;
-    // Intensidade final da energia luminosa que vai para a câmera.
-    i_luz iF = RGBParaI(this->getCorFundo());
+    // Intensidade da energia luminosa que vai para o olho do câmera.
+    i_luz iEye;
 
-    // K difusão do sólido e K especulamento do sólido.
-    i_luz kD, kE;
+    // Cor que será retornada.
+    rgb cor = this->getCorFundo();
+    // K especulamento do sólido.
+    rgb kE;
 
     // -------------------------------------------------------
     // --- CÁLCULO DA COR BASE DA INTERSECÇÃO MAIS PRÓXIMA ---
@@ -108,6 +109,9 @@ rgb Cena::corInterseccao(RaioRayCasting& raio) {
 
         }
 
+        // Se algum sólido foi intersectado, pega a cor do sólido que foi intersectado primeiro.
+        if (indiceSolido >= 0) cor = this->solidos.at(indiceSolido)->getMaterial().getCor();
+
     }
 
     // -----------------------------
@@ -119,10 +123,8 @@ rgb Cena::corInterseccao(RaioRayCasting& raio) {
 
         pInt = raio.pontoDoRaio(minTInt);
 
-        kD = this->solidos.at(indiceSolido)->getMaterial().getKD();
-
-        // iD = I @ Kd
-        iD = this->getFonteLuz()->getIntensidade() * kD.cast<float>();
+        // iD = I @ K
+        iD = this->getFonteLuz()->getIntensidade() * cor.cast<float>();
 
         // Vetor que sai do sólido e vai em direção ao ponto de luz.
         l = this->solidos.at(indiceSolido)->vetorLuzPontual(pInt, *(this->getFonteLuz()));
@@ -140,7 +142,7 @@ rgb Cena::corInterseccao(RaioRayCasting& raio) {
 
         kE = this->solidos.at(indiceSolido)->getMaterial().getKE();
 
-        // iE = I @ Ke
+        // iE = I @ K
         iE = this->getFonteLuz()->getIntensidade() * kE.cast<float>();
 
         // Vetor que sai do sólido e vai em direção ao olho do câmera.
@@ -158,14 +160,14 @@ rgb Cena::corInterseccao(RaioRayCasting& raio) {
         // iE = iE * (v . r)^m
         iE = iE * std::pow(aux, m);
 
-        // Somando as intensidades para obter a intensidade final que vai para a câmera.
-        iF = iD + iE;
+        for (int i = 0; i < 3; i++) {
 
-        // Trazendo os valores da intensidade final para dentro do intervalo [0,1].
-        iF = fixIntensidade(iF);
+            cor(i) = (iD(i) + iE(i)) > 255 ? 255 : (canalRGB) (iD(i) + iE(i));
+
+        }
 
     }
 
-    return IParaRGB(iF);
+    return cor;
 
 }
