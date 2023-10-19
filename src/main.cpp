@@ -22,78 +22,6 @@ const int H_C = 500;
 // Coordenada z da janela do pintor.
 const double z_J = -30.0;
 
-// Valores da esfera.
-
-    // Raio da esfera.
-    const double R = 40.0;
-
-    // Centro da esfera.
-    const ponto3D C(0, 0, -100.0);
-
-    // Valores de reflectividade da esfera.
-
-        // Valor de reflectividade ambiente da esfera.
-        const i_luz EK_a(0.7f, 0.2f, 0.2f);
-
-        // Valor de reflectividade difusa da esfera.
-        const i_luz EK_d(0.7f, 0.2f, 0.2f);
-
-        // Valor de reflectividade especular da esfera.
-        const i_luz EK_e(0.7f, 0.2f, 0.2f);
-
-        // Expoente de espelhamento (shininess) da esfera.
-        const double Em = 10.0;
-
-// Valores do plano do chão.
-
-    // Ponto conhecido do plano do chão.
-    const ponto3D CP_pi(0.0, -R, 0.0);
-
-    // Vetor unitário normal ao plano do chão.
-    const Eigen::Vector3d Cn_bar(0.0, 1.0, 0.0);
-
-    // Valores de reflectividade do plano do chão.
-
-        // Valor de reflectividade ambiente do plano do chão.
-        const i_luz CK_a(0.2, 0.7, 0.2);
-
-        // Valor de reflectividade difusa do plano do chão.
-        const i_luz CK_d(0.2, 0.7, 0.2);
-        
-        // Valor de reflectividade especular do plano do chão.
-        const i_luz CK_e(0.0, 0.0, 0.0);
-
-        // Expoente de espelhamento (shininess) do plano do chão.
-        const double Cm = 1.0;
-
-// Valores do plano do fundo.
-
-    // Ponto conhecido do plano do fundo.
-    const ponto3D FP_pi(0.0, 0.0, -200.0);
-
-    // Vetor unitário normal ao plano do fundo.
-    const Eigen::Vector3d Fn_bar(0.0, 0.0, 1.0);
-
-    // Valores de reflectividade do plano do fundo.
-
-        // Valor de reflectividade ambiente do plano do fundo.
-        const i_luz FK_a(0.3, 0.3, 0.7);
-
-        // Valor de reflectividade difusa do plano do fundo.
-        const i_luz FK_d(0.3, 0.3, 0.7);
-        
-        // Valor de reflectividade especular do plano do fundo.
-        const i_luz FK_e(0.0, 0.0, 0.0);
-
-        // Expoente de espelhamento (shininess) do plano do fundo.
-        const double Fm = 1.0;
-
-// Intensidade da fonte de luz pontual.
-i_luz I_F(0.7, 0.7, 0.7);
-
-// Posição da fonte de luz pontual.
-ponto3D P_F(0.0, 60.0, -30.0);
-
 // Intensidade da luz ambiente.
 i_luz I_A(0.3f, 0.3f, 0.3f);
 
@@ -125,18 +53,6 @@ matrizCores calcularMatrizCores() {
            Dy = H_J/((double) H_C);
     // Coordenadas do centro de um retângulo na tela de mosquito.
     double cX, cY;
-
-    // Inserindo o ponto de luz na cena.
-    cena.setFonteLuz(std::make_unique<LuzPontual>(P_F, I_F));
-
-    // Inserindo a esfera na cena.
-    cena.inserirSolido(std::make_unique<Esfera>(C, R, Material(EK_a, EK_d, EK_e, Em)));
-
-    // Inserindo plano do chão.
-    cena.inserirSolido(std::make_unique<Plano>(CP_pi, Cn_bar, Material(CK_a, CK_d, CK_e, Cm)));
-
-    // Inserindo plano do fundo.
-    cena.inserirSolido(std::make_unique<Plano>(FP_pi, Fn_bar, Material(FK_a, FK_d, FK_e, Fm)));
 
     // Iterando na janela do pintor.
     for (int l = 0; l < H_C; l++) {
