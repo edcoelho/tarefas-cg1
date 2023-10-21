@@ -1,4 +1,4 @@
-#include "../include/Solido.hpp"
+#include "Solido.hpp"
 #include <eigen3/Eigen/Core>
 
 Solido::Solido() {}

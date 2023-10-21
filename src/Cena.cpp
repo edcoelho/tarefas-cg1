@@ -1,4 +1,4 @@
-#include "../include/Cena.hpp"
+#include "Cena.hpp"
 #include <cmath>
 
 Cena::Cena() {

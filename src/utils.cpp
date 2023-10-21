@@ -1,4 +1,4 @@
-#include "../include/utils.hpp"
+#include "utils.hpp"
 
 i_luz fixIntensidade(i_luz I) {
 

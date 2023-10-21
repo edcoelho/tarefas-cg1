@@ -1,4 +1,4 @@
-#include "../include/Esfera.hpp"
+#include "Esfera.hpp"
 #include <eigen3/Eigen/Core>
 
 Esfera::Esfera() {

@@ -1,4 +1,4 @@
-#include "../include/Plano.hpp"
+#include "Plano.hpp"
 
 Plano::Plano() {
 

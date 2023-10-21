@@ -1,4 +1,4 @@
-#include "../include/RaioRayCasting.hpp"
+#include "RaioRayCasting.hpp"
 #include <eigen3/Eigen/Core>
 
 RaioRayCasting::RaioRayCasting() {}

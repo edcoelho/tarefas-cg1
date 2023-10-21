@@ -1,9 +1,9 @@
 #include <SDL2/SDL.h>
-#include "../include/utils.hpp"
-#include "../include/Cena.hpp"
-#include "../include/RaioRayCasting.hpp"
-#include "../include/Esfera.hpp"
-#include "../include/Plano.hpp"
+#include "utils.hpp"
+#include "Cena.hpp"
+#include "RaioRayCasting.hpp"
+#include "Esfera.hpp"
+#include "Plano.hpp"
 #include <array>
 #include <memory>
 
