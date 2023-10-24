@@ -6,11 +6,12 @@
 class Matriz {
 
     private:
-        std::size_t m;
-        std::size_t n;
-        std::vector<std::vector<double>> elementos;
+        std::size_t numLinhas;
+        std::size_t numColunas;
 
     protected:
+        std::vector<std::vector<double>> elementos;
+
         // --- MÉTODOS PROTEGIDOS ---
 
             // Retorna se os índices especificados são posições válidas da matriz.
@@ -20,6 +21,8 @@ class Matriz {
         // --- CONSTRUTORES ---
 
             Matriz(size_t m, size_t n);
+
+            Matriz(size_t m, size_t n, std::vector<std::vector<double>> e);
 
         // --- OPERADORES ---
 
@@ -47,6 +50,17 @@ class Matriz {
             // Operador para produto de Hadamard de duas matrizes.
             Matriz operator % (Matriz const& matriz) const;
 
+    // --- GETTERS E SETTERS ---
+
+        std::size_t getNumLinhas() const;
+        void setNumLinhas(std::size_t m);
+
+        std::size_t getNumColunas() const;
+        void setNumColunas(std::size_t n);
+
+        std::vector<std::vector<double>> getElementos() const;
+        void setElementos(std::vector<std::vector<double>> e);
+
     // --- OUTROS MÉTODOS ---
 
         // Retorna o cofator do elemento na posição (linha, coluna) da matriz se esta for quadrada.
@@ -54,6 +68,9 @@ class Matriz {
 
         // Retorna o determinante da matriz se ela for quadrada.
         double det() const;
+
+        // Retorna o produto de Hadamard da por uma outra matriz.
+        Matriz hadamard(Matriz const& matriz) const;
 
 };
 

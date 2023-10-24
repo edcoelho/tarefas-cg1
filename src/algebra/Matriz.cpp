@@ -3,7 +3,7 @@
 
 bool Matriz::posicaoValida(std::size_t linha, std::size_t coluna) const {
 
-    if (linha >= 0 && linha < this->m && coluna >= 0 && coluna < this->n) {
+    if (linha >= 0 && linha < this->numLinhas && coluna >= 0 && coluna < this->numColunas) {
 
         return true;
 
@@ -17,10 +17,18 @@ bool Matriz::posicaoValida(std::size_t linha, std::size_t coluna) const {
 
 Matriz::Matriz(size_t m, size_t n) {
 
-    this->m = m;
-    this->n = n;
+    this->numLinhas = m;
+    this->numColunas = n;
 
     this->elementos = std::vector<std::vector<double>> (m, std::vector<double> (n, 0));
+
+}
+
+Matriz::Matriz(size_t m, size_t n, std::vector<std::vector<double>> e) {
+
+    this->numLinhas = m;
+    this->numColunas = n;
+    this->elementos = e;
 
 }
 
@@ -54,10 +62,10 @@ double& Matriz::operator () (std::size_t linha, std::size_t coluna) {
 
 Matriz Matriz::operator + (Matriz const& matriz) const {
 
-    Matriz temp(this->m, this->n);
+    Matriz temp(this->numLinhas, this->numColunas);
 
-    for (std::size_t i = 0; i < this->m; i++)
-        for (std::size_t j = 0; j < this->n; j++)
+    for (std::size_t i = 0; i < this->numLinhas; i++)
+        for (std::size_t j = 0; j < this->numColunas; j++)
             temp(i, j) = this->elementos[i][j] + matriz(i,j);
 
     return temp;
@@ -66,10 +74,10 @@ Matriz Matriz::operator + (Matriz const& matriz) const {
 
 Matriz Matriz::operator + (double const escalar) const {
 
-    Matriz temp(this->m, this->n);
+    Matriz temp(this->numLinhas, this->numColunas);
 
-    for (std::size_t i = 0; i < this->m; i++)
-        for (std::size_t j = 0; j < this->n; j++)
+    for (std::size_t i = 0; i < this->numLinhas; i++)
+        for (std::size_t j = 0; j < this->numColunas; j++)
             temp(i, j) = this->elementos[i][j] + escalar;
 
     return temp;
@@ -78,10 +86,10 @@ Matriz Matriz::operator + (double const escalar) const {
 
 Matriz Matriz::operator - (Matriz const& matriz) const {
 
-    Matriz temp(this->m, this->n);
+    Matriz temp(this->numLinhas, this->numColunas);
 
-    for (std::size_t i = 0; i < this->m; i++)
-        for (std::size_t j = 0; j < this->n; j++)
+    for (std::size_t i = 0; i < this->numLinhas; i++)
+        for (std::size_t j = 0; j < this->numColunas; j++)
             temp(i, j) = this->elementos[i][j] - matriz(i,j);
 
     return temp;
@@ -90,10 +98,10 @@ Matriz Matriz::operator - (Matriz const& matriz) const {
 
 Matriz Matriz::operator - (double const escalar) const {
 
-    Matriz temp(this->m, this->n);
+    Matriz temp(this->numLinhas, this->numColunas);
 
-    for (std::size_t i = 0; i < this->m; i++)
-        for (std::size_t j = 0; j < this->n; j++)
+    for (std::size_t i = 0; i < this->numLinhas; i++)
+        for (std::size_t j = 0; j < this->numColunas; j++)
             temp(i, j) = this->elementos[i][j] - escalar;
 
     return temp;
@@ -102,10 +110,10 @@ Matriz Matriz::operator - (double const escalar) const {
 
 Matriz Matriz::operator * (double const escalar) const {
 
-    Matriz temp(this->m, this->n);
+    Matriz temp(this->numLinhas, this->numColunas);
 
-    for (std::size_t i = 0; i < this->m; i++)
-        for (std::size_t j = 0; j < this->n; j++)
+    for (std::size_t i = 0; i < this->numLinhas; i++)
+        for (std::size_t j = 0; j < this->numColunas; j++)
             temp(i, j) = this->elementos[i][j] * escalar;
 
     return temp;
@@ -114,13 +122,46 @@ Matriz Matriz::operator * (double const escalar) const {
 
 Matriz Matriz::operator % (Matriz const& matriz) const {
 
-    Matriz temp(this->m, this->n);
+    Matriz temp(this->numLinhas, this->numColunas);
 
-    for (std::size_t i = 0; i < this->m; i++)
-        for (std::size_t j = 0; j < this->n; j++)
+    for (std::size_t i = 0; i < this->numLinhas; i++)
+        for (std::size_t j = 0; j < this->numColunas; j++)
             temp(i, j) = this->elementos[i][j] * matriz(i,j);
 
     return temp;
+
+}
+
+std::size_t Matriz::getNumLinhas() const {
+
+    return this->numLinhas;
+
+}
+void Matriz::setNumLinhas(std::size_t m) {
+
+    this->numLinhas = m;
+
+}
+
+std::size_t Matriz::getNumColunas() const {
+
+    return this->numColunas;
+
+}
+void Matriz::setNumColunas(std::size_t n) {
+
+    this->numColunas = n;
+
+}
+
+std::vector<std::vector<double>> Matriz::getElementos() const {
+
+    return this->elementos;
+
+}
+void Matriz::setElementos(std::vector<std::vector<double>> e) {
+
+    this->elementos = e;
 
 }
 
@@ -129,9 +170,9 @@ double Matriz::cofator(std::size_t linha, std::size_t coluna) const {
     double cofator;
     int sinal;
     std::size_t i = 0, j = 0, i_linha = 0, j_linha = 0;
-    Matriz sub_matriz(this->m - 1, this->n - 1);
+    Matriz sub_matriz(this->numLinhas - 1, this->numColunas - 1);
 
-    if (this->m != this->n) {
+    if (this->numLinhas != this->numColunas) {
 
         throw std::invalid_argument("Erro: Não é possível calcular o cofator de um elemento de uma matriz não quadrada!");
 
@@ -143,17 +184,17 @@ double Matriz::cofator(std::size_t linha, std::size_t coluna) const {
 
     }
 
-    for (i = 0; i < this->m; i++) {
+    for (i = 0; i < this->numLinhas; i++) {
 
         if (i == linha) i++;
 
-        if (i < this->m) {
+        if (i < this->numLinhas) {
             
-            for (j = 0; j < this->n; j++) {
+            for (j = 0; j < this->numColunas; j++) {
 
                 if (j == coluna) j++;
 
-                if (j < this->n) {
+                if (j < this->numColunas) {
 
                     sub_matriz(i_linha, j_linha) = this->elementos[i][j];
                     j_linha++;
@@ -183,21 +224,21 @@ double Matriz::det() const {
 
     double determinante = 0.0;
 
-    if (this->m != this->n) {
+    if (this->numLinhas != this->numColunas) {
 
         throw std::invalid_argument("Erro: Não é possível calcular o determinante de uma matriz não quadrada!");
 
     }
 
-    if (this->m == 1) {
+    if (this->numLinhas == 1) {
         
         determinante = this->elementos[0][0];
     
-    } else if (this->m == 2) {
+    } else if (this->numLinhas == 2) {
 
         determinante = (this->elementos[0][0] * this->elementos[1][1]) - (this->elementos[0][1] * this->elementos[1][0]);
 
-    } else if (this->m == 3) {
+    } else if (this->numLinhas == 3) {
 
         // Regra de Sarrus
         determinante = this->elementos[0][0] * this->elementos[1][1] * this->elementos[2][2] + this->elementos[0][1] * this->elementos[1][2] * this->elementos[2][0] + this->elementos[0][2] * this->elementos[1][0] * this->elementos[2][1] - this->elementos[0][2] * this->elementos[1][1] * this->elementos[2][0] - this->elementos[0][0] * this->elementos[1][2] * this->elementos[2][1] - this->elementos[0][1] * this->elementos[1][0] * this->elementos[2][2];
@@ -205,7 +246,7 @@ double Matriz::det() const {
     } else {
 
         // Expansão por cofatores.
-        for (std::size_t i = 0; i < this->m; i++) {
+        for (std::size_t i = 0; i < this->numLinhas; i++) {
 
             determinante = determinante + this->elementos[i][0] * this->cofator(i, 0);
 
@@ -214,5 +255,17 @@ double Matriz::det() const {
     }
 
     return determinante;
+
+}
+
+Matriz Matriz::hadamard(Matriz const& matriz) const {
+
+    Matriz temp(this->numLinhas, this->numColunas);
+
+    for (std::size_t i = 0; i < this->numLinhas; i++)
+        for (std::size_t j = 0; j < this->numColunas; j++)
+            temp(i, j) = this->elementos[i][j] * matriz(i,j);
+
+    return temp;
 
 }
