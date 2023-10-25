@@ -1,4 +1,5 @@
 #include "algebra/Vetor.hpp"
+#include "algebra/Ponto.hpp"
 #include <stdexcept>
 #include <cmath>
 
@@ -40,9 +41,9 @@ Vetor::Vetor(std::vector<double> e) : Matriz::Matriz(e.size(), 1) {
 
 Vetor::Vetor(std::size_t n, std::vector<double> e) : Matriz::Matriz(n, 1) {
 
-    std::size_t i, tamanhoVetor = e.size();
+    std::size_t i;
 
-    if (tamanhoVetor == n) {
+    if (e.size() == n) {
 
         for (i = 0; i < n; i++) {
 
@@ -52,7 +53,7 @@ Vetor::Vetor(std::size_t n, std::vector<double> e) : Matriz::Matriz(n, 1) {
 
     } else {
 
-        throw std::invalid_argument("Erro: Foram passados " + std::to_string(tamanhoVetor) + " elementos na criação de um vetor de " + std::to_string(n) + " dimensões.");
+        throw std::invalid_argument("Erro: Foram passados " + std::to_string(e.size()) + " elementos na criação de um vetor de " + std::to_string(n) + " dimensões.");
 
     }
 
@@ -100,10 +101,18 @@ Vetor Vetor::operator + (Vetor const& vetor) const {
 
     Vetor temp(this->getNumLinhas());
 
-    for (std::size_t i = 0; i < this->getNumLinhas(); i++)
-        temp(i) = this->elementos[i][0] + vetor(i);
+    if (this->getNumLinhas() == vetor.getNumLinhas()) {
 
-    return temp;
+        for (std::size_t i = 0; i < this->getNumLinhas(); i++)
+            temp(i) = this->elementos[i][0] + vetor(i);
+
+        return temp;
+    
+    } else {
+
+        throw std::invalid_argument("Erro: Tentativa de somar dois vetores de tamanhos diferentes!");
+
+    }
 
 }
 
@@ -122,10 +131,18 @@ Vetor Vetor::operator - (Vetor const& vetor) const {
 
     Vetor temp(this->getNumLinhas());
 
-    for (std::size_t i = 0; i < this->getNumLinhas(); i++)
-        temp(i) = this->elementos[i][0] - vetor(i);
+    if (this->getNumLinhas() == vetor.getNumLinhas()) {
 
-    return temp;
+        for (std::size_t i = 0; i < this->getNumLinhas(); i++)
+            temp(i) = this->elementos[i][0] - vetor(i);
+
+        return temp;
+    
+    } else {
+
+        throw std::invalid_argument("Erro: Tentativa de subtrair dois vetores de tamanhos diferentes!");
+
+    }
 
 }
 
@@ -183,10 +200,18 @@ Vetor Vetor::operator % (Vetor const& vetor) const {
 
     Vetor temp(this->getNumLinhas());
 
-    for (std::size_t i = 0; i < this->getNumLinhas(); i++)
-        temp(i) = this->elementos[i][0] * vetor(i);
+    if (this->getNumLinhas() == vetor.getNumLinhas()) {
 
-    return temp;
+        for (std::size_t i = 0; i < this->getNumLinhas(); i++)
+            temp(i) = this->elementos[i][0] * vetor(i);
+
+        return temp;
+
+    } else {
+
+        throw std::invalid_argument("Erro: Tentativa de fazer o produto de Hadamard de dois vetores de tamanhos diferentes!");
+
+    }
 
 }
 
@@ -232,6 +257,12 @@ std::vector<double> Vetor::stdVector() const {
     }
 
     return v;
+
+}
+
+Ponto Vetor::paraPonto() const {
+
+    return Ponto(this->stdVector());
 
 }
 

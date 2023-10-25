@@ -64,11 +64,19 @@ Matriz Matriz::operator + (Matriz const& matriz) const {
 
     Matriz temp(this->numLinhas, this->numColunas);
 
-    for (std::size_t i = 0; i < this->numLinhas; i++)
-        for (std::size_t j = 0; j < this->numColunas; j++)
-            temp(i, j) = this->elementos[i][j] + matriz(i,j);
+    if (this->getNumColunas() == matriz.getNumColunas() && this->getNumLinhas() == matriz.getNumLinhas()) {
 
-    return temp;
+        for (std::size_t i = 0; i < this->numLinhas; i++)
+            for (std::size_t j = 0; j < this->numColunas; j++)
+                temp(i, j) = this->elementos[i][j] + matriz(i,j);
+
+        return temp;
+
+    } else {
+
+        throw std::invalid_argument("Erro: Tentativa de somar duas matrizes de tamanhos diferentes!");
+
+    }
 
 }
 
@@ -88,11 +96,19 @@ Matriz Matriz::operator - (Matriz const& matriz) const {
 
     Matriz temp(this->numLinhas, this->numColunas);
 
-    for (std::size_t i = 0; i < this->numLinhas; i++)
+    if (this->getNumColunas() == matriz.getNumColunas() && this->getNumLinhas() == matriz.getNumLinhas()) {
+
+        for (std::size_t i = 0; i < this->numLinhas; i++)
         for (std::size_t j = 0; j < this->numColunas; j++)
             temp(i, j) = this->elementos[i][j] - matriz(i,j);
 
-    return temp;
+        return temp;
+
+    } else {
+
+        throw std::invalid_argument("Erro: Tentativa de subtrair duas matrizes de tamanhos diferentes!");
+
+    }
 
 }
 
@@ -124,11 +140,19 @@ Matriz Matriz::operator % (Matriz const& matriz) const {
 
     Matriz temp(this->numLinhas, this->numColunas);
 
-    for (std::size_t i = 0; i < this->numLinhas; i++)
+    if (this->getNumColunas() == matriz.getNumColunas() && this->getNumLinhas() == matriz.getNumLinhas()) {
+
+        for (std::size_t i = 0; i < this->numLinhas; i++)
         for (std::size_t j = 0; j < this->numColunas; j++)
             temp(i, j) = this->elementos[i][j] * matriz(i,j);
 
-    return temp;
+        return temp;
+
+    } else {
+
+        throw std::invalid_argument("Erro: Tentativa de fazer o produto de Hadamard de duas matrizes de tamanhos diferentes!");
+
+    }
 
 }
 

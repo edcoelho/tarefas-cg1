@@ -3,12 +3,14 @@
 
 #include "Matriz.hpp"
 
+class Ponto;
+
 class Vetor : public Matriz {
 
     protected:
         // --- MÉTODOS PROTEGIDOS ---
 
-            // Retorna se os índices especificados são posições válidas do vetor.
+            // Retorna se o índice especificado é uma posição válida do vetor.
             bool posicaoValida(std::size_t linha) const;
 
     public:
@@ -60,9 +62,11 @@ class Vetor : public Matriz {
             // Normaliza o vetor.
             void normalizar();
 
-            // Retorna o equivalente do tipo std::vector<double> do vetor.
-
+            // Retorna um std::vector<double> com os elementos do vetor.
             std::vector<double> stdVector() const;
+
+            // Retorna um Ponto cujas coordenadas são os elementos do vetor.
+            Ponto paraPonto() const;
 
             // Retorna o vetor unitário.
             Vetor unitario() const;
