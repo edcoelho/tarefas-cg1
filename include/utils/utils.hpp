@@ -14,7 +14,7 @@ typedef Eigen::Vector3d ponto3D;
 typedef u_int8_t canalRGB;
 
 // Estrutura para ajudar na representação de uma cor.
-typedef Eigen::Array<canalRGB, 3, 1> rgb;
+typedef std::array<canalRGB, 3> rgb;
 
 // Estrutura para representar a intensidade de uma fonte de luz.
 typedef Eigen::Array3f i_luz;

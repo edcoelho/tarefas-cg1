@@ -4,7 +4,7 @@
 Cena::Cena() {
 
     // Definindo preto como a cor de fundo padrão.
-    this->setCorFundo(rgb(0, 0, 0));
+    this->setCorFundo(rgb{0, 0, 0});
     
 }
 

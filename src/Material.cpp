@@ -3,7 +3,7 @@
 Material::Material() {
 
     this->setKA(i_luz(0, 0, 0));
-    this->setKD(RGBParaI(rgb(150, 150, 150)));
+    this->setKD(RGBParaI(rgb{150, 150, 150}));
     this->setKE(i_luz(1, 1, 1));
     this->setExpEsp(10);
 

@@ -1,7 +1,7 @@
 #ifndef LUZPONTUAL_HPP
 #define LUZPONTUAL_HPP
 
-#include "utils.hpp"
+#include "utils/utils.hpp"
 
 class LuzPontual {
 

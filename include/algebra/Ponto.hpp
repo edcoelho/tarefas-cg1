@@ -36,13 +36,13 @@ class Ponto {
             double& operator [] (std::size_t linha);
 
             // Operador para adicionar um vetor a um ponto.
-            Ponto operator + (Vetor vetor);
+            Ponto operator + (Vetor vetor) const;
 
             // Operador para subtrair um vetor de um ponto.
-            Ponto operator - (Vetor vetor);
+            Ponto operator - (Vetor vetor) const;
 
             // Operador para subtrair um ponto de outro ponto.
-            Vetor operator - (Ponto ponto);
+            Vetor operator - (Ponto ponto) const;
 
         // --- GETTERS E SETTERS ---
 

@@ -4,7 +4,7 @@
 #include "RaioRayCasting.hpp"
 #include "LuzPontual.hpp"
 #include "Material.hpp"
-#include "utils.hpp"
+#include "utils/utils.hpp"
 
 class Solido {
 

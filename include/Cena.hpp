@@ -5,7 +5,7 @@
 #include "Esfera.hpp"
 #include "RaioRayCasting.hpp"
 #include "LuzPontual.hpp"
-#include "utils.hpp"
+#include "utils/utils.hpp"
 #include <vector>
 #include <memory>
 

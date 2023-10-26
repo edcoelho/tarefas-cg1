@@ -2,7 +2,7 @@
 #define RAIORAYCASTING_HPP
 
 #include <eigen3/Eigen/Core>
-#include "utils.hpp"
+#include "utils/utils.hpp"
 
 class RaioRayCasting {
 

@@ -104,7 +104,7 @@ double& Ponto::operator [] (std::size_t coordenada) {
 
 }
 
-Ponto Ponto::operator + (Vetor vetor) {
+Ponto Ponto::operator + (Vetor vetor)  const {
 
     Ponto temp(this->dimensao);
 
@@ -123,7 +123,7 @@ Ponto Ponto::operator + (Vetor vetor) {
 
 }
 
-Ponto Ponto::operator - (Vetor vetor) {
+Ponto Ponto::operator - (Vetor vetor) const {
 
     Ponto temp(this->dimensao);
 
@@ -142,7 +142,7 @@ Ponto Ponto::operator - (Vetor vetor) {
 
 }
 
-Vetor Ponto::operator - (Ponto ponto) {
+Vetor Ponto::operator - (Ponto ponto) const {
 
     Vetor temp(this->dimensao);
 

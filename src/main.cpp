@@ -1,5 +1,5 @@
 #include <SDL2/SDL.h>
-#include "utils.hpp"
+#include "utils/utils.hpp"
 #include "Cena.hpp"
 #include "RaioRayCasting.hpp"
 #include "Esfera.hpp"
@@ -26,7 +26,7 @@ const double z_J = -30.0;
 i_luz I_A(0.3f, 0.3f, 0.3f);
 
 // Cor do background.
-const rgb bgColor(100, 100, 100);
+const rgb bgColor{100, 100, 100};
 
 // Posição do olho do pintor
 ponto3D ponto_olho(0, 0, 0);
@@ -88,7 +88,7 @@ void desenharPixels(SDL_Renderer* renderer, matrizCores &m) {
             if ((0 <= l && l < H_C) && (0 <= c && c < W_C)) {
 
                 // Definindo a cor que será pintada. Essa função segue o padrão RGBA, mas o canal alpha está sendo ignorado.
-                SDL_SetRenderDrawColor(renderer, m[c][l](0), m[c][l](1), m[c][l](2), 255);
+                SDL_SetRenderDrawColor(renderer, m[c][l][0], m[c][l][1], m[c][l][2], 255);
 
                 // Pintando o pixel.
                 SDL_RenderDrawPoint(renderer, c, l);
@@ -119,7 +119,7 @@ int main(int argc, char* argv[]) {
 
     // Criando uma janela.
     window = SDL_CreateWindow(
-        "CG I - Tarefa 03 - Esfera e planos com sombra", // Título da janela.
+        "CG I", // Título da janela.
         SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, // Posição inicial da janela (x, y).
         W_C, H_C, // Tamanho em pixels da janela (x, y).
         SDL_WINDOW_OPENGL // Flags

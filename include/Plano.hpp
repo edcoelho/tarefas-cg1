@@ -3,7 +3,7 @@
 
 #include "Material.hpp"
 #include "Solido.hpp"
-#include "utils.hpp"
+#include "utils/utils.hpp"
 
 class Plano : public Solido {
 

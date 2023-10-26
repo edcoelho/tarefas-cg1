@@ -3,7 +3,7 @@
 
 #include "Material.hpp"
 #include "Solido.hpp"
-#include "utils.hpp"
+#include "utils/utils.hpp"
 #include <eigen3/Eigen/Core>
 
 class Esfera : public Solido {

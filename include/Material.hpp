@@ -1,7 +1,7 @@
 #ifndef MATERIAL_HPP
 #define MATERIAL_HPP
 
-#include "utils.hpp"
+#include "utils/utils.hpp"
 
 class Material {
 

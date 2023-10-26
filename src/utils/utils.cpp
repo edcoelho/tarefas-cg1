@@ -1,4 +1,4 @@
-#include "utils.hpp"
+#include "utils/utils.hpp"
 
 i_luz fixIntensidade(i_luz I) {
 
@@ -17,7 +17,7 @@ i_luz RGBParaI(rgb cor) {
 
     i_luz I;
 
-    for (int i = 0; i < 3; i++) I(i) = ((float) cor(i) / 255.0f);
+    for (int i = 0; i < 3; i++) I(i) = ((float) cor[i] / 255.0f);
 
     return I;
     
@@ -27,7 +27,7 @@ rgb IParaRGB(i_luz I) {
 
     rgb cor;
 
-    for (int i = 0; i < 3; i++) cor(i) = (canalRGB) (I(i) * 255);
+    for (int i = 0; i < 3; i++) cor[i] = (canalRGB) (I(i) * 255);
 
     return cor;
 
