@@ -22,7 +22,7 @@ class Matriz {
 
             Matriz(size_t m, size_t n);
 
-            Matriz(size_t m, size_t n, std::vector<std::vector<double>> e);
+            Matriz(std::vector<std::vector<double>> e);
 
         // --- OPERADORES ---
 

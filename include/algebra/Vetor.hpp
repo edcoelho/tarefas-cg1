@@ -21,8 +21,6 @@ class Vetor : public Matriz {
 
             Vetor(std::vector<double> e);
 
-            Vetor(std::size_t n, std::vector<double> e);
-
         // --- OPERADORES ---
 
             // Operador para acessar um elemento de um vetor.

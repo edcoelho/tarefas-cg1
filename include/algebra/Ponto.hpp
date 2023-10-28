@@ -23,8 +23,6 @@ class Ponto {
 
             Ponto(std::vector<double> e);
 
-            Ponto(std::size_t n, std::vector<double> e);
-
         // --- OPERADORES ---
 
             // Operador para acessar uma coordenada de um ponto.

@@ -24,11 +24,42 @@ Matriz::Matriz(size_t m, size_t n) {
 
 }
 
-Matriz::Matriz(size_t m, size_t n, std::vector<std::vector<double>> e) {
+Matriz::Matriz(std::vector<std::vector<double>> e) {
 
-    this->numLinhas = m;
-    this->numColunas = n;
-    this->elementos = e;
+    std::size_t i, j, numLinhas, numColunas;
+
+    numLinhas = e.size();
+
+    if (numLinhas > 0) {
+
+        numColunas = e[0].size();
+
+        for (i = 0; i < numLinhas; i++) {
+
+            for (j = 0; j < numColunas; j++) {
+
+                if (e[i].size() == numColunas) {
+
+                    this->elementos[i][j] = e[i][j];
+
+                } else {
+
+                    throw std::invalid_argument("Erro: Não é possível criar uma matriz com linhas contendo diferentes quantidades de elementos.");
+
+                }
+
+            }
+
+        }
+
+        this->numLinhas = numLinhas;
+        this->numColunas = numColunas;
+
+    } else {
+
+        throw std::invalid_argument("Erro: Não é possível criar uma matriz vazia.");
+
+    }
 
 }
 

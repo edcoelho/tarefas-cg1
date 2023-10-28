@@ -44,28 +44,6 @@ Ponto::Ponto(std::vector<double> c) {
 
 }
 
-Ponto::Ponto(std::size_t n, std::vector<double> c) {
-
-    std::size_t i;
-
-    if (c.size() == n) {
-
-        for (i = 0; i < n; i++) {
-
-            this->coordenadas[i] = c[i];
-
-        }
-
-        this->dimensao = n;
-
-    } else {
-
-        throw std::invalid_argument("Erro: Foram passadas " + std::to_string(c.size()) + " coordenadas na criação de um ponto de " + std::to_string(n) + " dimensões.");
-
-    }
-
-}
-
 double Ponto::operator () (std::size_t coordenada) const {
 
     if (this->coordenadaValida(coordenada)) {

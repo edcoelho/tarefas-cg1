@@ -39,26 +39,6 @@ Vetor::Vetor(std::vector<double> e) : Matriz::Matriz(e.size(), 1) {
 
 }
 
-Vetor::Vetor(std::size_t n, std::vector<double> e) : Matriz::Matriz(n, 1) {
-
-    std::size_t i;
-
-    if (e.size() == n) {
-
-        for (i = 0; i < n; i++) {
-
-            this->elementos[i][0] = e[i];
-
-        }
-
-    } else {
-
-        throw std::invalid_argument("Erro: Foram passados " + std::to_string(e.size()) + " elementos na criação de um vetor de " + std::to_string(n) + " dimensões.");
-
-    }
-
-}
-
 double Vetor::operator () (std::size_t linha) const {
 
     if (this->posicaoValida(linha)) {
@@ -268,7 +248,7 @@ Ponto Vetor::paraPonto() const {
 
 Vetor Vetor::unitario() const {
 
-    Vetor vetor(this->getNumLinhas(), this->stdVector());
+    Vetor vetor(this->stdVector());
 
     vetor.normalizar();
 
