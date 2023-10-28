@@ -15,6 +15,13 @@ bool Ponto::coordenadaValida(std::size_t coordenada) const {
     
 }
 
+Ponto::Ponto() {
+
+    this->dimensao = 3;
+    this->coordenadas = std::vector<double> (3, 0);
+
+}
+
 Ponto::Ponto(std::size_t n) {
 
     this->dimensao = n;

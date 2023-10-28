@@ -1,4 +1,5 @@
 #include "utils/IntensidadeLuz.hpp"
+#include <stdexcept>
 
 bool IntensidadeLuz::posicaoValida(std::size_t indice) const {
 

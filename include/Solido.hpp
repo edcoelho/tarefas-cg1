@@ -4,6 +4,8 @@
 #include "RaioRayCasting.hpp"
 #include "LuzPontual.hpp"
 #include "Material.hpp"
+#include "algebra/Ponto.hpp"
+#include "algebra/Vetor.hpp"
 #include "utils/utils.hpp"
 
 class Solido {
@@ -12,8 +14,6 @@ class Solido {
         Material material;
 
     public:
-        // Flag para os vetores do Eigen serem alocados adequadamente.
-        EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
         // --- CONSTRUTORES ---
 
@@ -35,16 +35,16 @@ class Solido {
         virtual bool houveInterseccao(RaioRayCasting& raio) = 0;
 
         // Retorna o vetor unitário normal a superfície do sólido num ponto.
-        virtual Eigen::Vector3d vetorNormalPonto(ponto3D ponto) = 0;
+        virtual Vetor vetorNormalPonto(Ponto ponto) = 0;
 
         // Retorna o vetor NÃO UNITÁRIO que vai de um ponto da superfície do sólido até uma luz pontual.
-        virtual Eigen::Vector3d vetorLuzPontual(ponto3D ponto, LuzPontual& luz);
+        virtual Vetor vetorLuzPontual(Ponto ponto, LuzPontual& luz);
 
         // Retorna o vetor unitário que é reflexo do vetor unitário que vai de um ponto da superfície do sólido até uma luz pontual
-        virtual Eigen::Vector3d vetorReflexo(ponto3D ponto, LuzPontual& luz);
+        virtual Vetor vetorReflexo(Ponto ponto, LuzPontual& luz);
 
         // Retorna o vetor unitário que vai de um ponto p0 da superfície do sólido até um ponto pX qualquer.
-        virtual Eigen::Vector3d vetorUnit(ponto3D p0, ponto3D pX);
+        virtual Vetor vetorUnit(Ponto p0, Ponto pX);
 
 };
 

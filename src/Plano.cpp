@@ -2,12 +2,12 @@
 
 Plano::Plano() {
 
-    this->setPX(ponto3D(0,0,0));
-    this->setVN(Eigen::Vector3d(0,1,0));
+    this->setPX(Ponto(0.0, 0.0, 0.0));
+    this->setVN(Vetor(0.0, 1.0, 0.0));
 
 }
 
-Plano::Plano(ponto3D p, Eigen::Vector3d n, Material m) {
+Plano::Plano(Ponto p, Vetor n, Material m) {
 
     this->setPX(p);
     this->setVN(n);
@@ -15,23 +15,23 @@ Plano::Plano(ponto3D p, Eigen::Vector3d n, Material m) {
 
 }
 
-ponto3D Plano::getPX() {
+Ponto Plano::getPX() {
 
     return this->pX;
 
 }
-void Plano::setPX(ponto3D p) {
+void Plano::setPX(Ponto p) {
 
     this->pX = p;
 
 }
 
-Eigen::Vector3d Plano::getVN() {
+Vetor Plano::getVN() {
 
     return this->vN;
 
 }
-void Plano::setVN(Eigen::Vector3d n) {
+void Plano::setVN(Vetor n) {
 
     this->vN = n;
 
@@ -50,9 +50,9 @@ double Plano::escalarInterseccao(RaioRayCasting& raio) {
     // tInt = ((pX - p0) . vN) / (vDirecao . vN)
 
     // tInt = (pX - p0) . vN)
-    tInt = (this->getPX() - raio.getPInicial()).dot(this->getVN());
+    tInt = (this->getPX() - raio.getPInicial()).pEscalar(this->getVN());
     // tInt = tInt / (d . vDirecao);
-    tInt = tInt / raio.getVDirecao().dot(this->getVN());
+    tInt = tInt / raio.getVDirecao().pEscalar(this->getVN());
 
     if (tInt > 0) return tInt; else return -1;
 
@@ -71,15 +71,15 @@ bool Plano::houveInterseccao(RaioRayCasting& raio) {
     // tInt = ((pX - p0) . vN) / (vDirecao . vN)
 
     // tInt = (pX - p0) . vN)
-    tInt = (this->getPX() - raio.getPInicial()).dot(this->getVN());
+    tInt = (this->getPX() - raio.getPInicial()).pEscalar(this->getVN());
     // tInt = tInt / (d . vDirecao);
-    tInt = tInt / raio.getVDirecao().dot(this->getVN());
+    tInt = tInt / raio.getVDirecao().pEscalar(this->getVN());
 
     if (tInt > 0) return true; else return false;
     
 }
 
-Eigen::Vector3d Plano::vetorNormalPonto(ponto3D ponto) {
+Vetor Plano::vetorNormalPonto(Ponto ponto) {
 
     return this->getVN();
 

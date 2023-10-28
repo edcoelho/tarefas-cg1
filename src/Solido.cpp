@@ -1,5 +1,4 @@
 #include "Solido.hpp"
-#include <eigen3/Eigen/Core>
 
 Solido::Solido() {}
 
@@ -21,28 +20,28 @@ void Solido::setMaterial(Material m) {
 
 }
 
-Eigen::Vector3d Solido::vetorLuzPontual(ponto3D ponto, LuzPontual& luz) {
+Vetor Solido::vetorLuzPontual(Ponto ponto, LuzPontual& luz) {
 
     return luz.getPosicao() - ponto;
 
 }
 
-Eigen::Vector3d Solido::vetorReflexo(ponto3D ponto, LuzPontual& luz) {
+Vetor Solido::vetorReflexo(Ponto ponto, LuzPontual& luz) {
 
-    Eigen::Vector3d n = this->vetorNormalPonto(ponto),
-                    l = this->vetorLuzPontual(ponto, luz);
+    Vetor n = this->vetorNormalPonto(ponto),
+          l = this->vetorLuzPontual(ponto, luz);
 
-    l.normalize();
+    l.normalizar();
 
-    return ((2 * l.dot(n)) * n) - l;
+    return (n * (2.0 * l.pEscalar(n))) - l;
 
 }
 
-Eigen::Vector3d Solido::vetorUnit(ponto3D p0, ponto3D pX) {
+Vetor Solido::vetorUnit(Ponto p0, Ponto pX) {
 
-    Eigen::Vector3d vDr = pX - p0;
+    Vetor vDr = pX - p0;
 
-    vDr.normalize();
+    vDr.normalizar();
 
     return vDr;
 

@@ -17,6 +17,8 @@ bool Vetor::posicaoValida(std::size_t linha) const {
     
 }
 
+Vetor::Vetor() : Matriz::Matriz(3, 1) {}
+
 Vetor::Vetor(std::size_t n) : Matriz::Matriz(n, 1) {}
 
 Vetor::Vetor(std::vector<double> e) : Matriz::Matriz(e.size(), 1) {

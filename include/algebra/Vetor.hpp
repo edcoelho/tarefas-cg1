@@ -17,6 +17,8 @@ class Vetor : public Matriz {
 
         // --- CONSTRUTORES ---
 
+            Vetor();
+
             Vetor(std::size_t n);
 
             Vetor(std::vector<double> e);

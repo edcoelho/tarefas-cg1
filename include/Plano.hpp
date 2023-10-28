@@ -9,28 +9,26 @@ class Plano : public Solido {
 
     private:
         // Ponto conhecido do plano.
-        ponto3D pX;
+        Ponto pX;
         // Vetor unitário normal ao plano.
-        Eigen::Vector3d vN;
+        Vetor vN;
 
     public:
-        // Flag para os vetores do Eigen serem alocados adequadamente.
-        EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
         // --- CONSTRUTORES ---
 
         Plano();
         // p: Ponto conhecido do plano.
         // n: Vetor unitário normal ao plano.
-        Plano(ponto3D p, Eigen::Vector3d n, Material m);
+        Plano(Ponto p, Vetor n, Material m);
 
         // --- GETTERS E SETTERS ---
 
-        ponto3D getPX();
-        void setPX(ponto3D p);
+        Ponto getPX();
+        void setPX(Ponto p);
 
-        Eigen::Vector3d getVN();
-        void setVN(Eigen::Vector3d n);
+        Vetor getVN();
+        void setVN(Vetor n);
 
         // --- MÉTODOS ---
 
@@ -42,7 +40,7 @@ class Plano : public Solido {
         bool houveInterseccao(RaioRayCasting& raio) override;
 
         // Retorna o vetor unitário normal a superfície do plano num ponto.
-        Eigen::Vector3d vetorNormalPonto(ponto3D ponto) override;
+        Vetor vetorNormalPonto(Ponto ponto) override;
 
 };
 

@@ -1,11 +1,17 @@
 #include <SDL2/SDL.h>
+
 #include "utils/utils.hpp"
+#include "utils/IntensidadeLuz.hpp"
+#include "algebra/Matriz.hpp"
+#include "algebra/Vetor.hpp"
+#include "algebra/Ponto.hpp"
 #include "Cena.hpp"
+#include "LuzPontual.hpp"
 #include "RaioRayCasting.hpp"
+#include "Material.hpp"
+#include "Solido.hpp"
 #include "Esfera.hpp"
 #include "Plano.hpp"
-#include <array>
-#include <memory>
 
 // -- CONSTANTES --
 
@@ -23,13 +29,13 @@ const int H_C = 500;
 const double z_J = -30.0;
 
 // Intensidade da luz ambiente.
-i_luz I_A(0.3f, 0.3f, 0.3f);
+IntensidadeLuz I_A(0.3f, 0.3f, 0.3f);
 
 // Cor do background.
 const rgb bgColor{100, 100, 100};
 
 // Posição do olho do pintor
-ponto3D ponto_olho(0, 0, 0);
+Ponto ponto_olho(0.0, 0.0, 0.0);
 
 // -- DEFINIÇÕES DE TIPOS --
 
@@ -64,7 +70,7 @@ matrizCores calcularMatrizCores() {
             cX = (double) -W_J/2.0 + Dx/2.0 + c*Dx;
 
             // Lançando o raio.
-            raio = std::make_unique<RaioRayCasting>(ponto_olho, ponto3D(cX, cY, z_J));
+            raio = std::make_unique<RaioRayCasting>(ponto_olho, Ponto(cX, cY, z_J));
             cores[c][l] = cena.corInterseccao(*raio);
 
         }

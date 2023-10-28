@@ -2,14 +2,14 @@
 
 Material::Material() {
 
-    this->setKA(i_luz(0, 0, 0));
-    this->setKD(RGBParaI(rgb{150, 150, 150}));
-    this->setKE(i_luz(1, 1, 1));
+    this->setKA(IntensidadeLuz(0.0, 0.0, 0.0));
+    this->setKD(rgb{150, 150, 150});
+    this->setKE(IntensidadeLuz(1.0, 1.0, 1.0));
     this->setExpEsp(10);
 
 }
 
-Material::Material(i_luz ka, i_luz kd, i_luz ke, double e) {
+Material::Material(IntensidadeLuz ka, IntensidadeLuz kd, IntensidadeLuz ke, double e) {
 
     this->setKA(ka);
     this->setKD(kd);
@@ -18,36 +18,36 @@ Material::Material(i_luz ka, i_luz kd, i_luz ke, double e) {
 
 }
 
-i_luz Material::getKA() {
+IntensidadeLuz Material::getKA() {
 
     return this->kA;
     
 }
-void Material::setKA(i_luz k) {
+void Material::setKA(IntensidadeLuz k) {
 
-    this->kA= fixIntensidade(k);
+    this->kA= k;
    
 }
 
-i_luz Material::getKD() {
+IntensidadeLuz Material::getKD() {
 
     return this->kD;
     
 }
-void Material::setKD(i_luz k) {
+void Material::setKD(IntensidadeLuz k) {
 
-    this->kD = fixIntensidade(k);
+    this->kD = k;
    
 }
 
-i_luz Material::getKE() {
+IntensidadeLuz Material::getKE() {
 
     return this->kE;
     
 }
-void Material::setKE(i_luz k) {
+void Material::setKE(IntensidadeLuz k) {
 
-    this->kE = fixIntensidade(k);
+    this->kE = k;
    
 }
 

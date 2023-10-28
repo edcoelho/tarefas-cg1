@@ -6,8 +6,7 @@
 #include "RaioRayCasting.hpp"
 #include "LuzPontual.hpp"
 #include "utils/utils.hpp"
-#include <vector>
-#include <memory>
+#include "utils/IntensidadeLuz.hpp"
 
 class Cena {
 
@@ -19,18 +18,16 @@ class Cena {
         // Luz pontual presente na cena.
         std::unique_ptr<LuzPontual> fonteLuz;
         // Intensidade da luz ambiente.
-        i_luz iA;
+        IntensidadeLuz iA;
         
     public:
-        // Flag para os vetores do Eigen serem alocados adequadamente.
-        EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
         // --- CONSTRUTORES ---
 
         Cena();
         // cf: cor de fundo
         // I: intensidade da luz ambiente
-        Cena(rgb cf, i_luz I);
+        Cena(rgb cf, IntensidadeLuz I);
 
         // --- GETTERS E SETTERS ---
 
@@ -40,8 +37,8 @@ class Cena {
         std::unique_ptr<LuzPontual>& getFonteLuz();
         void setFonteLuz(std::unique_ptr<LuzPontual> luz);
 
-        i_luz getIA();
-        void setIA(i_luz I);
+        IntensidadeLuz getIA();
+        void setIA(IntensidadeLuz I);
 
         // --- MÉTODOS ---
 

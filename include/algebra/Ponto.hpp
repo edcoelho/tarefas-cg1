@@ -19,6 +19,8 @@ class Ponto {
     public:
         // --- CONSTRUTORES ---
 
+            Ponto();
+
             Ponto(std::size_t n);
 
             Ponto(std::vector<double> e);
