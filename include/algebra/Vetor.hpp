@@ -21,6 +21,9 @@ class Vetor : public Matriz {
 
             Vetor(std::vector<double> e);
 
+            // Vetor num espaço tridimensional.
+            Vetor(double x, double y, double z);
+
         // --- OPERADORES ---
 
             // Operador para acessar um elemento de um vetor.
@@ -52,7 +55,7 @@ class Vetor : public Matriz {
             // Operador para produto de Hadamard de dois vetores.
             Vetor operator % (Vetor const& vetor) const;
 
-        // --- MÉTODOS ---
+        // --- OUTROS MÉTODOS ---
 
             // Retorna a norma/módulo do vetor.
             double norma() const;

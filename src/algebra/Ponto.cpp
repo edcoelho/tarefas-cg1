@@ -39,6 +39,15 @@ Ponto::Ponto(std::vector<double> c) {
 
 }
 
+Ponto::Ponto(double x, double y, double z) {
+
+    this->dimensao = 3;
+    this->coordenadas.push_back(x);
+    this->coordenadas.push_back(y);
+    this->coordenadas.push_back(z);
+
+}
+
 double Ponto::operator () (std::size_t coordenada) const {
 
     if (this->coordenadaValida(coordenada)) {

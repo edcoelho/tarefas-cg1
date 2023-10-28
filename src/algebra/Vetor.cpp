@@ -39,6 +39,14 @@ Vetor::Vetor(std::vector<double> e) : Matriz::Matriz(e.size(), 1) {
 
 }
 
+Vetor::Vetor(double x, double y, double z) : Matriz::Matriz(3, 1) {
+
+    this->elementos[0][0] = x;
+    this->elementos[1][0] = y;
+    this->elementos[2][0] = z;
+
+}
+
 double Vetor::operator () (std::size_t linha) const {
 
     if (this->posicaoValida(linha)) {

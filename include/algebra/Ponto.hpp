@@ -23,6 +23,9 @@ class Ponto {
 
             Ponto(std::vector<double> e);
 
+            // Ponto num espaço tridimensional.
+            Ponto(double x, double y, double z);
+
         // --- OPERADORES ---
 
             // Operador para acessar uma coordenada de um ponto.

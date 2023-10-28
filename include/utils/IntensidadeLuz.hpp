@@ -21,6 +21,10 @@ class IntensidadeLuz {
 
             IntensidadeLuz(std::array<double, 3> val);
 
+            IntensidadeLuz(double r, double g, double b);
+
+            IntensidadeLuz(rgb corRGB);
+
         // --- OPERADORES ---
 
             // Operador para acessar um canal da intensidade de luz.
@@ -32,22 +36,22 @@ class IntensidadeLuz {
             double& operator [] (std::size_t indice);
 
             // Operador para adicionar intensidades de luz.
-            IntensidadeLuz operator + (IntensidadeLuz const& intensidade);
+            IntensidadeLuz operator + (IntensidadeLuz const& intensidade) const;
 
             // Operador para adicionar um escalar aos canais de intensidade de luz.
-            IntensidadeLuz operator + (double const escalar);
+            IntensidadeLuz operator + (double const escalar) const;
 
             // Operador para subtrair intensidades de luz.
-            IntensidadeLuz operator - (IntensidadeLuz const& intensidade);
+            IntensidadeLuz operator - (IntensidadeLuz const& intensidade) const;
 
             // Operador para subtrair um escalar dos canais de intensidade de luz.
-            IntensidadeLuz operator - (double const escalar);
+            IntensidadeLuz operator - (double const escalar) const;
 
             // Operador para multiplicar intensidades de luz.
-            IntensidadeLuz operator * (IntensidadeLuz const& intensidade);
+            IntensidadeLuz operator * (IntensidadeLuz const& intensidade) const;
 
             // Operador para multiplicar um escalar aos canais de intensidade de luz.
-            IntensidadeLuz operator * (double const escalar);
+            IntensidadeLuz operator * (double const escalar) const;
 
         // --- GETTERS E SETTERS ---
 
