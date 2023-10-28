@@ -34,24 +34,29 @@ Matriz::Matriz(std::vector<std::vector<double>> e) {
 
         numColunas = e[0].size();
 
-        for (i = 0; i < numLinhas; i++) {
+        if (numColunas > 0) {
 
-            for (j = 0; j < numColunas; j++) {
+            for (i = 0; i < numLinhas; i++) {
 
-                if (e[i].size() == numColunas) {
+                for (j = 0; j < numColunas; j++) {
 
-                    this->elementos[i][j] = e[i][j];
+                    if (e[i].size() != numColunas) {
 
-                } else {
+                        throw std::invalid_argument("Erro: Não é possível criar uma matriz com linhas contendo diferentes quantidades de elementos.");
 
-                    throw std::invalid_argument("Erro: Não é possível criar uma matriz com linhas contendo diferentes quantidades de elementos.");
+                    }
 
                 }
 
             }
 
+        } else {
+
+            throw std::invalid_argument("Erro: Não é possível criar uma matriz com linhas vazias.");
+
         }
 
+        this->elementos = e;
         this->numLinhas = numLinhas;
         this->numColunas = numColunas;
 

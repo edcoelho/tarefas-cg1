@@ -28,13 +28,8 @@ Ponto::Ponto(std::vector<double> c) {
 
     if (numCoordenadas > 0) {
 
-        for (i = 0; i < numCoordenadas; i++) {
-
-            this->coordenadas[i] = c[i];
-
-        }
-
         this->dimensao = numCoordenadas;
+        this->coordenadas = c;
 
     } else {
 
