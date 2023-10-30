@@ -4,7 +4,7 @@ Implementação das tarefas da disciplina de Computação Gráfica I (CK0245) da
 
 ## Dependências
 
-O projeto atualmente depende das bibliotecas SDL2. É necessário utilizar alguma distribuição Linux como sistema operacional.
+O projeto depende apenas da biblioteca SDL2. É necessário utilizar alguma distribuição Linux como sistema operacional.
 
 ## Build
 
