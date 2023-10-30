@@ -8,7 +8,7 @@
 class Esfera : public Solido {
 
     private:
-        Ponto centro;
+        Ponto3 centro;
         double raio;
 
     public:
@@ -16,12 +16,12 @@ class Esfera : public Solido {
         // --- CONSTRUTORES ---
 
         Esfera();
-        Esfera(Ponto c, double r, Material m);
+        Esfera(Ponto3 c, double r, Material m);
 
         // --- GETTERS E SETTERS ---
 
-        Ponto getCentro();
-        void setCentro(Ponto c);
+        Ponto3 getCentro();
+        void setCentro(Ponto3 c);
 
         double getRaio();
         void setRaio(double r);
@@ -36,7 +36,7 @@ class Esfera : public Solido {
         bool houveInterseccao(RaioRayCasting& raio) override;
 
         // Retorna o vetor unitário normal a superfície da esfera num ponto.
-        Vetor vetorNormalPonto(Ponto ponto) override;
+        Vetor3 vetorNormalPonto(Ponto3 ponto) override;
 
 };
 

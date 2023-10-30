@@ -2,12 +2,12 @@
 
 Plano::Plano() {
 
-    this->setPX(Ponto(0.0, 0.0, 0.0));
-    this->setVN(Vetor(0.0, 1.0, 0.0));
+    this->setPX(Ponto3(0.0, 0.0, 0.0));
+    this->setVN(Vetor3(0.0, 1.0, 0.0));
 
 }
 
-Plano::Plano(Ponto p, Vetor n, Material m) {
+Plano::Plano(Ponto3 p, Vetor3 n, Material m) {
 
     this->setPX(p);
     this->setVN(n);
@@ -15,23 +15,23 @@ Plano::Plano(Ponto p, Vetor n, Material m) {
 
 }
 
-Ponto Plano::getPX() {
+Ponto3 Plano::getPX() {
 
     return this->pX;
 
 }
-void Plano::setPX(Ponto p) {
+void Plano::setPX(Ponto3 p) {
 
     this->pX = p;
 
 }
 
-Vetor Plano::getVN() {
+Vetor3 Plano::getVN() {
 
     return this->vN;
 
 }
-void Plano::setVN(Vetor n) {
+void Plano::setVN(Vetor3 n) {
 
     this->vN = n;
 
@@ -79,7 +79,7 @@ bool Plano::houveInterseccao(RaioRayCasting& raio) {
     
 }
 
-Vetor Plano::vetorNormalPonto(Ponto ponto) {
+Vetor3 Plano::vetorNormalPonto(Ponto3 ponto) {
 
     return this->getVN();
 

@@ -9,9 +9,9 @@ class Plano : public Solido {
 
     private:
         // Ponto conhecido do plano.
-        Ponto pX;
+        Ponto3 pX;
         // Vetor unitário normal ao plano.
-        Vetor vN;
+        Vetor3 vN;
 
     public:
 
@@ -20,15 +20,15 @@ class Plano : public Solido {
         Plano();
         // p: Ponto conhecido do plano.
         // n: Vetor unitário normal ao plano.
-        Plano(Ponto p, Vetor n, Material m);
+        Plano(Ponto3 p, Vetor3 n, Material m);
 
         // --- GETTERS E SETTERS ---
 
-        Ponto getPX();
-        void setPX(Ponto p);
+        Ponto3 getPX();
+        void setPX(Ponto3 p);
 
-        Vetor getVN();
-        void setVN(Vetor n);
+        Vetor3 getVN();
+        void setVN(Vetor3 n);
 
         // --- MÉTODOS ---
 
@@ -40,7 +40,7 @@ class Plano : public Solido {
         bool houveInterseccao(RaioRayCasting& raio) override;
 
         // Retorna o vetor unitário normal a superfície do plano num ponto.
-        Vetor vetorNormalPonto(Ponto ponto) override;
+        Vetor3 vetorNormalPonto(Ponto3 ponto) override;
 
 };
 

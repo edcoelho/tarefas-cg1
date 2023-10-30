@@ -4,8 +4,8 @@
 #include "RaioRayCasting.hpp"
 #include "LuzPontual.hpp"
 #include "Material.hpp"
-#include "algebra/Ponto.hpp"
-#include "algebra/Vetor.hpp"
+#include "algebra/Ponto3.hpp"
+#include "algebra/Vetor3.hpp"
 #include "utils/utils.hpp"
 
 class Solido {
@@ -35,16 +35,16 @@ class Solido {
         virtual bool houveInterseccao(RaioRayCasting& raio) = 0;
 
         // Retorna o vetor unitário normal a superfície do sólido num ponto.
-        virtual Vetor vetorNormalPonto(Ponto ponto) = 0;
+        virtual Vetor3 vetorNormalPonto(Ponto3 ponto) = 0;
 
         // Retorna o vetor NÃO UNITÁRIO que vai de um ponto da superfície do sólido até uma luz pontual.
-        virtual Vetor vetorLuzPontual(Ponto ponto, LuzPontual& luz);
+        virtual Vetor3 vetorLuzPontual(Ponto3 ponto, LuzPontual& luz);
 
         // Retorna o vetor unitário que é reflexo do vetor unitário que vai de um ponto da superfície do sólido até uma luz pontual
-        virtual Vetor vetorReflexo(Ponto ponto, LuzPontual& luz);
+        virtual Vetor3 vetorReflexo(Ponto3 ponto, LuzPontual& luz);
 
         // Retorna o vetor unitário que vai de um ponto p0 da superfície do sólido até um ponto pX qualquer.
-        virtual Vetor vetorUnit(Ponto p0, Ponto pX);
+        virtual Vetor3 vetorUnit(Ponto3 p0, Ponto3 pX);
 
 };
 

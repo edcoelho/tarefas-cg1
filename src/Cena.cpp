@@ -74,10 +74,10 @@ rgb Cena::corInterseccao(RaioRayCasting& raio) {
     double aux, m;
 
     // Vetores para auxiliar nos cálculos (vetorLuzPontual, vetorLuzPontual normalizado, vetorNormalPonto, vetorVisao, vetorReflexoLuz)
-    Vetor L(3), l(3), n(3), v(3), r(3);
+    Vetor3 L, l, n, v, r;
 
     // Ponto da intersecção.
-    Ponto pInt(3);
+    Ponto3 pInt;
 
     // Ponteiro para o raio da fonte de luz pontual.
     std::unique_ptr<RaioRayCasting> raioLuz;

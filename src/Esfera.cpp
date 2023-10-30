@@ -3,12 +3,12 @@
 
 Esfera::Esfera() {
 
-    this->setCentro(Ponto(0.0, 0.0, 0.0));
+    this->setCentro(Ponto3(0.0, 0.0, 0.0));
     this->setRaio(1.0);
 
 }
 
-Esfera::Esfera(Ponto c, double r, Material m) {
+Esfera::Esfera(Ponto3 c, double r, Material m) {
 
     this->setCentro(c);
     this->setRaio(r);
@@ -16,12 +16,12 @@ Esfera::Esfera(Ponto c, double r, Material m) {
 
 }
 
-Ponto Esfera::getCentro() {
+Ponto3 Esfera::getCentro() {
 
     return this->centro;
 
 }
-void Esfera::setCentro(Ponto c) {
+void Esfera::setCentro(Ponto3 c) {
 
     this->centro = c;
 
@@ -45,7 +45,7 @@ double Esfera::escalarInterseccao(RaioRayCasting& raio) {
            raiz = 0.0, // Raíz da equação.
            aux = 0.0; // Variável para auxiliar nos cálculos.
 
-    Vetor vAux(3); // Vetor para auxiliar nos cálculos.
+    Vetor3 vAux; // Vetor para auxiliar nos cálculos.
 
     // a = vDirecao . vDirecao
     a = raio.getVDirecao().pEscalar(raio.getVDirecao());
@@ -82,7 +82,7 @@ bool Esfera::houveInterseccao(RaioRayCasting& raio) {
     double delta = 0.0, // Delta da equação de 2º grau.
            a = 0.0, b = 0.0, c = 0.0; // Coscientes da equação de 2º grau.
 
-    Vetor vAux(3); // Vetor para auxiliar nos cálculos.
+    Vetor3 vAux; // Vetor para auxiliar nos cálculos.
 
     // a = vDirecao . vDirecao
     a = raio.getVDirecao().pEscalar(raio.getVDirecao());
@@ -100,9 +100,9 @@ bool Esfera::houveInterseccao(RaioRayCasting& raio) {
 }
 
 
-Vetor Esfera::vetorNormalPonto(Ponto ponto) {
+Vetor3 Esfera::vetorNormalPonto(Ponto3 ponto) {
 
-    Vetor n(3);
+    Vetor3 n;
     
     n = ponto - this->getCentro();
     n.normalizar();

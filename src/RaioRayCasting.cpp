@@ -1,10 +1,15 @@
 #include "RaioRayCasting.hpp"
 
-RaioRayCasting::RaioRayCasting() {}
+RaioRayCasting::RaioRayCasting() {
 
-RaioRayCasting::RaioRayCasting(Ponto pI, Ponto pX) {
+    this->setPInicial(Ponto3());
+    this->setVDirecao(Vetor3());
 
-    Vetor vD(3);
+}
+
+RaioRayCasting::RaioRayCasting(Ponto3 pI, Ponto3 pX) {
+
+    Vetor3 vD;
 
     // vD = (pX - pI) / mod(pX - pI)
     vD = pX - pI;
@@ -15,31 +20,31 @@ RaioRayCasting::RaioRayCasting(Ponto pI, Ponto pX) {
 
 }
 
-Ponto RaioRayCasting::getPInicial() {
+Ponto3 RaioRayCasting::getPInicial() {
 
     return this->pInicial;
 
 }
-void RaioRayCasting::setPInicial(Ponto pI) {
+void RaioRayCasting::setPInicial(Ponto3 pI) {
 
     this->pInicial = pI;
 
 }
 
-Vetor RaioRayCasting::getVDirecao() {
+Vetor3 RaioRayCasting::getVDirecao() {
 
     return this->vDirecao;
 
 }
-void RaioRayCasting::setVDirecao(Vetor vD) {
+void RaioRayCasting::setVDirecao(Vetor3 vD) {
 
     this->vDirecao = vD;
 
 }
 
-Ponto RaioRayCasting::pontoDoRaio(double escalar) {
+Ponto3 RaioRayCasting::pontoDoRaio(double escalar) {
 
-    Ponto pX(3);
+    Ponto3 pX;
 
     // P(t) = Pin + dr*t
     pX = this->getPInicial() + (this->getVDirecao() * escalar);

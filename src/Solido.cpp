@@ -20,15 +20,15 @@ void Solido::setMaterial(Material m) {
 
 }
 
-Vetor Solido::vetorLuzPontual(Ponto ponto, LuzPontual& luz) {
+Vetor3 Solido::vetorLuzPontual(Ponto3 ponto, LuzPontual& luz) {
 
     return luz.getPosicao() - ponto;
 
 }
 
-Vetor Solido::vetorReflexo(Ponto ponto, LuzPontual& luz) {
+Vetor3 Solido::vetorReflexo(Ponto3 ponto, LuzPontual& luz) {
 
-    Vetor n = this->vetorNormalPonto(ponto),
+    Vetor3 n = this->vetorNormalPonto(ponto),
           l = this->vetorLuzPontual(ponto, luz);
 
     l.normalizar();
@@ -37,9 +37,9 @@ Vetor Solido::vetorReflexo(Ponto ponto, LuzPontual& luz) {
 
 }
 
-Vetor Solido::vetorUnit(Ponto p0, Ponto pX) {
+Vetor3 Solido::vetorUnit(Ponto3 p0, Ponto3 pX) {
 
-    Vetor vDr = pX - p0;
+    Vetor3 vDr = pX - p0;
 
     vDr.normalizar();
 

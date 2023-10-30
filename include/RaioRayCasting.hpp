@@ -2,16 +2,16 @@
 #define RAIORAYCASTING_HPP
 
 #include "utils/utils.hpp"
-#include "algebra/Ponto.hpp"
-#include "algebra/Vetor.hpp"
+#include "algebra/Ponto3.hpp"
+#include "algebra/Vetor3.hpp"
 
 class RaioRayCasting {
 
     private:
         // Ponto inicial.
-        Ponto pInicial;
+        Ponto3 pInicial;
         // Vetor direção.
-        Vetor vDirecao;
+        Vetor3 vDirecao;
 
     public:
 
@@ -21,20 +21,20 @@ class RaioRayCasting {
 
         // pI: ponto inicial do raio
         // pX: outro ponto qualquer do raio
-        RaioRayCasting(Ponto pI, Ponto pX);
+        RaioRayCasting(Ponto3 pI, Ponto3 pX);
 
         // --- GETTERS E SETTERS ---
 
-        Ponto getPInicial();
-        void setPInicial(Ponto pI);
+        Ponto3 getPInicial();
+        void setPInicial(Ponto3 pI);
 
-        Vetor getVDirecao();
-        void setVDirecao(Vetor vD);
+        Vetor3 getVDirecao();
+        void setVDirecao(Vetor3 vD);
 
         // --- MÉTODOS ---
 
         // Retorna um ponto do raio que está a uma distância "escalar" do ponto inicial.
-        Ponto pontoDoRaio(double escalar);
+        Ponto3 pontoDoRaio(double escalar);
 
 };
 

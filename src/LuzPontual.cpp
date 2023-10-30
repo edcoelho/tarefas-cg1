@@ -2,14 +2,14 @@
 
 LuzPontual::LuzPontual() {
 
-    this->setPosicao(Ponto(0.0, 0.0, 0.0));
+    this->setPosicao(Ponto3(0.0, 0.0, 0.0));
     this->setIntensidade(IntensidadeLuz(1.0, 1.0, 1.0));
 
 }
 
-LuzPontual::LuzPontual(double x, double y, double z, float Ir, float Ig, float Ib) {
+LuzPontual::LuzPontual(double x, double y, double z, double Ir, double Ig, double Ib) {
 
-    Ponto pos(x, y, z);
+    Ponto3 pos(x, y, z);
     IntensidadeLuz I(Ir, Ig, Ib);
 
     this->setPosicao(pos);
@@ -17,19 +17,19 @@ LuzPontual::LuzPontual(double x, double y, double z, float Ir, float Ig, float I
 
 }
 
-LuzPontual::LuzPontual(Ponto pos, IntensidadeLuz I) {
+LuzPontual::LuzPontual(Ponto3 pos, IntensidadeLuz I) {
 
     this->setPosicao(pos);
     this->setIntensidade(I);
 
 }
 
-Ponto LuzPontual::getPosicao() {
+Ponto3 LuzPontual::getPosicao() {
 
     return this->posicao;
 
 }
-void LuzPontual::setPosicao(Ponto pos) {
+void LuzPontual::setPosicao(Ponto3 pos) {
 
     this->posicao = pos;
 

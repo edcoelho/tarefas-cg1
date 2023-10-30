@@ -1,34 +1,28 @@
 #include "utils/IntensidadeLuz.hpp"
 #include <stdexcept>
 
-bool IntensidadeLuz::posicaoValida(std::size_t indice) const {
+IntensidadeLuz::IntensidadeLuz() {
 
-    if (indice >= 0 && indice < 3) {
-
-        return true;
-
-    } else {
-
-        return false;
-
-    }
-    
-}
-
-IntensidadeLuz::IntensidadeLuz() {}
-
-IntensidadeLuz::IntensidadeLuz(std::array<double, 3> val) {
-
-    this->valores = val;
-    this->consertaIntensidade();
+    this->r = 0.0;
+    this->g = 0.0;
+    this->b = 0.0;
 
 }
 
 IntensidadeLuz::IntensidadeLuz(double r, double g, double b) {
 
-    this->valores[0] = r;
-    this->valores[1] = g;
-    this->valores[2] = b;
+    this->r = r;
+    this->g = g;
+    this->b = b;
+    this->consertaIntensidade();
+
+}
+
+IntensidadeLuz::IntensidadeLuz(std::array<double, 3> val) {
+
+    this->r = val[0];
+    this->g = val[1];
+    this->b = val[2];
     this->consertaIntensidade();
 
 }
@@ -37,21 +31,31 @@ IntensidadeLuz::IntensidadeLuz(rgb corRGB) {
 
     std::size_t i;
 
-    for (i = 0; i < 3; i++) {
-    
-        this->valores[i] = ((double) corRGB[i]) / 255.0;
-
-    }
+    this->r = ((double) corRGB[0]) / 255.0;
+    this->g = ((double) corRGB[1]) / 255.0;
+    this->b = ((double) corRGB[2]) / 255.0;
 
     this->consertaIntensidade();
 
 }
 
-double IntensidadeLuz::operator () (std::size_t indice) const {
+double IntensidadeLuz::operator [] (std::size_t canal) const {
 
-    if (this->posicaoValida(indice)) {
+    if (canal >= 0 && canal < 3) {
 
-        return this->valores[indice];
+        if (canal == 0) {
+
+            return this->r;
+
+        } else if (canal == 1) {
+
+            return this->g;
+
+        } else {
+
+            return this->b;
+
+        }
 
     } else {
 
@@ -60,17 +64,24 @@ double IntensidadeLuz::operator () (std::size_t indice) const {
     }
 
 }
-double IntensidadeLuz::operator [] (std::size_t indice) const {
 
-    return this->operator()(indice);
+double& IntensidadeLuz::operator [] (std::size_t canal) {
 
-}
+    if (canal >= 0 && canal < 3) {
 
-double& IntensidadeLuz::operator () (std::size_t indice) {
+        if (canal == 0) {
 
-    if (this->posicaoValida(indice)) {
+            return this->r;
 
-        return this->valores[indice];
+        } else if (canal == 1) {
+
+            return this->g;
+
+        } else {
+
+            return this->b;
+
+        }
 
     } else {
 
@@ -79,107 +90,130 @@ double& IntensidadeLuz::operator () (std::size_t indice) {
     }
 
 }
-double& IntensidadeLuz::operator [] (std::size_t indice) {
-
-    return this->operator()(indice);
-
-}
 
 IntensidadeLuz IntensidadeLuz::operator + (IntensidadeLuz const& intensidade) const {
 
-    IntensidadeLuz temp;
+    IntensidadeLuz resultado;
 
-    for (std::size_t i = 0; i < 3; i++)
-        temp[i] = this->valores[i] + intensidade[i];
+    resultado[0] = this->r + intensidade[0];
+    resultado[1] = this->g + intensidade[1];
+    resultado[2] = this->b + intensidade[2];
 
-    temp.consertaIntensidade();
+    resultado.consertaIntensidade();
 
-    return temp;
-
+    return resultado;
 }
 
 IntensidadeLuz IntensidadeLuz::operator + (double const escalar) const {
 
-    IntensidadeLuz temp;
+    IntensidadeLuz resultado;
 
-    for (std::size_t i = 0; i < 3; i++)
-        temp(i) = this->valores[i] + escalar;
+    resultado[0] = this->r + escalar;
+    resultado[1] = this->g + escalar;
+    resultado[2] = this->b + escalar;
 
-    temp.consertaIntensidade();
+    resultado.consertaIntensidade();
 
-    return temp;
+    return resultado;
 
 }
 
 IntensidadeLuz IntensidadeLuz::operator - (IntensidadeLuz const& intensidade) const {
 
-    IntensidadeLuz temp;
+    IntensidadeLuz resultado;
 
-    for (std::size_t i = 0; i < 3; i++)
-        temp(i) = this->valores[i] - intensidade[i];
+    resultado[0] = this->r - intensidade[0];
+    resultado[1] = this->g - intensidade[1];
+    resultado[2] = this->b - intensidade[2];
 
-    temp.consertaIntensidade();
+    resultado.consertaIntensidade();
 
-    return temp;
+    return resultado;
 
 }
 
 IntensidadeLuz IntensidadeLuz::operator - (double const escalar) const {
 
-    IntensidadeLuz temp;
+    IntensidadeLuz resultado;
 
-    for (std::size_t i = 0; i < 3; i++)
-        temp(i) = this->valores[i] - escalar;
+    resultado[0] = this->r - escalar;
+    resultado[1] = this->g - escalar;
+    resultado[2] = this->b - escalar;
 
-    temp.consertaIntensidade();
+    resultado.consertaIntensidade();
 
-    return temp;
+    return resultado;
 
 }
 
 IntensidadeLuz IntensidadeLuz::operator * (IntensidadeLuz const& intensidade) const {
 
-    IntensidadeLuz temp;
+    IntensidadeLuz resultado;
 
-    for (std::size_t i = 0; i < 3; i++)
-        temp(i) = this->valores[i] * intensidade[i];
+    resultado[0] = this->r * intensidade[0];
+    resultado[1] = this->g * intensidade[1];
+    resultado[2] = this->b * intensidade[2];
 
-    temp.consertaIntensidade();
+    resultado.consertaIntensidade();
 
-    return temp;
+    return resultado;
 
 }
 
 IntensidadeLuz IntensidadeLuz::operator * (double const escalar) const {
 
-    IntensidadeLuz temp;
+    IntensidadeLuz resultado;
 
-    for (std::size_t i = 0; i < 3; i++)
-        temp(i) = this->valores[i] * escalar;
+    resultado[0] = this->r * escalar;
+    resultado[1] = this->g * escalar;
+    resultado[2] = this->b * escalar;
 
-    temp.consertaIntensidade();
+    resultado.consertaIntensidade();
 
-    return temp;
+    return resultado;
+
+}
+
+double IntensidadeLuz::getR() const {
+
+    return this->r;
+
+}
+void IntensidadeLuz::setR(double r) {
+
+    this->r = r;
 
 }
 
-std::array<double, 3> IntensidadeLuz::getValores() const {
+double IntensidadeLuz::getG() const {
 
-    return this->valores;
+    return this->g;
 
 }
-void IntensidadeLuz::setValores(std::array<double, 3> val) {
+void IntensidadeLuz::setG(double g) {
 
-    this->valores = val;
-    this->consertaIntensidade();
-    
+    this->g = g;
+
+}
+
+double IntensidadeLuz::getB() const {
+
+    return this->b;
+
+}
+void IntensidadeLuz::setB(double b) {
+
+    this->b = b;
+
 }
 
 rgb IntensidadeLuz::paraRGB() const {
 
     rgb cor;
 
-    for (int i = 0; i < 3; i++) cor[i] = (canalRGB) (this->valores[i] * 255);
+    cor[0] = (canalRGB) (this->r * 255);
+    cor[1] = (canalRGB) (this->g * 255);
+    cor[2] = (canalRGB) (this->b * 255);
 
     return cor;
 
@@ -187,11 +221,13 @@ rgb IntensidadeLuz::paraRGB() const {
 
 void IntensidadeLuz::consertaIntensidade() {
 
-    for (int i = 0; i < 3; i++) {
+    if (this->r < 0.0) this->r = 0.0;
+    if (this->r > 1.0) this->r = 1.0;
 
-        if (this->valores[i] < 0.0f) this->valores[i] = 0.0f;
-        if (this->valores[i] > 1.0f) this->valores[i] = 1.0f;
+    if (this->g < 0.0) this->g = 0.0;
+    if (this->g > 1.0) this->g = 1.0;
 
-    }
+    if (this->b < 0.0) this->b = 0.0;
+    if (this->b > 1.0) this->b = 1.0;
 
 }
