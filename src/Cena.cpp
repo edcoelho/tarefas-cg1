@@ -4,11 +4,11 @@
 Cena::Cena() {
 
     // Definindo preto como a cor de fundo padrão.
-    this->setCorFundo(rgb(0, 0, 0));
+    this->setCorFundo(rgb{0, 0, 0});
     
 }
 
-Cena::Cena(rgb cf, i_luz I) {
+Cena::Cena(rgb cf, IntensidadeLuz I) {
 
     this->setCorFundo(cf);
     this->setIA(I);
@@ -37,14 +37,14 @@ void Cena::setFonteLuz(std::unique_ptr<LuzPontual> luz) {
 
 }
 
-i_luz Cena::getIA() {
+IntensidadeLuz Cena::getIA() {
 
     return this->iA;
 
 }
-void Cena::setIA(i_luz I) {
+void Cena::setIA(IntensidadeLuz I) {
 
-    this->iA = fixIntensidade(I);
+    this->iA = I;
 
 }
 
@@ -74,21 +74,21 @@ rgb Cena::corInterseccao(RaioRayCasting& raio) {
     double aux, m;
 
     // Vetores para auxiliar nos cálculos (vetorLuzPontual, vetorLuzPontual normalizado, vetorNormalPonto, vetorVisao, vetorReflexoLuz)
-    Eigen::Vector3d L, l, n, v, r;
+    Vetor3 L, l, n, v, r;
 
     // Ponto da intersecção.
-    ponto3D pInt;
+    Ponto3 pInt;
 
     // Ponteiro para o raio da fonte de luz pontual.
     std::unique_ptr<RaioRayCasting> raioLuz;
 
     // Intensidades ambiente, difusa e especular da energia luminosa que vem do ponto intersectado.
-    i_luz iA(0.0, 0.0, 0.0), iD(0.0, 0.0, 0.0), iE(0.0, 0.0, 0.0);
+    IntensidadeLuz iA(0.0, 0.0, 0.0), iD(0.0, 0.0, 0.0), iE(0.0, 0.0, 0.0);
     // Intensidade final da energia luminosa que vai para a câmera.
-    i_luz iF = RGBParaI(this->getCorFundo());
+    IntensidadeLuz iF(this->getCorFundo());
 
     // K ambiente do sólido, K difusão do sólido e K especulamento do sólido.
-    i_luz kA, kD, kE;
+    IntensidadeLuz kA, kD, kE;
 
     // -------------------------------------------------------------
     // --- CÁLCULO DA INTERSECÇÃO MAIS PRÓXIMA DO RAIO DA CÂMERA ---
@@ -197,7 +197,7 @@ rgb Cena::corInterseccao(RaioRayCasting& raio) {
             // Vetor que vai do ponto de intersecção até a posição da fonte de luz pontual.
             l = this->solidos.at(indiceSolido)->vetorLuzPontual(pInt, *(this->getFonteLuz()));
             // Normalizando o vetor l.
-            l.normalize();
+            l.normalizar();
 
             // Vetor normal ao sólido no ponto de intersecção.
             n = this->solidos.at(indiceSolido)->vetorNormalPonto(pInt);
@@ -209,7 +209,7 @@ rgb Cena::corInterseccao(RaioRayCasting& raio) {
             iD = this->getFonteLuz()->getIntensidade() * kD;
 
             // aux = (l . n)
-            aux = l.dot(n);
+            aux = l.pEscalar(n);
 
             // Se o produto escalar for negativo, ou seja, se o ângulo entre l e n está no intervalo (90º, 270º), então a intensidade difusa é zerada.
             aux = aux < 0 ? 0 : aux;
@@ -229,7 +229,7 @@ rgb Cena::corInterseccao(RaioRayCasting& raio) {
             r = this->solidos.at(indiceSolido)->vetorReflexo(pInt, *(this->getFonteLuz()));
 
             // aux = v . r
-            aux = v.dot(r);
+            aux = v.pEscalar(r);
 
             aux = aux < 0 ? 0 : aux;
 
@@ -243,11 +243,8 @@ rgb Cena::corInterseccao(RaioRayCasting& raio) {
         // Somando as intensidades para obter a intensidade final que vai para a câmera.
         iF = iA + iD + iE;
 
-        // Trazendo os valores da intensidade final para dentro do intervalo [0,1].
-        iF = fixIntensidade(iF);
-
     }
 
-    return IParaRGB(iF);
+    return iF.paraRGB();
 
 }

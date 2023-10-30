@@ -1,39 +1,38 @@
 #ifndef MATERIAL_HPP
 #define MATERIAL_HPP
 
-#include "utils.hpp"
+#include "utils/utils.hpp"
+#include "utils/IntensidadeLuz.hpp"
 
 class Material {
 
     private:
         // K ambiente
-        i_luz kA;
+        IntensidadeLuz kA;
         // K difusão
-        i_luz kD;
+        IntensidadeLuz kD;
         // K especulamento (cor da luz "refletida" pelo sólido)
-        i_luz kE;
+        IntensidadeLuz kE;
         // Expoente de espelhamento.
         double expEsp;
 
     public:
-        // Flag para os vetores do Eigen serem alocados adequadamente.
-        EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
         // --- CONSTRUTORES ---
 
         Material();
-        Material(i_luz ka, i_luz kd, i_luz ke, double e);
+        Material(IntensidadeLuz ka, IntensidadeLuz kd, IntensidadeLuz ke, double e);
 
         // --- GETTERS E SETTERS ---
 
-        i_luz getKA();
-        void setKA(i_luz k);
+        IntensidadeLuz getKA();
+        void setKA(IntensidadeLuz k);
 
-        i_luz getKD();
-        void setKD(i_luz k);
+        IntensidadeLuz getKD();
+        void setKD(IntensidadeLuz k);
 
-        i_luz getKE();
-        void setKE(i_luz k);
+        IntensidadeLuz getKE();
+        void setKE(IntensidadeLuz k);
 
         double getExpEsp();
         void setExpEsp(double e);

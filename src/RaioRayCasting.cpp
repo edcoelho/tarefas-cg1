@@ -1,46 +1,50 @@
 #include "RaioRayCasting.hpp"
-#include <eigen3/Eigen/Core>
 
-RaioRayCasting::RaioRayCasting() {}
+RaioRayCasting::RaioRayCasting() {
 
-RaioRayCasting::RaioRayCasting(ponto3D pI, ponto3D pX) {
+    this->setPInicial(Ponto3());
+    this->setVDirecao(Vetor3());
 
-    Eigen::Vector3d vD;
+}
+
+RaioRayCasting::RaioRayCasting(Ponto3 pI, Ponto3 pX) {
+
+    Vetor3 vD;
 
     // vD = (pX - pI) / mod(pX - pI)
     vD = pX - pI;
-    vD.normalize();
+    vD.normalizar();
 
     this->setPInicial(pI);
     this->setVDirecao(vD);
 
 }
 
-ponto3D RaioRayCasting::getPInicial() {
+Ponto3 RaioRayCasting::getPInicial() {
 
     return this->pInicial;
 
 }
-void RaioRayCasting::setPInicial(ponto3D pI) {
+void RaioRayCasting::setPInicial(Ponto3 pI) {
 
     this->pInicial = pI;
 
 }
 
-Eigen::Vector3d RaioRayCasting::getVDirecao() {
+Vetor3 RaioRayCasting::getVDirecao() {
 
     return this->vDirecao;
 
 }
-void RaioRayCasting::setVDirecao(Eigen::Vector3d vD) {
+void RaioRayCasting::setVDirecao(Vetor3 vD) {
 
     this->vDirecao = vD;
 
 }
 
-ponto3D RaioRayCasting::pontoDoRaio(double escalar) {
+Ponto3 RaioRayCasting::pontoDoRaio(double escalar) {
 
-    ponto3D pX;
+    Ponto3 pX;
 
     // P(t) = Pin + dr*t
     pX = this->getPInicial() + (this->getVDirecao() * escalar);

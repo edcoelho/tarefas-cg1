@@ -25,10 +25,10 @@ main: $(OBJ_FILES)
 	$(CXX) $(CXXFLAGS) $(OBJ_FILES) -o $@ $(LDLIBS)
 
 # Targets para compilação.
-$(BUILD_DIR)main.o: $(SRC_DIR)main.cpp $(INCLUDE_DIR)utils.hpp
+$(BUILD_DIR)main.o: $(SRC_DIR)main.cpp $(INCLUDE_DIR)utils/utils.hpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@ -I $(INCLUDE_DIR)
 
-$(BUILD_DIR)%.o: $(SRC_DIR)%.cpp $(INCLUDE_DIR)%.hpp $(INCLUDE_DIR)utils.hpp
+$(BUILD_DIR)%.o: $(SRC_DIR)%.cpp $(INCLUDE_DIR)%.hpp $(INCLUDE_DIR)utils/utils.hpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@ -I $(INCLUDE_DIR)
 
 # Target para criar o diretório build.

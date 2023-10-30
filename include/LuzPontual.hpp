@@ -1,38 +1,38 @@
 #ifndef LUZPONTUAL_HPP
 #define LUZPONTUAL_HPP
 
-#include "utils.hpp"
+#include "utils/utils.hpp"
+#include "utils/IntensidadeLuz.hpp"
+#include "algebra/Ponto3.hpp"
 
 class LuzPontual {
 
     private:
         // Posição do ponto de luz.
-        ponto3D posicao;
+        Ponto3 posicao;
         // Intensidade da luz.
-        i_luz intensidade;
+        IntensidadeLuz intensidade;
 
     public:
-        // Flag para os vetores do Eigen serem alocados adequadamente.
-        EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
         // --- CONSTRUTORES ---
 
         LuzPontual();
         // x, y, z: coordenadas do ponto
         // Ir, Ig, Ib: intensidade de cada canal
-        LuzPontual(double x, double y, double z, float Ir, float Ig, float Ib);
+        LuzPontual(double x, double y, double z, double Ir, double Ig, double Ib);
 
         // pos: posicao
         // I: intensidade
-        LuzPontual(ponto3D pos, i_luz I);
+        LuzPontual(Ponto3 pos, IntensidadeLuz I);
 
         // --- GETTERS E SETTERS ---
 
-        ponto3D getPosicao();
-        void setPosicao(ponto3D pos);
+        Ponto3 getPosicao();
+        void setPosicao(Ponto3 pos);
 
-        i_luz getIntensidade();
-        void setIntensidade(i_luz I);
+        IntensidadeLuz getIntensidade();
+        void setIntensidade(IntensidadeLuz I);
 
 };
 

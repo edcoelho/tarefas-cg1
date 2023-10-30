@@ -2,50 +2,46 @@
 
 LuzPontual::LuzPontual() {
 
-    this->setPosicao(ponto3D(0,0,0));
-    this->setIntensidade(i_luz(1,1,1));
+    this->setPosicao(Ponto3(0.0, 0.0, 0.0));
+    this->setIntensidade(IntensidadeLuz(1.0, 1.0, 1.0));
 
 }
 
-LuzPontual::LuzPontual(double x, double y, double z, float Ir, float Ig, float Ib) {
+LuzPontual::LuzPontual(double x, double y, double z, double Ir, double Ig, double Ib) {
 
-    ponto3D pos(x, y, z);
-    i_luz I(Ir, Ig, Ib);
-
-    I = fixIntensidade(I);
+    Ponto3 pos(x, y, z);
+    IntensidadeLuz I(Ir, Ig, Ib);
 
     this->setPosicao(pos);
     this->setIntensidade(I);
 
 }
 
-LuzPontual::LuzPontual(ponto3D pos, i_luz I) {
+LuzPontual::LuzPontual(Ponto3 pos, IntensidadeLuz I) {
 
     this->setPosicao(pos);
     this->setIntensidade(I);
 
 }
 
-// --- GETTERS E SETTERS ---
-
-ponto3D LuzPontual::getPosicao() {
+Ponto3 LuzPontual::getPosicao() {
 
     return this->posicao;
 
 }
-void LuzPontual::setPosicao(ponto3D pos) {
+void LuzPontual::setPosicao(Ponto3 pos) {
 
     this->posicao = pos;
 
 }
 
-i_luz LuzPontual::getIntensidade() {
+IntensidadeLuz LuzPontual::getIntensidade() {
 
     return this->intensidade;
 
 }
-void LuzPontual::setIntensidade(i_luz I) {
+void LuzPontual::setIntensidade(IntensidadeLuz I) {
 
-    this->intensidade = fixIntensidade(I);
+    this->intensidade = I;
 
 }

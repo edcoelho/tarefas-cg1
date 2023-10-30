@@ -3,28 +3,25 @@
 
 #include "Material.hpp"
 #include "Solido.hpp"
-#include "utils.hpp"
-#include <eigen3/Eigen/Core>
+#include "utils/utils.hpp"
 
 class Esfera : public Solido {
 
     private:
-        ponto3D centro;
+        Ponto3 centro;
         double raio;
 
     public:
-        // Flag para os vetores do Eigen serem alocados adequadamente.
-        EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
         // --- CONSTRUTORES ---
 
         Esfera();
-        Esfera(ponto3D c, double r, Material m);
+        Esfera(Ponto3 c, double r, Material m);
 
         // --- GETTERS E SETTERS ---
 
-        ponto3D getCentro();
-        void setCentro(ponto3D c);
+        Ponto3 getCentro();
+        void setCentro(Ponto3 c);
 
         double getRaio();
         void setRaio(double r);
@@ -39,7 +36,7 @@ class Esfera : public Solido {
         bool houveInterseccao(RaioRayCasting& raio) override;
 
         // Retorna o vetor unitário normal a superfície da esfera num ponto.
-        Eigen::Vector3d vetorNormalPonto(ponto3D ponto) override;
+        Vetor3 vetorNormalPonto(Ponto3 ponto) override;
 
 };
 
