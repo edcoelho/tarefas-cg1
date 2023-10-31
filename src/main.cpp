@@ -1,17 +1,4 @@
-#include <SDL2/SDL.h>
-
-#include "utils/utils.hpp"
-#include "utils/IntensidadeLuz.hpp"
-#include "algebra/Matriz3.hpp"
-#include "algebra/Vetor3.hpp"
-#include "algebra/Ponto3.hpp"
-#include "Cena.hpp"
-#include "LuzPontual.hpp"
-#include "RaioRayCasting.hpp"
-#include "Material.hpp"
-#include "Solido.hpp"
-#include "Esfera.hpp"
-#include "Plano.hpp"
+#include "utils/include_list.hpp"
 
 // -- CONSTANTES --
 

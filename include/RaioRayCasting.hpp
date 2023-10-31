@@ -1,7 +1,6 @@
 #ifndef RAIORAYCASTING_HPP
 #define RAIORAYCASTING_HPP
 
-#include "utils/utils.hpp"
 #include "algebra/Ponto3.hpp"
 #include "algebra/Vetor3.hpp"
 

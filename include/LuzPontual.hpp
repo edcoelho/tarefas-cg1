@@ -1,7 +1,6 @@
 #ifndef LUZPONTUAL_HPP
 #define LUZPONTUAL_HPP
 
-#include "utils/utils.hpp"
 #include "utils/IntensidadeLuz.hpp"
 #include "algebra/Ponto3.hpp"
 

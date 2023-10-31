@@ -6,7 +6,6 @@
 #include "Material.hpp"
 #include "algebra/Ponto3.hpp"
 #include "algebra/Vetor3.hpp"
-#include "utils/utils.hpp"
 
 class Solido {
 

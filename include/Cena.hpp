@@ -1,8 +1,9 @@
 #ifndef CENA_HPP
 #define CENA_HPP
 
+#include <memory>
+#include <vector>
 #include "Solido.hpp"
-#include "Esfera.hpp"
 #include "RaioRayCasting.hpp"
 #include "LuzPontual.hpp"
 #include "utils/utils.hpp"
