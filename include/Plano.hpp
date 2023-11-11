@@ -23,23 +23,20 @@ class Plano : public Solido {
 
         // --- GETTERS E SETTERS ---
 
-        Ponto3 getPX();
+        Ponto3 getPX() const;
         void setPX(Ponto3 p);
 
-        Vetor3 getVN();
+        Vetor3 getVN() const;
         void setVN(Vetor3 n);
 
         // --- MÉTODOS ---
 
-        // Se o plano for intersectado pelo RaioRayCasting "raio", retorna o escalar que é a distância entre o ponto inicial do raio e o ponto de intersecção mais próximo do ponto inicial do raio.
+        // Se o plano for intersectado pelo RaioRayCasting "raio", retorna o escalar que é a distância entre o ponto inicial do raio e o ponto de intersecção mais próximo.
         // Se não houver intersecção, retorna -1.
-        double escalarInterseccao(RaioRayCasting& raio) override;
-
-        // Retorna true se o plano for intersectado pelo RaioRayCasting "raio", em caso contrário retorna false.
-        bool houveInterseccao(RaioRayCasting& raio) override;
+        double escalarInterseccao(RaioRayCasting& raio) const override;
 
         // Retorna o vetor unitário normal a superfície do plano num ponto.
-        Vetor3 vetorNormalPonto(Ponto3 ponto) override;
+        Vetor3 vetorNormalPonto(Ponto3 ponto) const override;
 
 };
 

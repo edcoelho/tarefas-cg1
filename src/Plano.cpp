@@ -15,7 +15,7 @@ Plano::Plano(Ponto3 p, Vetor3 n, Material m) {
 
 }
 
-Ponto3 Plano::getPX() {
+Ponto3 Plano::getPX() const {
 
     return this->pX;
 
@@ -26,7 +26,7 @@ void Plano::setPX(Ponto3 p) {
 
 }
 
-Vetor3 Plano::getVN() {
+Vetor3 Plano::getVN() const {
 
     return this->vN;
 
@@ -37,7 +37,7 @@ void Plano::setVN(Vetor3 n) {
 
 }
 
-double Plano::escalarInterseccao(RaioRayCasting& raio) {
+double Plano::escalarInterseccao(RaioRayCasting& raio) const {
     
     // Escalar distância até a intersecção.
     double tInt;
@@ -58,28 +58,7 @@ double Plano::escalarInterseccao(RaioRayCasting& raio) {
 
 }
 
-bool Plano::houveInterseccao(RaioRayCasting& raio) {
-
-    // Escalar distância até a intersecção.
-    double tInt;
-
-    // pX: ponto conhecido do plano
-    // p0: ponto inicial do raio
-    // vN: vetor normal ao plano
-    // vDirecao: vetor direção do raio
-
-    // tInt = ((pX - p0) . vN) / (vDirecao . vN)
-
-    // tInt = (pX - p0) . vN)
-    tInt = (this->getPX() - raio.getPInicial()).pEscalar(this->getVN());
-    // tInt = tInt / (d . vDirecao);
-    tInt = tInt / raio.getVDirecao().pEscalar(this->getVN());
-
-    if (tInt > 0) return true; else return false;
-    
-}
-
-Vetor3 Plano::vetorNormalPonto(Ponto3 ponto) {
+Vetor3 Plano::vetorNormalPonto(Ponto3 ponto) const {
 
     return this->getVN();
 

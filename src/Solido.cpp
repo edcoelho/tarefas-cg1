@@ -8,7 +8,7 @@ Solido::Solido(Material m) {
 
 }
 
-Material Solido::getMaterial() {
+Material Solido::getMaterial() const {
     
     return this->material;
 
@@ -20,13 +20,13 @@ void Solido::setMaterial(Material m) {
 
 }
 
-Vetor3 Solido::vetorLuzPontual(Ponto3 ponto, LuzPontual& luz) {
+Vetor3 Solido::vetorLuzPontual(Ponto3 ponto, LuzPontual& luz) const {
 
     return luz.getPosicao() - ponto;
 
 }
 
-Vetor3 Solido::vetorReflexo(Ponto3 ponto, LuzPontual& luz) {
+Vetor3 Solido::vetorReflexo(Ponto3 ponto, LuzPontual& luz) const {
 
     Vetor3 n = this->vetorNormalPonto(ponto),
           l = this->vetorLuzPontual(ponto, luz);
@@ -37,7 +37,7 @@ Vetor3 Solido::vetorReflexo(Ponto3 ponto, LuzPontual& luz) {
 
 }
 
-Vetor3 Solido::vetorUnit(Ponto3 p0, Ponto3 pX) {
+Vetor3 Solido::vetorUnit(Ponto3 p0, Ponto3 pX) const {
 
     Vetor3 vDr = pX - p0;
 

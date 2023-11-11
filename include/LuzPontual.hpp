@@ -27,10 +27,10 @@ class LuzPontual {
 
         // --- GETTERS E SETTERS ---
 
-        Ponto3 getPosicao();
+        Ponto3 getPosicao() const;
         void setPosicao(Ponto3 pos);
 
-        IntensidadeLuz getIntensidade();
+        IntensidadeLuz getIntensidade() const;
         void setIntensidade(IntensidadeLuz I);
 
 };
