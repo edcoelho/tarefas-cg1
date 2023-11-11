@@ -16,7 +16,7 @@ Esfera::Esfera(Ponto3 c, double r, Material m) {
 
 }
 
-Ponto3 Esfera::getCentro() {
+Ponto3 Esfera::getCentro() const {
 
     return this->centro;
 
@@ -27,7 +27,7 @@ void Esfera::setCentro(Ponto3 c) {
 
 }
 
-double Esfera::getRaio() {
+double Esfera::getRaio() const {
 
     return this->raio;
 
@@ -38,7 +38,7 @@ void Esfera::setRaio(double r) {
 
 }
 
-double Esfera::escalarInterseccao(RaioRayCasting& raio) {
+double Esfera::escalarInterseccao(RaioRayCasting& raio) const {
 
     double delta = 0.0, // Delta da equação de 2º grau.
            a = 0.0, b = 0.0, c = 0.0, // Coscientes da equação de 2º grau.
@@ -76,31 +76,7 @@ double Esfera::escalarInterseccao(RaioRayCasting& raio) {
 
 }
 
-        
-bool Esfera::houveInterseccao(RaioRayCasting& raio) {
-
-    double delta = 0.0, // Delta da equação de 2º grau.
-           a = 0.0, b = 0.0, c = 0.0; // Coscientes da equação de 2º grau.
-
-    Vetor3 vAux; // Vetor para auxiliar nos cálculos.
-
-    // a = vDirecao . vDirecao
-    a = raio.getVDirecao().pEscalar(raio.getVDirecao());
-    // b = 2 ((pInicial - centroEsf) . vDirecao)
-    vAux = raio.getPInicial() - this->getCentro();
-    b = 2.0 * vAux.pEscalar(raio.getVDirecao());
-    // c = (pInicial - centroEsf) . (pInicial - centroEsf) - raioEsf²
-    c = vAux.pEscalar(vAux) - std::pow(this->getRaio(), 2);
-
-    //delta = b² - 4ac
-    delta = std::pow(b, 2) - 4*a*c;
-
-    if (delta >= 0) return true; else return false;
-
-}
-
-
-Vetor3 Esfera::vetorNormalPonto(Ponto3 ponto) {
+Vetor3 Esfera::vetorNormalPonto(Ponto3 ponto) const {
 
     Vetor3 n;
     

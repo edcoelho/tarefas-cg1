@@ -24,7 +24,7 @@ LuzPontual::LuzPontual(Ponto3 pos, IntensidadeLuz I) {
 
 }
 
-Ponto3 LuzPontual::getPosicao() {
+Ponto3 LuzPontual::getPosicao() const {
 
     return this->posicao;
 
@@ -35,7 +35,7 @@ void LuzPontual::setPosicao(Ponto3 pos) {
 
 }
 
-IntensidadeLuz LuzPontual::getIntensidade() {
+IntensidadeLuz LuzPontual::getIntensidade() const {
 
     return this->intensidade;
 

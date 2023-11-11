@@ -8,6 +8,7 @@
 #include <vector>
 #include <array>
 #include <memory>
+#include <cmath>
 
 // Headers implementados
 #include "utils/utils.hpp"
@@ -21,6 +22,7 @@
 #include "Solido.hpp"
 #include "Esfera.hpp"
 #include "Plano.hpp"
+#include "Cilindro.hpp"
 
 #include "Material.hpp"
 #include "LuzPontual.hpp"
