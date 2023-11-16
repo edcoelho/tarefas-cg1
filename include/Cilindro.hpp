@@ -29,20 +29,20 @@ class Cilindro : public Solido {
 
         Ponto3 getCentroBase() const;
         // Se o parâmetro "recalcular" receber o valor true, então os outros atributos do cilíndro são recalculados.
-        void setCentroBase(Ponto3 cb, bool recalcular = true);
+        void setCentroBase(Ponto3 cb, bool recalcular = false);
 
         Ponto3 getCentroTopo() const;
         // Se o parâmetro "recalcular" receber o valor true, então os outros atributos do cilíndro são recalculados.
-        void setCentroTopo(Ponto3 ct, bool recalcular = true);
+        void setCentroTopo(Ponto3 ct, bool recalcular = false);
 
         Vetor3 getDirecao() const;
         // Normaliza o vetor "d" antes de atribuir o seu valor ao vetor direção do cilíndro.
         // Se o parâmetro "recalcular" receber o valor true, então os outros atributos do cilíndro são recalculados.
-        void setDirecao(Vetor3 d, bool recalcular = true);
+        void setDirecao(Vetor3 d, bool recalcular = false);
 
         double getAltura() const;
         // Se o parâmetro "recalcular" receber o valor true, então os outros atributos do cilíndro são recalculados.
-        void setAltura(double a, bool recalcular = true);
+        void setAltura(double a, bool recalcular = false);
 
         double getRaio() const;
         void setRaio(double r);

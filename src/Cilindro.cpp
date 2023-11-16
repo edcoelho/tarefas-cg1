@@ -3,10 +3,10 @@
 
 Cilindro::Cilindro() {
 
-    this->setCentroBase(Ponto3(0.0, -1.0, 0.0), false);
-    this->setCentroTopo(Ponto3(0.0, 1.0, 0.0), false);
-    this->setDirecao(Vetor3(0.0, 1.0, 0.0), false);
-    this->setAltura(2, false);
+    this->setCentroBase(Ponto3(0.0, -1.0, 0.0));
+    this->setCentroTopo(Ponto3(0.0, 1.0, 0.0));
+    this->setDirecao(Vetor3(0.0, 1.0, 0.0));
+    this->setAltura(2);
     this->setRaio(1);
 
 }
@@ -15,10 +15,10 @@ Cilindro::Cilindro(Ponto3 centroBase, Ponto3 centroTopo, double raio, Material m
 
     Vetor3 vetorAltura = centroTopo - centroBase;
 
-    this->setCentroBase(centroBase, false);
-    this->setCentroTopo(centroTopo, false);
-    this->setDirecao(vetorAltura, false);
-    this->setAltura(vetorAltura.norma(), false);
+    this->setCentroBase(centroBase);
+    this->setCentroTopo(centroTopo);
+    this->setDirecao(vetorAltura);
+    this->setAltura(vetorAltura.norma());
     this->setRaio(raio);
     this->setMaterial(material);
 
@@ -26,12 +26,12 @@ Cilindro::Cilindro(Ponto3 centroBase, Ponto3 centroTopo, double raio, Material m
 
 Cilindro::Cilindro(Ponto3 centroBase, Vetor3 direcao, double raio, double altura, Material material) {
 
-    this->setCentroBase(centroBase, false);
-    this->setDirecao(direcao, false);
+    this->setCentroBase(centroBase);
+    this->setDirecao(direcao);
     this->setRaio(raio);
-    this->setAltura(altura, false);
+    this->setAltura(altura);
     this->setMaterial(material);
-    this->setCentroTopo(centroBase + (this->getDirecao() * altura), false);
+    this->setCentroTopo(centroBase + (this->getDirecao() * altura));
     
 }
 
@@ -48,7 +48,7 @@ void Cilindro::setCentroBase(Ponto3 cb, bool recalcular) {
 
     if (recalcular) {
 
-        this->setDirecao(vetorAltura, false);
+        this->setDirecao(vetorAltura);
         this->setAltura(vetorAltura.norma());
 
     }
@@ -68,7 +68,7 @@ void Cilindro::setCentroTopo(Ponto3 ct, bool recalcular) {
 
     if (recalcular) {
 
-        this->setDirecao(vetorAltura, false);
+        this->setDirecao(vetorAltura);
         this->setAltura(vetorAltura.norma());
 
     }
@@ -87,7 +87,7 @@ void Cilindro::setDirecao(Vetor3 d, bool recalcular) {
 
     if (recalcular) {
 
-        this->setCentroTopo(this->getCentroBase() + (this->getDirecao() * this->getAltura()), false);
+        this->setCentroTopo(this->getCentroBase() + (d * this->getAltura()));
 
     }
 
@@ -104,7 +104,7 @@ void Cilindro::setAltura(double a, bool recalcular) {
 
     if (recalcular) {
 
-        this->setCentroTopo(this->getCentroBase() + (this->getDirecao() * this->getAltura()), false);
+        this->setCentroTopo(this->getCentroBase() + (this->getDirecao() * this->getAltura()));
 
     }
 
@@ -159,7 +159,7 @@ double Cilindro::escalarInterseccao(RaioRayCasting& raio) const {
             t_int1 = (-b + std::sqrt(delta)) / (2.0 * a);
             t_int2 = (-b - std::sqrt(delta)) / (2.0 * a);
 
-            // Checando se a primeira raíz é uma intersecção válida.
+            // Anotando se a primeira raíz é uma intersecção válida.
             v_escalar_dc = (raio.pontoDoRaio(t_int1) - this->getCentroBase()).pEscalar(this->getDirecao());
 
             if (0.0 > v_escalar_dc || v_escalar_dc > this->getAltura()) {
@@ -168,7 +168,7 @@ double Cilindro::escalarInterseccao(RaioRayCasting& raio) const {
 
             }
 
-            // Checando se a segunda raíz é uma intersecção válida.
+            // Anotando se a segunda raíz é uma intersecção válida.
             v_escalar_dc = (raio.pontoDoRaio(t_int2) - this->getCentroBase()).pEscalar(this->getDirecao());
 
             if (0.0 > v_escalar_dc || v_escalar_dc > this->getAltura()) {
@@ -226,7 +226,7 @@ double Cilindro::escalarInterseccao(RaioRayCasting& raio) const {
 
                 } else {
 
-                    // Checando se o raio intersectou a base ou o centro ou nenhum dos dois.
+                    // Checando se o raio intersectou a base ou o topo ou nenhum dos dois.
                     if (t_int_base >= 0.0) {
 
                         t_int = t_int_base;
@@ -274,10 +274,12 @@ double Cilindro::escalarInterseccao(RaioRayCasting& raio) const {
 
         } else if (delta == 0.0) {
 
+            // Calculando a única intersecção com o corpo do cilíndro.
             t_int1 = -b / (2.0 * a);
 
             v_escalar_dc = (raio.pontoDoRaio(t_int1) - this->getCentroBase()).pEscalar(this->getDirecao());
 
+            // Checando se a intersecção é válida.
             if (0.0 <= v_escalar_dc && v_escalar_dc <= this->getAltura()) {
 
                 t_int = t_int1;
@@ -299,14 +301,14 @@ double Cilindro::escalarInterseccao(RaioRayCasting& raio) const {
         t_int_base = base.escalarInterseccao(raio);
         t_int_topo = topo.escalarInterseccao(raio);
 
-        // Checando se a intersecção com a base do cilíndro é válida.
+        // Anotando se a intersecção com a base do cilíndro é válida.
         if (t_int_base >= 0.0 && (raio.pontoDoRaio(t_int_base) - this->getCentroBase()).norma() > this->getRaio()) {
 
             t_int_base = -1.0;
 
         }
 
-        // Checando se a intersecção com o topo do cilíndro é válida.
+        // Anotando se a intersecção com o topo do cilíndro é válida.
         if (t_int_topo >= 0.0 && (raio.pontoDoRaio(t_int_topo) - this->getCentroTopo()).norma() > this->getRaio()) {
 
             t_int_topo = -1.0;
