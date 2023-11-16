@@ -19,7 +19,7 @@ const double z_J = -30.0;
 IntensidadeLuz I_A(0.3f, 0.3f, 0.3f);
 
 // Cor do background.
-const rgb bgColor{100, 100, 100};
+const rgb bgColor{0, 0, 0};
 
 // Posição do olho do pintor
 Ponto3 ponto_olho(0.0, 0.0, 0.0);
