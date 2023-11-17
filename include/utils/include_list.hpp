@@ -23,6 +23,7 @@
 #include "Esfera.hpp"
 #include "Plano.hpp"
 #include "Cilindro.hpp"
+#include "Cone.hpp"
 
 #include "Material.hpp"
 #include "LuzPontual.hpp"
