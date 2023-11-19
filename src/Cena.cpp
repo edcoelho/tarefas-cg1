@@ -54,7 +54,7 @@ void Cena::inserirSolido(std::unique_ptr<Solido> solido) {
 
 }
 
-rgb Cena::corInterseccao(RaioRayCasting& raio) {
+rgb Cena::corInterseccao(Raio& raio) {
 
     // Índice do sólido intersectado primeiro pelo raio da câmera.
     int indiceSolido = -1;
@@ -80,7 +80,7 @@ rgb Cena::corInterseccao(RaioRayCasting& raio) {
     Ponto3 pInt;
 
     // Ponteiro para o raio da fonte de luz pontual.
-    std::unique_ptr<RaioRayCasting> raioLuz;
+    std::unique_ptr<Raio> raioLuz;
 
     // Intensidades ambiente, difusa e especular da energia luminosa que vem do ponto intersectado.
     IntensidadeLuz iA(0.0, 0.0, 0.0), iD(0.0, 0.0, 0.0), iE(0.0, 0.0, 0.0);
@@ -155,7 +155,7 @@ rgb Cena::corInterseccao(RaioRayCasting& raio) {
         // -------------------------------------------------------------------
 
         // Instanciando o raio da fonte de luz.
-        raioLuz = std::make_unique<RaioRayCasting>(this->getFonteLuz()->getPosicao(), pInt);
+        raioLuz = std::make_unique<Raio>(this->getFonteLuz()->getPosicao(), pInt);
 
         // Checando se o raio da luz intersectou o primeiro sólido.
         tIntLuz = this->solidos.at(0)->escalarInterseccao(*raioLuz);

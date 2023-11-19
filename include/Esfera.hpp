@@ -27,9 +27,9 @@ class Esfera : public Solido {
 
         // --- MÉTODOS ---
 
-        // Se a esfera for intersectada pelo RaioRayCasting "raio", retorna o escalar que é a distância entre o ponto inicial do raio e o ponto de intersecção mais próximo.
+        // Se a esfera for intersectada pelo Raio "raio", retorna o escalar que é a distância entre o ponto inicial do raio e o ponto de intersecção mais próximo.
         // Se não houver intersecção, retorna -1.
-        double escalarInterseccao(RaioRayCasting& raio) const override;
+        double escalarInterseccao(Raio& raio) const override;
 
         // Retorna o vetor unitário normal a superfície da esfera num ponto.
         Vetor3 vetorNormalPonto(Ponto3 ponto) const override;

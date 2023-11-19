@@ -121,7 +121,7 @@ void Cilindro::setRaio(double r) {
 
 }
 
-double Cilindro::escalarInterseccao(RaioRayCasting& raio) const {
+double Cilindro::escalarInterseccao(Raio& raio) const {
 
     // w = P0 - centro_base
     Vetor3 w = raio.getPInicial() - this->getCentroBase();

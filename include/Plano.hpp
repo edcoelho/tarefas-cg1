@@ -31,9 +31,9 @@ class Plano : public Solido {
 
         // --- MÉTODOS ---
 
-        // Se o plano for intersectado pelo RaioRayCasting "raio", retorna o escalar que é a distância entre o ponto inicial do raio e o ponto de intersecção mais próximo.
+        // Se o plano for intersectado pelo Raio "raio", retorna o escalar que é a distância entre o ponto inicial do raio e o ponto de intersecção mais próximo.
         // Se não houver intersecção, retorna -1.
-        double escalarInterseccao(RaioRayCasting& raio) const override;
+        double escalarInterseccao(Raio& raio) const override;
 
         // Retorna o vetor unitário normal a superfície do plano num ponto.
         Vetor3 vetorNormalPonto(Ponto3 ponto) const override;

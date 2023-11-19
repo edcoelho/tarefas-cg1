@@ -37,7 +37,7 @@ matrizCores calcularMatrizCores() {
     // Criando a cena.
     Cena cena(bgColor, I_A);
     // Criando um ponteiro para um objeto raio para o ray casting.
-    std::unique_ptr<RaioRayCasting> raio;
+    std::unique_ptr<Raio> raio;
     // Criando a matriz de cores que serão pintadas na janela.
     matrizCores cores;
 
@@ -57,7 +57,7 @@ matrizCores calcularMatrizCores() {
             cX = (double) -W_J/2.0 + Dx/2.0 + c*Dx;
 
             // Lançando o raio.
-            raio = std::make_unique<RaioRayCasting>(ponto_olho, Ponto3(cX, cY, z_J));
+            raio = std::make_unique<Raio>(ponto_olho, Ponto3(cX, cY, z_J));
             cores[c][l] = cena.corInterseccao(*raio);
 
         }

@@ -18,7 +18,7 @@
 #include "algebra/Vetor3.hpp"
 #include "algebra/Ponto3.hpp"
 
-#include "RaioRayCasting.hpp"
+#include "Raio.hpp"
 #include "Solido.hpp"
 #include "Esfera.hpp"
 #include "Plano.hpp"

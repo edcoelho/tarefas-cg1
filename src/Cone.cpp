@@ -121,7 +121,7 @@ void Cone::setAltura(double a, bool recalcular) {
 
 }
 
-double Cone::escalarInterseccao(RaioRayCasting& raio) const {
+double Cone::escalarInterseccao(Raio& raio) const {
 
     // w = raio.p0 - centro_base
     Vetor3 w = raio.getPInicial() - this->getCentroBase();

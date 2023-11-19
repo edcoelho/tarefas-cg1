@@ -37,7 +37,7 @@ void Plano::setVN(Vetor3 n) {
 
 }
 
-double Plano::escalarInterseccao(RaioRayCasting& raio) const {
+double Plano::escalarInterseccao(Raio& raio) const {
     
     // Escalar distância até a intersecção.
     double tInt;

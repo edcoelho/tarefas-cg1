@@ -1,10 +1,10 @@
-#ifndef RAIORAYCASTING_HPP
-#define RAIORAYCASTING_HPP
+#ifndef RAIO_HPP
+#define RAIO_HPP
 
 #include "algebra/Ponto3.hpp"
 #include "algebra/Vetor3.hpp"
 
-class RaioRayCasting {
+class Raio {
 
     private:
         // Ponto inicial.
@@ -16,11 +16,11 @@ class RaioRayCasting {
 
         // --- CONSTRUTORES ---
 
-        RaioRayCasting();
+        Raio();
 
         // pI: ponto inicial do raio
         // pX: outro ponto qualquer do raio
-        RaioRayCasting(Ponto3 pI, Ponto3 pX);
+        Raio(Ponto3 pI, Ponto3 pX);
 
         // --- GETTERS E SETTERS ---
 

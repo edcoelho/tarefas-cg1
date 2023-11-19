@@ -49,9 +49,9 @@ class Cilindro : public Solido {
 
         // --- MÉTODOS ---
 
-        // Se o cilíndro for intersectado pelo RaioRayCasting "raio", retorna o escalar que é a distância entre o ponto inicial do raio e o ponto de intersecção mais próximo do ponto inicial do raio.
+        // Se o cilíndro for intersectado pelo Raio "raio", retorna o escalar que é a distância entre o ponto inicial do raio e o ponto de intersecção mais próximo do ponto inicial do raio.
         // Se não houver intersecção, retorna -1.
-        double escalarInterseccao(RaioRayCasting& raio) const override;
+        double escalarInterseccao(Raio& raio) const override;
 
         // Retorna o vetor unitário normal a superfície do cilíndro num ponto.
         Vetor3 vetorNormalPonto(Ponto3 ponto) const override;

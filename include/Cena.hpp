@@ -4,7 +4,7 @@
 #include <memory>
 #include <vector>
 #include "Solido.hpp"
-#include "RaioRayCasting.hpp"
+#include "Raio.hpp"
 #include "LuzPontual.hpp"
 #include "utils/utils.hpp"
 #include "utils/IntensidadeLuz.hpp"
@@ -48,7 +48,7 @@ class Cena {
         
         // Chaca qual sólido o raio intersectou primeiro, calcula a interação da luz com o sólido e retorna a cor rgb correspondente.
         // Se o raio não intersectar nada, retorna a cor de fundo.
-        rgb corInterseccao(RaioRayCasting& raio);
+        rgb corInterseccao(Raio& raio);
 
 };
 

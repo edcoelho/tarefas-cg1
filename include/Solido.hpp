@@ -1,7 +1,7 @@
 #ifndef SOLIDO_HPP
 #define SOLIDO_HPP
 
-#include "RaioRayCasting.hpp"
+#include "Raio.hpp"
 #include "LuzPontual.hpp"
 #include "Material.hpp"
 #include "algebra/Ponto3.hpp"
@@ -26,9 +26,9 @@ class Solido {
 
         // --- MÉTODOS ---
 
-        // Se o sólido for intersectado pelo RaioRayCasting "raio", retorna o escalar que é a distância entre o ponto inicial do raio e o ponto de intersecção mais próximo.
+        // Se o sólido for intersectado pelo Raio "raio", retorna o escalar que é a distância entre o ponto inicial do raio e o ponto de intersecção mais próximo.
         // Se não houver intersecção, retorna -1.
-        virtual double escalarInterseccao(RaioRayCasting& raio) const = 0;
+        virtual double escalarInterseccao(Raio& raio) const = 0;
 
         // Retorna o vetor unitário normal a superfície do sólido num ponto.
         virtual Vetor3 vetorNormalPonto(Ponto3 ponto) const = 0;
