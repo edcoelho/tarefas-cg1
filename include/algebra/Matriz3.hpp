@@ -6,7 +6,9 @@
 class Matriz3 {
 
     private:
-        std::array<std::array<double, 3>, 3> elementos;
+        double a00, a01, a02;
+        double a10, a11, a12;
+        double a20, a21, a22;
 
     public:
         // --- CONSTRUTORES ---
@@ -55,6 +57,9 @@ class Matriz3 {
 
         // Retorna o produto de Hadamard da matriz por uma outra matriz.
         Matriz3 hadamard(Matriz3 const& matriz) const;
+
+        // Retorna um std::array<std::array<double, 3>, 3> com os elementos da matriz.
+        std::array<std::array<double, 3>, 3> std_array() const;
 
 };
 

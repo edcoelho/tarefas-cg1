@@ -48,17 +48,6 @@ class IntensidadeLuz {
             // Operador para multiplicar um escalar aos canais de intensidade de luz.
             IntensidadeLuz operator * (double const escalar) const;
 
-        // --- GETTERS E SETTERS ---
-
-            double get_r() const;
-            void set_r(double r);
-
-            double get_g() const;
-            void set_g(double g);
-
-            double get_b() const;
-            void set_b(double b);
-
         // --- OUTROS MÉTODOS ---
 
             // Retorna uma cor RGB correspondente à intensidade de luz.

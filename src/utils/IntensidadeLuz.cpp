@@ -174,39 +174,6 @@ IntensidadeLuz IntensidadeLuz::operator * (double const escalar) const {
 
 }
 
-double IntensidadeLuz::get_r() const {
-
-    return this->r;
-
-}
-void IntensidadeLuz::set_r(double r) {
-
-    this->r = r;
-
-}
-
-double IntensidadeLuz::get_g() const {
-
-    return this->g;
-
-}
-void IntensidadeLuz::set_g(double g) {
-
-    this->g = g;
-
-}
-
-double IntensidadeLuz::get_b() const {
-
-    return this->b;
-
-}
-void IntensidadeLuz::set_b(double b) {
-
-    this->b = b;
-
-}
-
 rgb IntensidadeLuz::cor_rgb() const {
 
     rgb cor;

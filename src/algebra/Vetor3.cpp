@@ -164,39 +164,6 @@ Vetor3 Vetor3::operator % (Vetor3 const& vetor) const {
 
 }
 
-double Vetor3::get_x() const {
-
-    return this->x;
-
-}
-void Vetor3::set_x(double x) {
-
-    this->x = x;
-
-}
-
-double Vetor3::get_y() const {
-
-    return this->y;
-
-}
-void Vetor3::set_y(double y) {
-
-    this->y = y;
-
-}
-
-double Vetor3::get_z() const {
-
-    return this->z;
-
-}
-void Vetor3::set_z(double z) {
-
-    this->z = z;
-
-}
-
 double Vetor3::norma() const {
 
     double norma;
@@ -244,9 +211,9 @@ Vetor3 Vetor3::unitario() const {
     Vetor3 vetor(this->x, this->y, this->z);
     double norma = vetor.norma();
 
-    vetor.set_x(this->x / norma);
-    vetor.set_y(this->y / norma);
-    vetor.set_z(this->z / norma);
+    vetor[0] = this->x / norma;
+    vetor[1] = this->y / norma;
+    vetor[2] = this->z / norma;
 
     return vetor;
 
@@ -274,5 +241,13 @@ Vetor3 Vetor3::vetorial(Vetor3 vetor) const {
     resultado[2] = (this->x * vetor[1]) - (this->y * vetor[0]);
 
     return resultado;
+
+}
+
+Vetor3 Vetor3::reflexo(Vetor3 v) const {
+
+    v.normalizar();
+
+    return (v * 2.0 * this->escalar(v)) - *this;
 
 }

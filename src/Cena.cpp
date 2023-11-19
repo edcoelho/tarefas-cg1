@@ -75,11 +75,7 @@ rgb Cena::cor_interseccao(Raio& raio) {
 
     // Vetores para auxiliar nos cálculos.
 
-    Vetor3 L, // vetor_luz_pontual
-           l, // vetor_luz_pontual normalizado
-           n, // vetor_normal_ponto
-           v, // vetorVisao
-           r; // vetor_reflexo
+    Vetor3 l, n, v, r;
 
     // Ponto da intersecção.
     Ponto3 p_int;
@@ -199,10 +195,8 @@ rgb Cena::cor_interseccao(Raio& raio) {
         // Checando se o raio da fonte de luz não intersecta nenhum outro objeto, o que bloquearia a chegada da luz no ponto de intersecção.
         if (indice_solido_luz == indice_solido) {
 
-            // Vetor que vai do ponto de intersecção até a posição da fonte de luz pontual.
-            l = this->solidos.at(indice_solido)->vetor_luz_pontual(p_int, *(this->get_fonte_luz()));
-            // Normalizando o vetor l.
-            l.normalizar();
+            // Vetor que vai do ponto de intersecção até a posição da fonte de luz pontual normalizado.
+            l = (this->get_fonte_luz()->get_posicao() - p_int).unitario();
 
             // Vetor normal ao sólido no ponto de intersecção.
             n = this->solidos.at(indice_solido)->vetor_normal_ponto(p_int);
@@ -229,9 +223,9 @@ rgb Cena::cor_interseccao(Raio& raio) {
             I_E = this->get_fonte_luz()->get_intensidade() * k_E;
 
             // Vetor que sai do sólido e vai em direção ao olho do câmera.
-            v = this->solidos.at(indice_solido)->vetor_unitario(p_int, raio.get_ponto_inicial());
+            v = (raio.get_ponto_inicial() - p_int).unitario();
             // Vetor "reflexo" da luz no sólido.
-            r = this->solidos.at(indice_solido)->vetor_reflexo(p_int, *(this->get_fonte_luz()));
+            r = l.reflexo(n);
 
             // aux = v . r
             aux = v.escalar(r);

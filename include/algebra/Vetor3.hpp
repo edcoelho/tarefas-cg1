@@ -51,17 +51,6 @@ class Vetor3 {
             // Operador para produto de Hadamard de dois vetores.
             Vetor3 operator % (Vetor3 const& vetor) const;
 
-        // --- GETTERS E SETTERS ---
-
-            double get_x() const;
-            void set_x(double x);
-
-            double get_y() const;
-            void set_y(double y);
-
-            double get_z() const;
-            void set_z(double z);
-
         // --- OUTROS MÉTODOS ---
 
             // Retorna a norma/módulo do vetor.
@@ -84,6 +73,9 @@ class Vetor3 {
 
             // Retorna o produto vetorial do vetor por um outro vetor v, mas se e somente se esses dois vetores forem tridimensionais.
             Vetor3 vetorial(Vetor3 v) const;
+
+            // Retorna o vetor refletido em relação a um outro vetor "v".
+            Vetor3 reflexo(Vetor3 v) const;
 
 };
 

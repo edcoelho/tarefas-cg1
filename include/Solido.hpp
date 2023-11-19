@@ -33,15 +33,6 @@ class Solido {
         // Retorna o vetor unitário normal a superfície do sólido num ponto.
         virtual Vetor3 vetor_normal_ponto(Ponto3 ponto) const = 0;
 
-        // Retorna o vetor NÃO UNITÁRIO que vai de um ponto da superfície do sólido até uma luz pontual.
-        virtual Vetor3 vetor_luz_pontual(Ponto3 ponto, LuzPontual& luz) const;
-
-        // Retorna o vetor unitário que é reflexo do vetor unitário que vai de um ponto da superfície do sólido até uma luz pontual
-        virtual Vetor3 vetor_reflexo(Ponto3 ponto, LuzPontual& luz) const;
-
-        // Retorna o vetor unitário que vai de um ponto p0 da superfície do sólido até um ponto pX qualquer.
-        virtual Vetor3 vetor_unitario(Ponto3 p0, Ponto3 pX) const;
-
 };
 
 #endif
