@@ -14,7 +14,7 @@ IntensidadeLuz::IntensidadeLuz(double r, double g, double b) {
     this->r = r;
     this->g = g;
     this->b = b;
-    this->consertaIntensidade();
+    this->consertar();
 
 }
 
@@ -23,19 +23,19 @@ IntensidadeLuz::IntensidadeLuz(std::array<double, 3> val) {
     this->r = val[0];
     this->g = val[1];
     this->b = val[2];
-    this->consertaIntensidade();
+    this->consertar();
 
 }
 
-IntensidadeLuz::IntensidadeLuz(rgb corRGB) {
+IntensidadeLuz::IntensidadeLuz(rgb cor_rgb) {
 
     std::size_t i;
 
-    this->r = ((double) corRGB[0]) / 255.0;
-    this->g = ((double) corRGB[1]) / 255.0;
-    this->b = ((double) corRGB[2]) / 255.0;
+    this->r = ((double) cor_rgb[0]) / 255.0;
+    this->g = ((double) cor_rgb[1]) / 255.0;
+    this->b = ((double) cor_rgb[2]) / 255.0;
 
-    this->consertaIntensidade();
+    this->consertar();
 
 }
 
@@ -99,7 +99,7 @@ IntensidadeLuz IntensidadeLuz::operator + (IntensidadeLuz const& intensidade) co
     resultado[1] = this->g + intensidade[1];
     resultado[2] = this->b + intensidade[2];
 
-    resultado.consertaIntensidade();
+    resultado.consertar();
 
     return resultado;
 }
@@ -112,7 +112,7 @@ IntensidadeLuz IntensidadeLuz::operator + (double const escalar) const {
     resultado[1] = this->g + escalar;
     resultado[2] = this->b + escalar;
 
-    resultado.consertaIntensidade();
+    resultado.consertar();
 
     return resultado;
 
@@ -126,7 +126,7 @@ IntensidadeLuz IntensidadeLuz::operator - (IntensidadeLuz const& intensidade) co
     resultado[1] = this->g - intensidade[1];
     resultado[2] = this->b - intensidade[2];
 
-    resultado.consertaIntensidade();
+    resultado.consertar();
 
     return resultado;
 
@@ -140,7 +140,7 @@ IntensidadeLuz IntensidadeLuz::operator - (double const escalar) const {
     resultado[1] = this->g - escalar;
     resultado[2] = this->b - escalar;
 
-    resultado.consertaIntensidade();
+    resultado.consertar();
 
     return resultado;
 
@@ -154,7 +154,7 @@ IntensidadeLuz IntensidadeLuz::operator * (IntensidadeLuz const& intensidade) co
     resultado[1] = this->g * intensidade[1];
     resultado[2] = this->b * intensidade[2];
 
-    resultado.consertaIntensidade();
+    resultado.consertar();
 
     return resultado;
 
@@ -168,58 +168,58 @@ IntensidadeLuz IntensidadeLuz::operator * (double const escalar) const {
     resultado[1] = this->g * escalar;
     resultado[2] = this->b * escalar;
 
-    resultado.consertaIntensidade();
+    resultado.consertar();
 
     return resultado;
 
 }
 
-double IntensidadeLuz::getR() const {
+double IntensidadeLuz::get_r() const {
 
     return this->r;
 
 }
-void IntensidadeLuz::setR(double r) {
+void IntensidadeLuz::set_r(double r) {
 
     this->r = r;
 
 }
 
-double IntensidadeLuz::getG() const {
+double IntensidadeLuz::get_g() const {
 
     return this->g;
 
 }
-void IntensidadeLuz::setG(double g) {
+void IntensidadeLuz::set_g(double g) {
 
     this->g = g;
 
 }
 
-double IntensidadeLuz::getB() const {
+double IntensidadeLuz::get_b() const {
 
     return this->b;
 
 }
-void IntensidadeLuz::setB(double b) {
+void IntensidadeLuz::set_b(double b) {
 
     this->b = b;
 
 }
 
-rgb IntensidadeLuz::paraRGB() const {
+rgb IntensidadeLuz::cor_rgb() const {
 
     rgb cor;
 
-    cor[0] = (canalRGB) (this->r * 255);
-    cor[1] = (canalRGB) (this->g * 255);
-    cor[2] = (canalRGB) (this->b * 255);
+    cor[0] = (canal_RGB) (this->r * 255);
+    cor[1] = (canal_RGB) (this->g * 255);
+    cor[2] = (canal_RGB) (this->b * 255);
 
     return cor;
 
 }
 
-void IntensidadeLuz::consertaIntensidade() {
+void IntensidadeLuz::consertar() {
 
     if (this->r < 0.0) this->r = 0.0;
     if (this->r > 1.0) this->r = 1.0;

@@ -145,12 +145,12 @@ Matriz3 Matriz3::operator % (Matriz3 const& matriz) const {
 
 }
 
-std::array<std::array<double, 3>, 3> Matriz3::getElementos() const {
+std::array<std::array<double, 3>, 3> Matriz3::get_elementos() const {
 
     return this->elementos;
 
 }
-void Matriz3::setElementos(std::array<std::array<double, 3>, 3> e) {
+void Matriz3::set_elementos(std::array<std::array<double, 3>, 3> e) {
 
     this->elementos = e;
 

@@ -4,91 +4,96 @@
 Cena::Cena() {
 
     // Definindo preto como a cor de fundo padrão.
-    this->setCorFundo(rgb{0, 0, 0});
+    this->set_cor_fundo(rgb{0, 0, 0});
     
 }
 
-Cena::Cena(rgb cf, IntensidadeLuz I) {
+Cena::Cena(rgb cor_fundo, IntensidadeLuz I_A) {
 
-    this->setCorFundo(cf);
-    this->setIA(I);
-
-}
-
-rgb Cena::getCorFundo() {
-
-    return this->corFundo;
-
-}
-void Cena::setCorFundo(rgb cor) {
-
-    this->corFundo = cor;
+    this->set_cor_fundo(cor_fundo);
+    this->set_I_A(I_A);
 
 }
 
-std::unique_ptr<LuzPontual>& Cena::getFonteLuz() {
+rgb Cena::get_cor_fundo() {
 
-    return this->fonteLuz;
-
-}
-void Cena::setFonteLuz(std::unique_ptr<LuzPontual> luz) {
-
-    this->fonteLuz = std::move(luz);
+    return this->cor_fundo;
 
 }
+void Cena::set_cor_fundo(rgb c) {
 
-IntensidadeLuz Cena::getIA() {
-
-    return this->iA;
-
-}
-void Cena::setIA(IntensidadeLuz I) {
-
-    this->iA = I;
+    this->cor_fundo = c;
 
 }
 
-void Cena::inserirSolido(std::unique_ptr<Solido> solido) {
+std::unique_ptr<LuzPontual>& Cena::get_fonte_luz() {
+
+    return this->fonte_luz;
+
+}
+void Cena::set_fonte_luz(std::unique_ptr<LuzPontual> luz) {
+
+    this->fonte_luz = std::move(luz);
+
+}
+
+IntensidadeLuz Cena::get_I_A() {
+
+    return this->I_A;
+
+}
+void Cena::set_I_A(IntensidadeLuz i) {
+
+    this->I_A = i;
+
+}
+
+void Cena::inserir_solido(std::unique_ptr<Solido> solido) {
 
     this->solidos.push_back(std::move(solido));
 
 }
 
-rgb Cena::corInterseccao(Raio& raio) {
+rgb Cena::cor_interseccao(Raio& raio) {
 
     // Índice do sólido intersectado primeiro pelo raio da câmera.
-    int indiceSolido = -1;
+    int indice_solido = -1;
     // Distância do ponto inicial do raio da câmera ao ponto de intersecção com um sólido.
-    double tInt;
+    double t_int;
     // Distância do ponto inicial do raio da câmera ao ponto de intersecção mais próximo com o sólido mais próximo.
-    double minTInt = -1.0;
+    double min_t_int = -1.0;
 
     // Índice do sólido intersectado primeiro pelo raio da fonte de luz pontual.
-    int indiceSolidoLuz = -1;
+    int indice_solido_luz = -1;
     // Distância do ponto inicial do raio da fonte de luz pontual ao ponto de intersecção com um sólido.
-    double tIntLuz;
+    double t_int_luz;
     // Distância do ponto inicial do raio da câmera ao ponto de intersecção mais próximo com o sólido mais próximo.
-    double minTIntLuz = -1.0;
+    double min_t_int_luz = -1.0;
 
     // Variável para auxiliar nos cálculos. (m = expoente de espelhamento)
     double aux, m;
 
-    // Vetores para auxiliar nos cálculos (vetorLuzPontual, vetorLuzPontual normalizado, vetorNormalPonto, vetorVisao, vetorReflexoLuz)
-    Vetor3 L, l, n, v, r;
+    // Vetores para auxiliar nos cálculos.
+
+    Vetor3 L, // vetor_luz_pontual
+           l, // vetor_luz_pontual normalizado
+           n, // vetor_normal_ponto
+           v, // vetorVisao
+           r; // vetor_reflexo
 
     // Ponto da intersecção.
-    Ponto3 pInt;
+    Ponto3 p_int;
 
     // Ponteiro para o raio da fonte de luz pontual.
-    std::unique_ptr<Raio> raioLuz;
+    std::unique_ptr<Raio> raio_luz;
 
     // Intensidades ambiente, difusa e especular da energia luminosa que vem do ponto intersectado.
-    IntensidadeLuz iA(0.0, 0.0, 0.0), iD(0.0, 0.0, 0.0), iE(0.0, 0.0, 0.0);
+    IntensidadeLuz I_A(0.0, 0.0, 0.0), I_D(0.0, 0.0, 0.0), I_E(0.0, 0.0, 0.0);
     // Intensidade final da energia luminosa que vai para a câmera.
-    IntensidadeLuz iF(this->getCorFundo());
+    IntensidadeLuz I_final(this->get_cor_fundo());
 
     // K ambiente do sólido, K difusão do sólido e K especulamento do sólido.
-    IntensidadeLuz kA, kD, kE;
+    IntensidadeLuz k_A, k_D, k_E;
 
     // -------------------------------------------------------------
     // --- CÁLCULO DA INTERSECÇÃO MAIS PRÓXIMA DO RAIO DA CÂMERA ---
@@ -98,35 +103,35 @@ rgb Cena::corInterseccao(Raio& raio) {
     if (this->solidos.size() >= 1) {
 
         // Checando o primeiro sólido.
-        tInt = this->solidos.at(0)->escalarInterseccao(raio);
-        if (tInt > 0.0) {
+        t_int = this->solidos.at(0)->escalar_interseccao(raio);
+        if (t_int > 0.0) {
             
-            minTInt = tInt;
-            indiceSolido = 0;
+            min_t_int = t_int;
+            indice_solido = 0;
 
         } 
 
         // Checando os outros sólidos.
         for (int i = 1; i < this->solidos.size(); i++) {
 
-            tInt = this->solidos.at(i)->escalarInterseccao(raio);
+            t_int = this->solidos.at(i)->escalar_interseccao(raio);
 
-            if (tInt > 0.0)
+            if (t_int > 0.0)
 
                 // Checando se o sólido anterior foi intersectado também.
-                if (minTInt > 0) {
+                if (min_t_int > 0) {
 
-                    if (tInt < minTInt) {
+                    if (t_int < min_t_int) {
 
-                        minTInt = tInt;
-                        indiceSolido = i;
+                        min_t_int = t_int;
+                        indice_solido = i;
 
                     }
                 
                 } else {
                     
-                    minTInt = tInt;
-                    indiceSolido = i;
+                    min_t_int = t_int;
+                    indice_solido = i;
 
                 }                
 
@@ -139,112 +144,112 @@ rgb Cena::corInterseccao(Raio& raio) {
     // -----------------------------
 
     // Antes de calcular as intensidades de luz, checa se houve alguma intersecção e se tem um ponto de luz presente na cena.
-    if (indiceSolido != -1 && this->getFonteLuz() != nullptr) {
+    if (indice_solido != -1 && this->get_fonte_luz() != nullptr) {
 
-        pInt = raio.pontoDoRaio(minTInt);
+        p_int = raio.ponto_do_raio(min_t_int);
 
         // Conseguindo o K ambiente do sólido.
-        kA = this->solidos.at(indiceSolido)->getMaterial().getKA();
+        k_A = this->solidos.at(indice_solido)->get_material().get_k_A();
 
-        // iA = Ia @ kA
+        // I_A = Ia @ k_A
         // Ia: intensidade da luz ambiente.
-        iA = this->getIA() * kA;
+        I_A = this->get_I_A() * k_A;
 
         // -------------------------------------------------------------------
         // --- CÁLCULO DA INTERSECÇÃO MAIS PRÓXIMA DO RAIO DA FONTE DE LUZ ---
         // -------------------------------------------------------------------
 
         // Instanciando o raio da fonte de luz.
-        raioLuz = std::make_unique<Raio>(this->getFonteLuz()->getPosicao(), pInt);
+        raio_luz = std::make_unique<Raio>(this->get_fonte_luz()->get_posicao(), p_int);
 
         // Checando se o raio da luz intersectou o primeiro sólido.
-        tIntLuz = this->solidos.at(0)->escalarInterseccao(*raioLuz);
-        if (tIntLuz != -1) {
+        t_int_luz = this->solidos.at(0)->escalar_interseccao(*raio_luz);
+        if (t_int_luz != -1) {
             
-            minTIntLuz = tIntLuz;
-            indiceSolidoLuz = 0;
+            min_t_int_luz = t_int_luz;
+            indice_solido_luz = 0;
 
         }
 
         // Checando se o raio da luz intersectou algum dos outros sólidos.
         for (int i = 1; i < this->solidos.size(); i++) {
 
-            tIntLuz = this->solidos.at(i)->escalarInterseccao(*raioLuz);
+            t_int_luz = this->solidos.at(i)->escalar_interseccao(*raio_luz);
 
-            if (tIntLuz > 0.0)
+            if (t_int_luz > 0.0)
             
-                if (minTIntLuz > 0.0) {
+                if (min_t_int_luz > 0.0) {
 
-                    if (tIntLuz < minTIntLuz) {
+                    if (t_int_luz < min_t_int_luz) {
 
-                        minTIntLuz = tIntLuz;
-                        indiceSolidoLuz = i;
+                        min_t_int_luz = t_int_luz;
+                        indice_solido_luz = i;
 
                     }
 
                 } else {
 
-                    minTIntLuz = tIntLuz;
-                    indiceSolidoLuz = i;
+                    min_t_int_luz = t_int_luz;
+                    indice_solido_luz = i;
 
                 }
 
         }
 
         // Checando se o raio da fonte de luz não intersecta nenhum outro objeto, o que bloquearia a chegada da luz no ponto de intersecção.
-        if (indiceSolidoLuz == indiceSolido) {
+        if (indice_solido_luz == indice_solido) {
 
             // Vetor que vai do ponto de intersecção até a posição da fonte de luz pontual.
-            l = this->solidos.at(indiceSolido)->vetorLuzPontual(pInt, *(this->getFonteLuz()));
+            l = this->solidos.at(indice_solido)->vetor_luz_pontual(p_int, *(this->get_fonte_luz()));
             // Normalizando o vetor l.
             l.normalizar();
 
             // Vetor normal ao sólido no ponto de intersecção.
-            n = this->solidos.at(indiceSolido)->vetorNormalPonto(pInt);
+            n = this->solidos.at(indice_solido)->vetor_normal_ponto(p_int);
 
             // Conseguindo o K difuso do sólido.
-            kD = this->solidos.at(indiceSolido)->getMaterial().getKD();
+            k_D = this->solidos.at(indice_solido)->get_material().get_k_D();
 
-            // iD = I @ Kd
-            iD = this->getFonteLuz()->getIntensidade() * kD;
+            // I_D = I @ Kd
+            I_D = this->get_fonte_luz()->get_intensidade() * k_D;
 
             // aux = (l . n)
-            aux = l.pEscalar(n);
+            aux = l.escalar(n);
 
             // Se o produto escalar for negativo, ou seja, se o ângulo entre l e n está no intervalo (90º, 270º), então a intensidade difusa é zerada.
             aux = aux < 0 ? 0 : aux;
             
-            // iD = iD * (l . n)
-            iD = iD * aux;
+            // I_D = I_D * (l . n)
+            I_D = I_D * aux;
 
             // Conseguindo o K especular do sólido.
-            kE = this->solidos.at(indiceSolido)->getMaterial().getKE();
+            k_E = this->solidos.at(indice_solido)->get_material().get_k_E();
 
-            // iE = I @ Ke
-            iE = this->getFonteLuz()->getIntensidade() * kE;
+            // I_E = I @ Ke
+            I_E = this->get_fonte_luz()->get_intensidade() * k_E;
 
             // Vetor que sai do sólido e vai em direção ao olho do câmera.
-            v = this->solidos.at(indiceSolido)->vetorUnit(pInt, raio.getPInicial());
+            v = this->solidos.at(indice_solido)->vetor_unitario(p_int, raio.get_ponto_inicial());
             // Vetor "reflexo" da luz no sólido.
-            r = this->solidos.at(indiceSolido)->vetorReflexo(pInt, *(this->getFonteLuz()));
+            r = this->solidos.at(indice_solido)->vetor_reflexo(p_int, *(this->get_fonte_luz()));
 
             // aux = v . r
-            aux = v.pEscalar(r);
+            aux = v.escalar(r);
 
             aux = aux < 0 ? 0 : aux;
 
-            m = this->solidos.at(indiceSolido)->getMaterial().getExpEsp();
+            m = this->solidos.at(indice_solido)->get_material().get_espelhamento();
 
-            // iE = iE * (v . r)^m
-            iE = iE * std::pow(aux, m);
+            // I_E = I_E * (v . r)^m
+            I_E = I_E * std::pow(aux, m);
 
         }
 
         // Somando as intensidades para obter a intensidade final que vai para a câmera.
-        iF = iA + iD + iE;
+        I_final = I_A + I_D + I_E;
 
     }
 
-    return iF.paraRGB();
+    return I_final.cor_rgb();
 
 }

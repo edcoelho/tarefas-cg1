@@ -8,9 +8,9 @@ class Raio {
 
     private:
         // Ponto inicial.
-        Ponto3 pInicial;
+        Ponto3 ponto_inicial;
         // Vetor direção.
-        Vetor3 vDirecao;
+        Vetor3 direcao;
 
     public:
 
@@ -18,22 +18,21 @@ class Raio {
 
         Raio();
 
-        // pI: ponto inicial do raio
-        // pX: outro ponto qualquer do raio
-        Raio(Ponto3 pI, Ponto3 pX);
+        // ponto_x: outro ponto qualquer do raio
+        Raio(Ponto3 ponto_inicial, Ponto3 ponto_x);
 
         // --- GETTERS E SETTERS ---
 
-        Ponto3 getPInicial();
-        void setPInicial(Ponto3 pI);
+        Ponto3 get_ponto_inicial();
+        void set_ponto_inicial(Ponto3 p);
 
-        Vetor3 getVDirecao();
-        void setVDirecao(Vetor3 vD);
+        Vetor3 get_direcao();
+        void set_direcao(Vetor3 d);
 
         // --- MÉTODOS ---
 
         // Retorna um ponto do raio que está a uma distância "escalar" do ponto inicial.
-        Ponto3 pontoDoRaio(double escalar);
+        Ponto3 ponto_do_raio(double escalar);
 
 };
 

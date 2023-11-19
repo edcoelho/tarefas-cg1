@@ -164,34 +164,34 @@ Vetor3 Vetor3::operator % (Vetor3 const& vetor) const {
 
 }
 
-double Vetor3::getX() const {
+double Vetor3::get_x() const {
 
     return this->x;
 
 }
-void Vetor3::setX(double x) {
+void Vetor3::set_x(double x) {
 
     this->x = x;
 
 }
 
-double Vetor3::getY() const {
+double Vetor3::get_y() const {
 
     return this->y;
 
 }
-void Vetor3::setY(double y) {
+void Vetor3::set_y(double y) {
 
     this->y = y;
 
 }
 
-double Vetor3::getZ() const {
+double Vetor3::get_z() const {
 
     return this->z;
 
 }
-void Vetor3::setZ(double z) {
+void Vetor3::set_z(double z) {
 
     this->z = z;
 
@@ -221,7 +221,7 @@ void Vetor3::normalizar() {
 
 }
 
-std::array<double, 3> Vetor3::paraStdArray() const {
+std::array<double, 3> Vetor3::std_array() const {
 
     std::array<double, 3> a;
 
@@ -233,7 +233,7 @@ std::array<double, 3> Vetor3::paraStdArray() const {
 
 }
 
-Ponto3 Vetor3::paraPonto() const {
+Ponto3 Vetor3::ponto() const {
 
     return Ponto3(this->x, this->y, this->z);
 
@@ -242,14 +242,17 @@ Ponto3 Vetor3::paraPonto() const {
 Vetor3 Vetor3::unitario() const {
 
     Vetor3 vetor(this->x, this->y, this->z);
+    double norma = vetor.norma();
 
-    vetor.normalizar();
+    vetor.set_x(this->x / norma);
+    vetor.set_y(this->y / norma);
+    vetor.set_z(this->z / norma);
 
     return vetor;
 
 };
 
-double Vetor3::pEscalar(Vetor3 vetor) const {
+double Vetor3::escalar(Vetor3 vetor) const {
 
     double resultado;
     std::size_t i;
@@ -262,7 +265,7 @@ double Vetor3::pEscalar(Vetor3 vetor) const {
 
 }
 
-Vetor3 Vetor3::pVetorial(Vetor3 vetor) const {
+Vetor3 Vetor3::vetorial(Vetor3 vetor) const {
 
     Vetor3 resultado;
 

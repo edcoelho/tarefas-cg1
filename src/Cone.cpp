@@ -3,130 +3,134 @@
 
 Cone::Cone() {
 
-    this->setCentroBase(Ponto3(0.0, -1.0, 0.0));
-    this->setVertice(Ponto3(0.0, 1.0, 0.0));
-    this->setDirecao(Vetor3(0.0, 1.0, 0.0));
-    this->setRaioBase(1);
-    this->setAltura(2);
+    this->set_centro_base(Ponto3(0.0, -1.0, 0.0));
+    this->set_vertice(Ponto3(0.0, 1.0, 0.0));
+    this->set_direcao(Vetor3(0.0, 1.0, 0.0));
+    this->set_raio_base(1);
+    this->set_altura(2);
 
 }
 
-Cone::Cone(Ponto3 centroBase, Ponto3 vertice, double raioBase, Material m) {
+Cone::Cone(Ponto3 centro_base, Ponto3 vertice, double raio_base, Material material) {
 
-    Vetor3 vetor_altura = vertice - centroBase;
+    Vetor3 vetor_altura = vertice - centro_base;
 
-    this->setCentroBase(centroBase);
-    this->setVertice(vertice);
-    this->setDirecao(vetor_altura);
-    this->setRaioBase(raioBase);
-    this->setAltura(vetor_altura.norma());
-    this->setMaterial(m);
-
-}
-
-Cone::Cone(Ponto3 centroBase, Vetor3 direcao, double raioBase, double altura, Material m) {
-
-    this->setCentroBase(centroBase);
-    this->setVertice(centroBase + (direcao * altura));
-    this->setDirecao(direcao);
-    this->setRaioBase(raioBase);
-    this->setAltura(altura);
-    this->setMaterial(m);
+    this->set_centro_base(centro_base);
+    this->set_vertice(vertice);
+    this->set_direcao(vetor_altura);
+    this->set_raio_base(raio_base);
+    this->set_altura(vetor_altura.norma());
+    this->set_material(material);
 
 }
 
-Ponto3 Cone::getCentroBase() const {
+Cone::Cone(Ponto3 centro_base, Vetor3 direcao, double raio_base, double altura, Material material) {
 
-    return this->centroBase;
+    this->set_centro_base(centro_base);
+    this->set_vertice(centro_base + (direcao * altura));
+    this->set_direcao(direcao);
+    this->set_raio_base(raio_base);
+    this->set_altura(altura);
+    this->set_material(material);
 
 }
-void Cone::setCentroBase(Ponto3 cb, bool recalcular) {
 
-    Vetor3 vetor_altura = this->getVertice() - cb;
+Ponto3 Cone::get_centro_base() const {
 
-    this->centroBase = cb;
+    return this->centro_base;
+
+}
+void Cone::set_centro_base(Ponto3 cb, bool recalcular) {
+
+    Vetor3 vetor_altura;
+
+    this->centro_base = cb;
 
     if (recalcular) {
 
-        this->setDirecao(vetor_altura);
-        this->setAltura(vetor_altura.norma());
+        vetor_altura = this->get_vertice() - cb;
+
+        this->set_direcao(vetor_altura);
+        this->set_altura(vetor_altura.norma());
 
     }
 
 }
 
-Ponto3 Cone::getVertice() const {
+Ponto3 Cone::get_vertice() const {
 
     return this->vertice;
 
 }
-void Cone::setVertice(Ponto3 v, bool recalcular) {
+void Cone::set_vertice(Ponto3 v, bool recalcular) {
 
-    Vetor3 vetor_altura = v - this->getCentroBase();
+    Vetor3 vetor_altura;
 
     this->vertice = v;
 
     if (recalcular) {
 
-        this->setDirecao(vetor_altura);
-        this->setAltura(vetor_altura.norma());
+        vetor_altura = v - this->get_centro_base();
+
+        this->set_direcao(vetor_altura);
+        this->set_altura(vetor_altura.norma());
 
     }
 
 }
 
-Vetor3 Cone::getDirecao() const {
+Vetor3 Cone::get_direcao() const {
 
     return this->direcao;
 
 }
-void Cone::setDirecao(Vetor3 d, bool recalcular) {
+void Cone::set_direcao(Vetor3 d, bool recalcular) {
 
     d.normalizar();
     this->direcao = d;
 
     if (recalcular) {
 
-        this->setVertice(this->getCentroBase() + (d * this->getAltura()));
+        this->set_vertice(this->get_centro_base() + (d * this->get_altura()));
 
     }
 
 }
 
-double Cone::getRaioBase() const {
+double Cone::get_raio_base() const {
 
-    return this->raioBase;
-
-}
-void Cone::setRaioBase(double r) {
-
-    this->raioBase = r;
+    return this->raio_base;
 
 }
+void Cone::set_raio_base(double r) {
 
-double Cone::getAltura() const {
+    this->raio_base = r;
+
+}
+
+double Cone::get_altura() const {
 
     return this->altura;
 
 }
-void Cone::setAltura(double a, bool recalcular) {
+void Cone::set_altura(double a, bool recalcular) {
 
     this->altura = a;
 
     if (recalcular) {
 
-        this->setVertice(this->getCentroBase() + (this->getDirecao() * this->getAltura()));
+        this->set_vertice(this->get_centro_base() + (this->get_direcao() * a));
 
     }
 
 }
 
-double Cone::escalarInterseccao(Raio& raio) const {
+double Cone::escalar_interseccao(Raio& raio) const {
 
     // w = raio.p0 - centro_base
-    Vetor3 w = raio.getPInicial() - this->getCentroBase();
+    Vetor3 w = raio.get_ponto_inicial() - this->get_centro_base();
 
-    Plano base(this->getCentroBase(), this->getDirecao(), this->getMaterial());
+    Plano base(this->get_centro_base(), this->get_direcao(), this->get_material());
 
     double delta = 0.0, // Delta da equação de 2º grau.
            a = 0.0, b = 0.0, c = 0.0, // Coscientes da equação de 2º grau.
@@ -134,20 +138,20 @@ double Cone::escalarInterseccao(Raio& raio) const {
            t_int1 = 0.0, t_int2 = 0.0, // Distâncias do início do raio até os pontos de intersecção.
            t_int_base = 0.0, // Distância do início do raio até o ponto de intersecção com a base do cone.
 
-           beta = std::pow(this->getAltura(), 2) / std::pow(this->getRaioBase(), 2), // beta = altura_cone² / raio_cone²
-           dr_escalar_dc = raio.getVDirecao().pEscalar(this->getDirecao()), // Resultado do produto escalar da direção do raio com a direção do cone.
-           w_escalar_dr = w.pEscalar(raio.getVDirecao()), // Resultado do produto escalar do vetor com o vetor direção do raio.
-           w_escalar_dc = w.pEscalar(this->getDirecao()), // Resultado do produto escalar do vetor w com o vetor direção do cone.
+           beta = std::pow(this->get_altura(), 2) / std::pow(this->get_raio_base(), 2), // beta = altura_cone² / raio_cone²
+           dr_escalar_dc = raio.get_direcao().escalar(this->get_direcao()), // Resultado do produto escalar da direção do raio com a direção do cone.
+           w_escalar_dr = w.escalar(raio.get_direcao()), // Resultado do produto escalar do vetor com o vetor direção do raio.
+           w_escalar_dc = w.escalar(this->get_direcao()), // Resultado do produto escalar do vetor w com o vetor direção do cone.
            v_escalar_dc = 0.0; // Resultado do produto escalar do vetor v (ponto_inicial_raio - centro_base) com a direção do cone.
 
     // a = beta - beta*(dr . dc)² - (dr . dc)²
     a = beta - std::pow(dr_escalar_dc, 2)*(beta + 1.0);
 
     // b = 2*beta*(w . dr) - 2*beta*(w . dc)*(dr . dc) - 2*(w . dc)*(dr . dc) + 2*altura_cone*(dr . dc)
-    b = 2.0*(beta*(w_escalar_dr - w_escalar_dc*dr_escalar_dc) - w_escalar_dc*dr_escalar_dc + this->getAltura()*dr_escalar_dc);
+    b = 2.0*(beta*(w_escalar_dr - w_escalar_dc*dr_escalar_dc) - w_escalar_dc*dr_escalar_dc + this->get_altura()*dr_escalar_dc);
     
     // c = beta*(w . w) - beta*(w . dc)² - (w . dc)² - altura_cone² + 2*altura_cone*(w . dc)
-    c = beta*w.pEscalar(w) - std::pow(w_escalar_dc, 2)*(beta + 1.0) - std::pow(this->getAltura(), 2) + 2.0*this->getAltura()*w_escalar_dc;
+    c = beta*w.escalar(w) - std::pow(w_escalar_dc, 2)*(beta + 1.0) - std::pow(this->get_altura(), 2) + 2.0*this->get_altura()*w_escalar_dc;
     
     delta = std::pow(b, 2) - 4.0 * a * c;
 
@@ -158,18 +162,18 @@ double Cone::escalarInterseccao(Raio& raio) const {
         t_int2 = (-b - std::sqrt(delta)) / (2.0 * a);
 
         // Checando se a primeira raíz é uma intersecção válida.
-        v_escalar_dc = (raio.pontoDoRaio(t_int1) - this->getCentroBase()).pEscalar(this->getDirecao());  
+        v_escalar_dc = (raio.ponto_do_raio(t_int1) - this->get_centro_base()).escalar(this->get_direcao());  
 
-        if (0.0 > v_escalar_dc || v_escalar_dc > this->getAltura()) {
+        if (0.0 > v_escalar_dc || v_escalar_dc > this->get_altura()) {
 
             t_int1 = -1.0;
 
         }
 
         // Checando se a segunda raíz é uma intersecção válida.
-        v_escalar_dc = (raio.pontoDoRaio(t_int2) - this->getCentroBase()).pEscalar(this->getDirecao());
+        v_escalar_dc = (raio.ponto_do_raio(t_int2) - this->get_centro_base()).escalar(this->get_direcao());
 
-        if (0.0 > v_escalar_dc || v_escalar_dc > this->getAltura()) {
+        if (0.0 > v_escalar_dc || v_escalar_dc > this->get_altura()) {
 
             t_int2 = -1.0;
 
@@ -203,10 +207,10 @@ double Cone::escalarInterseccao(Raio& raio) const {
             }
 
             // Calculando a intersecção no plano da base.
-            t_int_base = base.escalarInterseccao(raio);
+            t_int_base = base.escalar_interseccao(raio);
 
             // Anotando se a intersecção com a base do cone é válida.
-            if (t_int_base >= 0.0 && (raio.pontoDoRaio(t_int_base) - this->getCentroBase()).norma() > this->getRaioBase()) {
+            if (t_int_base >= 0.0 && (raio.ponto_do_raio(t_int_base) - this->get_centro_base()).norma() > this->get_raio_base()) {
 
                 t_int_base = -1.0;
 
@@ -229,9 +233,9 @@ double Cone::escalarInterseccao(Raio& raio) const {
 
         t_int1 = -b / (2.0 * a);
 
-        v_escalar_dc = (raio.pontoDoRaio(t_int1) - this->getCentroBase()).pEscalar(this->getDirecao());
+        v_escalar_dc = (raio.ponto_do_raio(t_int1) - this->get_centro_base()).escalar(this->get_direcao());
 
-        if (0.0 <= v_escalar_dc && v_escalar_dc <= this->getAltura()) {
+        if (0.0 <= v_escalar_dc && v_escalar_dc <= this->get_altura()) {
 
             t_int = t_int1;
 
@@ -251,26 +255,26 @@ double Cone::escalarInterseccao(Raio& raio) const {
 
 }
 
-Vetor3 Cone::vetorNormalPonto(Ponto3 ponto) const {
+Vetor3 Cone::vetor_normal_ponto(Ponto3 ponto) const {
 
     Vetor3 ponto_vertice, n, v;
     double v_escalar_dc, erro = 1e-12;
 
-    ponto_vertice = this->getVertice() - ponto;
-    v = ponto - this->getCentroBase();
-    v_escalar_dc = v.pEscalar(this->getDirecao());
+    ponto_vertice = this->get_vertice() - ponto;
+    v = ponto - this->get_centro_base();
+    v_escalar_dc = v.escalar(this->get_direcao());
 
     if (0.0 + erro < v_escalar_dc) {
 
-        n = ponto_vertice.pVetorial(this->getDirecao());
-        n = n.pVetorial(ponto_vertice);
+        n = ponto_vertice.vetorial(this->get_direcao());
+        n = n.vetorial(ponto_vertice);
         n.normalizar();
 
         return n;
 
     } else {
 
-        return this->getDirecao() * -1.0;
+        return this->get_direcao() * -1.0;
 
     }
 

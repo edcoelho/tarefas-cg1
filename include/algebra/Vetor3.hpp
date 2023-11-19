@@ -53,14 +53,14 @@ class Vetor3 {
 
         // --- GETTERS E SETTERS ---
 
-            double getX() const;
-            void setX(double x);
+            double get_x() const;
+            void set_x(double x);
 
-            double getY() const;
-            void setY(double y);
+            double get_y() const;
+            void set_y(double y);
 
-            double getZ() const;
-            void setZ(double z);
+            double get_z() const;
+            void set_z(double z);
 
         // --- OUTROS MÉTODOS ---
 
@@ -70,20 +70,20 @@ class Vetor3 {
             // Normaliza o vetor.
             void normalizar();
 
-            // Retorna um std::vector<double> com os elementos do vetor.
-            std::array<double, 3> paraStdArray() const;
+            // Retorna um std::array<double, 3> com os elementos do vetor.
+            std::array<double, 3> std_array() const;
 
-            // Retorna um Vetor3 cujas coordenadas são os elementos do vetor.
-            Ponto3 paraPonto() const;
+            // Retorna um Ponto3 cujas coordenadas são os elementos do vetor.
+            Ponto3 ponto() const;
 
             // Retorna o vetor unitário.
             Vetor3 unitario() const;
 
             // Retorna o produto escalar do vetor por um outro vetor v.
-            double pEscalar(Vetor3 v) const;
+            double escalar(Vetor3 v) const;
 
             // Retorna o produto vetorial do vetor por um outro vetor v, mas se e somente se esses dois vetores forem tridimensionais.
-            Vetor3 pVetorial(Vetor3 v) const;
+            Vetor3 vetorial(Vetor3 v) const;
 
 };
 

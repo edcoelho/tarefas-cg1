@@ -8,35 +8,33 @@ class Plano : public Solido {
 
     private:
         // Ponto conhecido do plano.
-        Ponto3 pX;
+        Ponto3 ponto;
         // Vetor unitário normal ao plano.
-        Vetor3 vN;
+        Vetor3 normal;
 
     public:
 
         // --- CONSTRUTORES ---
 
         Plano();
-        // p: Ponto conhecido do plano.
-        // n: Vetor unitário normal ao plano.
-        Plano(Ponto3 p, Vetor3 n, Material m);
+        Plano(Ponto3 ponto, Vetor3 normal, Material material);
 
         // --- GETTERS E SETTERS ---
 
-        Ponto3 getPX() const;
-        void setPX(Ponto3 p);
+        Ponto3 get_ponto() const;
+        void set_ponto(Ponto3 p);
 
-        Vetor3 getVN() const;
-        void setVN(Vetor3 n);
+        Vetor3 get_normal() const;
+        void set_normal(Vetor3 n);
 
         // --- MÉTODOS ---
 
         // Se o plano for intersectado pelo Raio "raio", retorna o escalar que é a distância entre o ponto inicial do raio e o ponto de intersecção mais próximo.
         // Se não houver intersecção, retorna -1.
-        double escalarInterseccao(Raio& raio) const override;
+        double escalar_interseccao(Raio& raio) const override;
 
         // Retorna o vetor unitário normal a superfície do plano num ponto.
-        Vetor3 vetorNormalPonto(Ponto3 ponto) const override;
+        Vetor3 vetor_normal_ponto(Ponto3 ponto) const override;
 
 };
 

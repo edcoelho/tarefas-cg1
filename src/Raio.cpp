@@ -2,53 +2,44 @@
 
 Raio::Raio() {
 
-    this->setPInicial(Ponto3());
-    this->setVDirecao(Vetor3());
+    this->set_ponto_inicial(Ponto3());
+    this->set_direcao(Vetor3());
 
 }
 
-Raio::Raio(Ponto3 pI, Ponto3 pX) {
+Raio::Raio(Ponto3 ponto_inicial, Ponto3 ponto_x) {
 
-    Vetor3 vD;
-
-    // vD = (pX - pI) / mod(pX - pI)
-    vD = pX - pI;
-    vD.normalizar();
-
-    this->setPInicial(pI);
-    this->setVDirecao(vD);
+    this->set_ponto_inicial(ponto_inicial);
+    // vD = (ponto_x - ponto_inicial) / ||(ponto_x - ponto_inicial)||
+    this->set_direcao((ponto_x - ponto_inicial).unitario());
 
 }
 
-Ponto3 Raio::getPInicial() {
+Ponto3 Raio::get_ponto_inicial() {
 
-    return this->pInicial;
-
-}
-void Raio::setPInicial(Ponto3 pI) {
-
-    this->pInicial = pI;
+    return this->ponto_inicial;
 
 }
+void Raio::set_ponto_inicial(Ponto3 p) {
 
-Vetor3 Raio::getVDirecao() {
-
-    return this->vDirecao;
-
-}
-void Raio::setVDirecao(Vetor3 vD) {
-
-    this->vDirecao = vD;
+    this->ponto_inicial = p;
 
 }
 
-Ponto3 Raio::pontoDoRaio(double escalar) {
+Vetor3 Raio::get_direcao() {
 
-    Ponto3 pX;
+    return this->direcao;
 
-    // P(t) = Pin + dr*t
-    pX = this->getPInicial() + (this->getVDirecao() * escalar);
+}
+void Raio::set_direcao(Vetor3 d) {
 
-    return pX;
+    this->direcao = d;
+
+}
+
+Ponto3 Raio::ponto_do_raio(double escalar) {
+
+    // P(t) = ponto_inicial + dr*t
+    return this->get_ponto_inicial() + (this->get_direcao() * escalar);
 
 }

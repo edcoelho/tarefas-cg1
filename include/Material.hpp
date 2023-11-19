@@ -7,34 +7,34 @@ class Material {
 
     private:
         // K ambiente
-        IntensidadeLuz kA;
+        IntensidadeLuz k_A;
         // K difusão
-        IntensidadeLuz kD;
+        IntensidadeLuz k_D;
         // K especulamento (cor da luz "refletida" pelo sólido)
-        IntensidadeLuz kE;
+        IntensidadeLuz k_E;
         // Expoente de espelhamento.
-        double expEsp;
+        double espelhamento;
 
     public:
 
         // --- CONSTRUTORES ---
 
         Material();
-        Material(IntensidadeLuz ka, IntensidadeLuz kd, IntensidadeLuz ke, double e);
+        Material(IntensidadeLuz ka, IntensidadeLuz kd, IntensidadeLuz ke, double espelhamento);
 
         // --- GETTERS E SETTERS ---
 
-        IntensidadeLuz getKA();
-        void setKA(IntensidadeLuz k);
+        IntensidadeLuz get_k_A();
+        void set_k_A(IntensidadeLuz k);
 
-        IntensidadeLuz getKD();
-        void setKD(IntensidadeLuz k);
+        IntensidadeLuz get_k_D();
+        void set_k_D(IntensidadeLuz k);
 
-        IntensidadeLuz getKE();
-        void setKE(IntensidadeLuz k);
+        IntensidadeLuz get_k_E();
+        void set_k_E(IntensidadeLuz k);
 
-        double getExpEsp();
-        void setExpEsp(double e);
+        double get_espelhamento();
+        void set_espelhamento(double e);
 
 };
 

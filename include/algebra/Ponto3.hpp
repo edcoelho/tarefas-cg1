@@ -39,24 +39,24 @@ class Ponto3 {
 
         // --- GETTERS E SETTERS ---
 
-            double getX() const;
-            void setX(double x);
+            double get_x() const;
+            void set_x(double x);
 
-            double getY() const;
-            void setY(double y);
+            double get_y() const;
+            void set_y(double y);
 
-            double getZ() const;
-            void setZ(double z);
+            double get_z() const;
+            void set_z(double z);
 
         // --- OUTROS MÉTODOS ---
 
-            // Retorna um std::vector<double> com as coordenadas do ponto.
+            // Retorna um std::array<double, 3> com as coordenadas do ponto.
 
-            std::array<double, 3> paraStdArray() const;
+            std::array<double, 3> std_array() const;
 
             // Retorna um Vetor cujos elementos são as coordenadas do ponto.
 
-            Vetor3 paraVetor() const;
+            Vetor3 vetor() const;
 
 };
 

@@ -20,7 +20,7 @@ class IntensidadeLuz {
 
             IntensidadeLuz(std::array<double, 3> val);
 
-            IntensidadeLuz(rgb corRGB);
+            IntensidadeLuz(rgb cor_rgb);
 
         // --- OPERADORES ---
 
@@ -50,22 +50,22 @@ class IntensidadeLuz {
 
         // --- GETTERS E SETTERS ---
 
-            double getR() const;
-            void setR(double r);
+            double get_r() const;
+            void set_r(double r);
 
-            double getG() const;
-            void setG(double g);
+            double get_g() const;
+            void set_g(double g);
 
-            double getB() const;
-            void setB(double b);
+            double get_b() const;
+            void set_b(double b);
 
         // --- OUTROS MÉTODOS ---
 
             // Retorna uma cor RGB correspondente à intensidade de luz.
-            rgb paraRGB() const;
+            rgb cor_rgb() const;
 
             // Conserta os valores dos canais da intensidade de luz limitando-os ao intervalo [0,1].
-            void consertaIntensidade();
+            void consertar();
 
 };
 

@@ -15,24 +15,24 @@ class Esfera : public Solido {
         // --- CONSTRUTORES ---
 
         Esfera();
-        Esfera(Ponto3 c, double r, Material m);
+        Esfera(Ponto3 centro, double raio, Material material);
 
         // --- GETTERS E SETTERS ---
 
-        Ponto3 getCentro() const;
-        void setCentro(Ponto3 c);
+        Ponto3 get_centro() const;
+        void set_centro(Ponto3 centro);
 
-        double getRaio() const;
-        void setRaio(double r);
+        double get_raio() const;
+        void set_raio(double raio);
 
         // --- MÉTODOS ---
 
         // Se a esfera for intersectada pelo Raio "raio", retorna o escalar que é a distância entre o ponto inicial do raio e o ponto de intersecção mais próximo.
         // Se não houver intersecção, retorna -1.
-        double escalarInterseccao(Raio& raio) const override;
+        double escalar_interseccao(Raio& raio) const override;
 
         // Retorna o vetor unitário normal a superfície da esfera num ponto.
-        Vetor3 vetorNormalPonto(Ponto3 ponto) const override;
+        Vetor3 vetor_normal_ponto(Ponto3 ponto) const override;
 
 };
 

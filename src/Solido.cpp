@@ -2,47 +2,43 @@
 
 Solido::Solido() {}
 
-Solido::Solido(Material m) {
+Solido::Solido(Material material) {
 
-    this->setMaterial(m);
+    this->set_material(material);
 
 }
 
-Material Solido::getMaterial() const {
+Material Solido::get_material() const {
     
     return this->material;
 
 }
 
-void Solido::setMaterial(Material m) {
+void Solido::set_material(Material material) {
 
-    this->material = m;
-
-}
-
-Vetor3 Solido::vetorLuzPontual(Ponto3 ponto, LuzPontual& luz) const {
-
-    return luz.getPosicao() - ponto;
+    this->material = material;
 
 }
 
-Vetor3 Solido::vetorReflexo(Ponto3 ponto, LuzPontual& luz) const {
+Vetor3 Solido::vetor_luz_pontual(Ponto3 ponto, LuzPontual& luz) const {
 
-    Vetor3 n = this->vetorNormalPonto(ponto),
-          l = this->vetorLuzPontual(ponto, luz);
+    return luz.get_posicao() - ponto;
+
+}
+
+Vetor3 Solido::vetor_reflexo(Ponto3 ponto, LuzPontual& luz) const {
+
+    Vetor3 n = this->vetor_normal_ponto(ponto),
+           l = this->vetor_luz_pontual(ponto, luz);
 
     l.normalizar();
 
-    return (n * (2.0 * l.pEscalar(n))) - l;
+    return (n * (2.0 * l.escalar(n))) - l;
 
 }
 
-Vetor3 Solido::vetorUnit(Ponto3 p0, Ponto3 pX) const {
+Vetor3 Solido::vetor_unitario(Ponto3 p0, Ponto3 pX) const {
 
-    Vetor3 vDr = pX - p0;
-
-    vDr.normalizar();
-
-    return vDr;
+    return (pX - p0).unitario();
 
 }

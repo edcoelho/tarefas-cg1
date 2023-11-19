@@ -45,15 +45,15 @@ class Matriz3 {
 
     // --- GETTERS E SETTERS ---
 
-        std::array<std::array<double, 3>, 3> getElementos() const;
-        void setElementos(std::array<std::array<double, 3>, 3> e);
+        std::array<std::array<double, 3>, 3> get_elementos() const;
+        void set_elementos(std::array<std::array<double, 3>, 3> e);
 
     // --- OUTROS MÉTODOS ---
 
         // Retorna o determinante da matriz se ela for quadrada.
         double det() const;
 
-        // Retorna o produto de Hadamard da por uma outra matriz.
+        // Retorna o produto de Hadamard da matriz por uma outra matriz.
         Matriz3 hadamard(Matriz3 const& matriz) const;
 
 };

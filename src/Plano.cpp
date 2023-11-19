@@ -2,64 +2,64 @@
 
 Plano::Plano() {
 
-    this->setPX(Ponto3(0.0, 0.0, 0.0));
-    this->setVN(Vetor3(0.0, 1.0, 0.0));
+    this->set_ponto(Ponto3(0.0, 0.0, 0.0));
+    this->set_normal(Vetor3(0.0, 1.0, 0.0));
 
 }
 
-Plano::Plano(Ponto3 p, Vetor3 n, Material m) {
+Plano::Plano(Ponto3 ponto, Vetor3 normal, Material material) {
 
-    this->setPX(p);
-    this->setVN(n);
-    this->setMaterial(m);
-
-}
-
-Ponto3 Plano::getPX() const {
-
-    return this->pX;
-
-}
-void Plano::setPX(Ponto3 p) {
-
-    this->pX = p;
+    this->set_ponto(ponto);
+    this->set_normal(normal);
+    this->set_material(material);
 
 }
 
-Vetor3 Plano::getVN() const {
+Ponto3 Plano::get_ponto() const {
 
-    return this->vN;
-
-}
-void Plano::setVN(Vetor3 n) {
-
-    this->vN = n;
+    return this->ponto;
 
 }
+void Plano::set_ponto(Ponto3 p) {
 
-double Plano::escalarInterseccao(Raio& raio) const {
+    this->ponto = p;
+
+}
+
+Vetor3 Plano::get_normal() const {
+
+    return this->normal;
+
+}
+void Plano::set_normal(Vetor3 n) {
+
+    this->normal = n.unitario();
+
+}
+
+double Plano::escalar_interseccao(Raio& raio) const {
     
     // Escalar distância até a intersecção.
-    double tInt;
+    double t_int;
 
     // pX: ponto conhecido do plano
     // p0: ponto inicial do raio
     // vN: vetor normal ao plano
-    // vDirecao: vetor direção do raio
+    // dr: vetor direção do raio
 
-    // tInt = ((pX - p0) . vN) / (vDirecao . vN)
+    // t_int = ((pX - p0) . vN) / (dr . vN)
 
-    // tInt = (pX - p0) . vN)
-    tInt = (this->getPX() - raio.getPInicial()).pEscalar(this->getVN());
-    // tInt = tInt / (d . vDirecao);
-    tInt = tInt / raio.getVDirecao().pEscalar(this->getVN());
+    // t_int = (pX - p0) . vN)
+    t_int = (this->get_ponto() - raio.get_ponto_inicial()).escalar(this->get_normal());
+    // t_int = t_int / (d . dr);
+    t_int = t_int / raio.get_direcao().escalar(this->get_normal());
 
-    if (tInt > 0) return tInt; else return -1;
+    if (t_int > 0) return t_int; else return -1;
 
 }
 
-Vetor3 Plano::vetorNormalPonto(Ponto3 ponto) const {
+Vetor3 Plano::vetor_normal_ponto(Ponto3 ponto) const {
 
-    return this->getVN();
+    return this->get_normal();
 
 }

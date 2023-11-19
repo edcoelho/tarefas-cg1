@@ -2,62 +2,62 @@
 
 Material::Material() {
 
-    this->setKA(IntensidadeLuz(0.0, 0.0, 0.0));
-    this->setKD(rgb{150, 150, 150});
-    this->setKE(IntensidadeLuz(1.0, 1.0, 1.0));
-    this->setExpEsp(10);
+    this->set_k_A(IntensidadeLuz(0.0, 0.0, 0.0));
+    this->set_k_D(rgb{150, 150, 150});
+    this->set_k_E(IntensidadeLuz(1.0, 1.0, 1.0));
+    this->set_espelhamento(10);
 
 }
 
-Material::Material(IntensidadeLuz ka, IntensidadeLuz kd, IntensidadeLuz ke, double e) {
+Material::Material(IntensidadeLuz ka, IntensidadeLuz kd, IntensidadeLuz ke, double espelhamento) {
 
-    this->setKA(ka);
-    this->setKD(kd);
-    this->setKE(ke);
-    this->setExpEsp(e);
+    this->set_k_A(ka);
+    this->set_k_D(kd);
+    this->set_k_E(ke);
+    this->set_espelhamento(espelhamento);
 
 }
 
-IntensidadeLuz Material::getKA() {
+IntensidadeLuz Material::get_k_A() {
 
-    return this->kA;
+    return this->k_A;
     
 }
-void Material::setKA(IntensidadeLuz k) {
+void Material::set_k_A(IntensidadeLuz k) {
 
-    this->kA= k;
+    this->k_A= k;
    
 }
 
-IntensidadeLuz Material::getKD() {
+IntensidadeLuz Material::get_k_D() {
 
-    return this->kD;
+    return this->k_D;
     
 }
-void Material::setKD(IntensidadeLuz k) {
+void Material::set_k_D(IntensidadeLuz k) {
 
-    this->kD = k;
+    this->k_D = k;
    
 }
 
-IntensidadeLuz Material::getKE() {
+IntensidadeLuz Material::get_k_E() {
 
-    return this->kE;
+    return this->k_E;
     
 }
-void Material::setKE(IntensidadeLuz k) {
+void Material::set_k_E(IntensidadeLuz k) {
 
-    this->kE = k;
+    this->k_E = k;
    
 }
 
-double Material::getExpEsp() {
+double Material::get_espelhamento() {
 
-    return this->expEsp;
+    return this->espelhamento;
 
 }
-void Material::setExpEsp(double e) {
+void Material::set_espelhamento(double e) {
 
-    this->expEsp = e;
+    this->espelhamento = e;
 
 }
