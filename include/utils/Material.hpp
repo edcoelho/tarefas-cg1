@@ -1,7 +1,7 @@
-#ifndef MATERIAL_HPP
-#define MATERIAL_HPP
+#ifndef UTILS_MATERIAL_HPP
+#define UTILS_MATERIAL_HPP
 
-#include "utils/IntensidadeLuz.hpp"
+#include "luz/IntensidadeLuz.hpp"
 
 class Material {
 

@@ -1,5 +1,5 @@
-#ifndef RAIO_HPP
-#define RAIO_HPP
+#ifndef GEOMETRIA_RAIO_HPP
+#define GEOMETRIA_RAIO_HPP
 
 #include "algebra/Ponto3.hpp"
 #include "algebra/Vetor3.hpp"

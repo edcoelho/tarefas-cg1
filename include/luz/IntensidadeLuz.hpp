@@ -1,8 +1,8 @@
-#ifndef INTENSIDADELUZ_HPP
-#define INTENSIDADELUZ_HPP
+#ifndef LUZ_INTENSIDADELUZ_HPP
+#define LUZ_INTENSIDADELUZ_HPP
 
 #include <array>
-#include "utils/utils.hpp"
+#include "utils/tipos.hpp"
 
 class IntensidadeLuz {
 

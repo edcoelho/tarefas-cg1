@@ -1,5 +1,5 @@
-#ifndef UTILS_HPP
-#define UTILS_HPP
+#ifndef UTILS_TIPOS_HPP
+#define UTILS_TIPOS_HPP
 
 #include <array>
 

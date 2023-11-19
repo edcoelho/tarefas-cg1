@@ -1,8 +1,8 @@
-#ifndef PLANO_HPP
-#define PLANO_HPP
+#ifndef GEOMETRIA_PLANO_HPP
+#define GEOMETRIA_PLANO_HPP
 
-#include "Material.hpp"
-#include "Solido.hpp"
+#include "utils/Material.hpp"
+#include "geometria/Solido.hpp"
 
 class Plano : public Solido {
 

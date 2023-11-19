@@ -1,9 +1,9 @@
-#ifndef SOLIDO_HPP
-#define SOLIDO_HPP
+#ifndef GEOMETRIA_SOLIDO_HPP
+#define GEOMETRIA_SOLIDO_HPP
 
-#include "Raio.hpp"
-#include "LuzPontual.hpp"
-#include "Material.hpp"
+#include "geometria/Raio.hpp"
+#include "luz/LuzPontual.hpp"
+#include "utils/Material.hpp"
 #include "algebra/Ponto3.hpp"
 #include "algebra/Vetor3.hpp"
 

@@ -1,13 +1,13 @@
-#ifndef CENA_HPP
-#define CENA_HPP
+#ifndef CENA_CENA_HPP
+#define CENA_CENA_HPP
 
 #include <memory>
 #include <vector>
-#include "Solido.hpp"
-#include "Raio.hpp"
-#include "LuzPontual.hpp"
-#include "utils/utils.hpp"
-#include "utils/IntensidadeLuz.hpp"
+#include "geometria/Solido.hpp"
+#include "geometria/Raio.hpp"
+#include "luz/LuzPontual.hpp"
+#include "utils/tipos.hpp"
+#include "luz/IntensidadeLuz.hpp"
 
 class Cena {
 

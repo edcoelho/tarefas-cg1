@@ -1,9 +1,9 @@
-#ifndef CILINDRO_HPP
-#define CILINDRO_HPP
+#ifndef GEOMETRIA_CILINDRO_HPP
+#define GEOMETRIA_CILINDRO_HPP
 
-#include "Solido.hpp"
-#include "Plano.hpp"
-#include "Material.hpp"
+#include "geometria/Solido.hpp"
+#include "geometria/Plano.hpp"
+#include "utils/Material.hpp"
 #include "algebra/Ponto3.hpp"
 #include "algebra/Vetor3.hpp"
 

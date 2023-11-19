@@ -1,8 +1,8 @@
-#ifndef ESFERA_HPP
-#define ESFERA_HPP
+#ifndef GEOMETRIA_ESFERA_HPP
+#define GEOMETRIA_ESFERA_HPP
 
-#include "Material.hpp"
-#include "Solido.hpp"
+#include "utils/Material.hpp"
+#include "geometria/Solido.hpp"
 
 class Esfera : public Solido {
 

@@ -1,4 +1,4 @@
-#include "utils/IntensidadeLuz.hpp"
+#include "luz/IntensidadeLuz.hpp"
 #include <stdexcept>
 
 IntensidadeLuz::IntensidadeLuz() {

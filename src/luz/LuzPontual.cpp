@@ -1,4 +1,4 @@
-#include "LuzPontual.hpp"
+#include "luz/LuzPontual.hpp"
 
 LuzPontual::LuzPontual() {
 
