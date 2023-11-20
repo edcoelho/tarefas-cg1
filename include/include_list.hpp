@@ -26,7 +26,9 @@
 #include "geometria/Cone.hpp"
 
 #include "luz/IntensidadeLuz.hpp"
+#include "luz/FonteLuz.hpp"
 #include "luz/LuzPontual.hpp"
+#include "luz/LuzSpot.hpp"
 
 #include "cena/Cena.hpp"
 #include "cena/Camera.hpp"
