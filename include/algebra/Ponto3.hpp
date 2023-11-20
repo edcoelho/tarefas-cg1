@@ -37,26 +37,15 @@ class Ponto3 {
             // Operador para subtrair um ponto de outro ponto.
             Vetor3 operator - (Ponto3 ponto) const;
 
-        // --- GETTERS E SETTERS ---
-
-            double getX() const;
-            void setX(double x);
-
-            double getY() const;
-            void setY(double y);
-
-            double getZ() const;
-            void setZ(double z);
-
         // --- OUTROS MÉTODOS ---
 
-            // Retorna um std::vector<double> com as coordenadas do ponto.
+            // Retorna um std::array<double, 3> com as coordenadas do ponto.
 
-            std::array<double, 3> paraStdArray() const;
+            std::array<double, 3> std_array() const;
 
             // Retorna um Vetor cujos elementos são as coordenadas do ponto.
 
-            Vetor3 paraVetor() const;
+            Vetor3 vetor() const;
 
 };
 

@@ -164,39 +164,6 @@ Vetor3 Vetor3::operator % (Vetor3 const& vetor) const {
 
 }
 
-double Vetor3::getX() const {
-
-    return this->x;
-
-}
-void Vetor3::setX(double x) {
-
-    this->x = x;
-
-}
-
-double Vetor3::getY() const {
-
-    return this->y;
-
-}
-void Vetor3::setY(double y) {
-
-    this->y = y;
-
-}
-
-double Vetor3::getZ() const {
-
-    return this->z;
-
-}
-void Vetor3::setZ(double z) {
-
-    this->z = z;
-
-}
-
 double Vetor3::norma() const {
 
     double norma;
@@ -221,7 +188,7 @@ void Vetor3::normalizar() {
 
 }
 
-std::array<double, 3> Vetor3::paraStdArray() const {
+std::array<double, 3> Vetor3::std_array() const {
 
     std::array<double, 3> a;
 
@@ -233,7 +200,7 @@ std::array<double, 3> Vetor3::paraStdArray() const {
 
 }
 
-Ponto3 Vetor3::paraPonto() const {
+Ponto3 Vetor3::ponto() const {
 
     return Ponto3(this->x, this->y, this->z);
 
@@ -242,14 +209,17 @@ Ponto3 Vetor3::paraPonto() const {
 Vetor3 Vetor3::unitario() const {
 
     Vetor3 vetor(this->x, this->y, this->z);
+    double norma = vetor.norma();
 
-    vetor.normalizar();
+    vetor[0] = this->x / norma;
+    vetor[1] = this->y / norma;
+    vetor[2] = this->z / norma;
 
     return vetor;
 
 };
 
-double Vetor3::pEscalar(Vetor3 vetor) const {
+double Vetor3::escalar(Vetor3 vetor) const {
 
     double resultado;
     std::size_t i;
@@ -262,7 +232,7 @@ double Vetor3::pEscalar(Vetor3 vetor) const {
 
 }
 
-Vetor3 Vetor3::pVetorial(Vetor3 vetor) const {
+Vetor3 Vetor3::vetorial(Vetor3 vetor) const {
 
     Vetor3 resultado;
 
@@ -271,5 +241,13 @@ Vetor3 Vetor3::pVetorial(Vetor3 vetor) const {
     resultado[2] = (this->x * vetor[1]) - (this->y * vetor[0]);
 
     return resultado;
+
+}
+
+Vetor3 Vetor3::reflexo(Vetor3 v) const {
+
+    v.normalizar();
+
+    return (v * 2.0 * this->escalar(v)) - *this;
 
 }

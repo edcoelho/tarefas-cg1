@@ -9,7 +9,7 @@ Matriz3::Matriz3() {
 
         for (j = 0; j < 3; j++) {
 
-            this->elementos[i][j] = 0.0;
+            this->operator()(i, j) = 0.0;
 
         }
 
@@ -19,23 +19,27 @@ Matriz3::Matriz3() {
 
 Matriz3::Matriz3(double a00, double a01, double a02, double a10, double a11, double a12, double a20, double a21, double a22) {
 
-    this->elementos[0][0] = a00;
-    this->elementos[0][1] = a01;
-    this->elementos[0][2] = a02;
+    this->a00 = a00;
+    this->a01 = a01;
+    this->a02 = a02;
 
-    this->elementos[1][0] = a10;
-    this->elementos[1][1] = a11;
-    this->elementos[1][2] = a12;
+    this->a10 = a10;
+    this->a11 = a11;
+    this->a12 = a12;
 
-    this->elementos[2][0] = a20;
-    this->elementos[2][1] = a21;
-    this->elementos[2][2] = a22;
+    this->a20 = a20;
+    this->a21 = a21;
+    this->a22 = a22;
 
 }
 
 Matriz3::Matriz3(std::array<std::array<double, 3>, 3> e) {
 
-    this->elementos = e;
+    std::size_t i, j;
+
+    for (i = 0; i < 3; i++)
+        for (j = 0; j < 3; j++)
+            this->operator()(i, j) = e[i][j];
 
 }
 
@@ -43,7 +47,25 @@ double Matriz3::operator () (std::size_t linha, std::size_t coluna) const {
 
     if (linha >= 0 && linha < 3 && coluna >= 0 && coluna < 3) {
 
-        return this->elementos[linha][coluna];
+        if (linha == 0) {
+
+            if (coluna == 0) return this->a00;
+            if (coluna == 1) return this->a01;
+            if (coluna == 2) return this->a02;
+
+        } else if (linha == 1) {
+
+            if (coluna == 0) return this->a10;
+            if (coluna == 1) return this->a11;
+            if (coluna == 2) return this->a12;
+
+        } else {
+
+            if (coluna == 0) return this->a20;
+            if (coluna == 1) return this->a21;
+            if (coluna == 2) return this->a22;
+
+        }
 
     } else {
 
@@ -51,19 +73,43 @@ double Matriz3::operator () (std::size_t linha, std::size_t coluna) const {
 
     }
 
+    // Retorno para acalmar o compilador.
+    return this->a00;
+
 }
 
 double& Matriz3::operator () (std::size_t linha, std::size_t coluna) {
 
     if (linha >= 0 && linha < 3 && coluna >= 0 && coluna < 3) {
 
-        return this->elementos[linha][coluna];
+        if (linha == 0) {
+
+            if (coluna == 0) return this->a00;
+            if (coluna == 1) return this->a01;
+            if (coluna == 2) return this->a02;
+
+        } else if (linha == 1) {
+
+            if (coluna == 0) return this->a10;
+            if (coluna == 1) return this->a11;
+            if (coluna == 2) return this->a12;
+
+        } else {
+
+            if (coluna == 0) return this->a20;
+            if (coluna == 1) return this->a21;
+            if (coluna == 2) return this->a22;
+
+        }
 
     } else {
 
         throw std::invalid_argument("Erro: Tentativa de atribuição de valor a uma posição inválida de uma Matriz3!");
 
     }
+
+    // Retorno para acalmar o compilador.
+    return this->a00;
 
 }
 
@@ -74,7 +120,7 @@ Matriz3 Matriz3::operator + (Matriz3 const& matriz) const {
 
     for (i = 0; i < 3; i++)
         for (j = 0; j < 3; j++)
-            resultado(i, j) = this->elementos[i][j] + matriz(i,j);
+            resultado(i, j) = this->operator()(i, j) + matriz(i,j);
 
     return resultado;
 
@@ -87,7 +133,7 @@ Matriz3 Matriz3::operator + (double const escalar) const {
 
     for (i = 0; i < 3; i++)
         for (j = 0; j < 3; j++)
-            resultado(i, j) = this->elementos[i][j] + escalar;
+            resultado(i, j) = this->operator()(i, j) + escalar;
 
     return resultado;
 
@@ -100,7 +146,7 @@ Matriz3 Matriz3::operator - (Matriz3 const& matriz) const {
 
     for (i = 0; i < 3; i++)
         for (j = 0; j < 3; j++)
-            resultado(i, j) = this->elementos[i][j] - matriz(i,j);
+            resultado(i, j) = this->operator()(i, j) - matriz(i,j);
 
     return resultado;
 
@@ -113,7 +159,7 @@ Matriz3 Matriz3::operator - (double const escalar) const {
 
     for (i = 0; i < 3; i++)
         for (j = 0; j < 3; j++)
-            resultado(i, j) = this->elementos[i][j] - escalar;
+            resultado(i, j) = this->operator()(i, j) - escalar;
 
     return resultado;
 
@@ -126,7 +172,7 @@ Matriz3 Matriz3::operator * (double const escalar) const {
 
     for (i = 0; i < 3; i++)
         for (j = 0; j < 3; j++)
-            resultado(i, j) = this->elementos[i][j] * escalar;
+            resultado(i, j) = this->operator()(i, j) * escalar;
 
     return resultado;
 
@@ -139,20 +185,9 @@ Matriz3 Matriz3::operator % (Matriz3 const& matriz) const {
 
     for (i = 0; i < 3; i++)
         for (j = 0; j < 3; j++)
-            resultado(i, j) = this->elementos[i][j] * matriz(i,j);
+            resultado(i, j) = this->operator()(i, j) * matriz(i,j);
 
     return resultado;
-
-}
-
-std::array<std::array<double, 3>, 3> Matriz3::getElementos() const {
-
-    return this->elementos;
-
-}
-void Matriz3::setElementos(std::array<std::array<double, 3>, 3> e) {
-
-    this->elementos = e;
 
 }
 
@@ -161,7 +196,7 @@ double Matriz3::det() const {
     double determinante;
 
     // Regra de Sarrus
-    determinante = this->elementos[0][0] * this->elementos[1][1] * this->elementos[2][2] + this->elementos[0][1] * this->elementos[1][2] * this->elementos[2][0] + this->elementos[0][2] * this->elementos[1][0] * this->elementos[2][1] - this->elementos[0][2] * this->elementos[1][1] * this->elementos[2][0] - this->elementos[0][0] * this->elementos[1][2] * this->elementos[2][1] - this->elementos[0][1] * this->elementos[1][0] * this->elementos[2][2];
+    determinante = this->a00 * this->a11 * this->a22 + this->a01 * this->a12 * this->a20 + this->a02 * this->a10 * this->a21 - this->a02 * this->a11 * this->a20 - this->a00 * this->a12 * this->a21 - this->a01 * this->a10 * this->a22;
 
     return determinante;
 
@@ -173,7 +208,7 @@ Matriz3 Matriz3::hadamard(Matriz3 const& matriz) const {
 
     for (std::size_t i = 0; i < 3; i++)
         for (std::size_t j = 0; j < 3; j++)
-            resultado(i, j) = this->elementos[i][j] * matriz(i,j);
+            resultado(i, j) = this->operator()(i, j) * matriz(i,j);
 
     return resultado;
 

@@ -1,8 +1,8 @@
-#ifndef INTENSIDADELUZ_HPP
-#define INTENSIDADELUZ_HPP
+#ifndef LUZ_INTENSIDADELUZ_HPP
+#define LUZ_INTENSIDADELUZ_HPP
 
 #include <array>
-#include "utils/utils.hpp"
+#include "utils/tipos.hpp"
 
 class IntensidadeLuz {
 
@@ -20,7 +20,7 @@ class IntensidadeLuz {
 
             IntensidadeLuz(std::array<double, 3> val);
 
-            IntensidadeLuz(rgb corRGB);
+            IntensidadeLuz(rgb cor_rgb);
 
         // --- OPERADORES ---
 
@@ -48,24 +48,13 @@ class IntensidadeLuz {
             // Operador para multiplicar um escalar aos canais de intensidade de luz.
             IntensidadeLuz operator * (double const escalar) const;
 
-        // --- GETTERS E SETTERS ---
-
-            double getR() const;
-            void setR(double r);
-
-            double getG() const;
-            void setG(double g);
-
-            double getB() const;
-            void setB(double b);
-
         // --- OUTROS MÉTODOS ---
 
             // Retorna uma cor RGB correspondente à intensidade de luz.
-            rgb paraRGB() const;
+            rgb cor_rgb() const;
 
             // Conserta os valores dos canais da intensidade de luz limitando-os ao intervalo [0,1].
-            void consertaIntensidade();
+            void consertar();
 
 };
 

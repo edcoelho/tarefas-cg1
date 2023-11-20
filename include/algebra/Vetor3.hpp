@@ -51,17 +51,6 @@ class Vetor3 {
             // Operador para produto de Hadamard de dois vetores.
             Vetor3 operator % (Vetor3 const& vetor) const;
 
-        // --- GETTERS E SETTERS ---
-
-            double getX() const;
-            void setX(double x);
-
-            double getY() const;
-            void setY(double y);
-
-            double getZ() const;
-            void setZ(double z);
-
         // --- OUTROS MÉTODOS ---
 
             // Retorna a norma/módulo do vetor.
@@ -70,20 +59,23 @@ class Vetor3 {
             // Normaliza o vetor.
             void normalizar();
 
-            // Retorna um std::vector<double> com os elementos do vetor.
-            std::array<double, 3> paraStdArray() const;
+            // Retorna um std::array<double, 3> com os elementos do vetor.
+            std::array<double, 3> std_array() const;
 
-            // Retorna um Vetor3 cujas coordenadas são os elementos do vetor.
-            Ponto3 paraPonto() const;
+            // Retorna um Ponto3 cujas coordenadas são os elementos do vetor.
+            Ponto3 ponto() const;
 
             // Retorna o vetor unitário.
             Vetor3 unitario() const;
 
             // Retorna o produto escalar do vetor por um outro vetor v.
-            double pEscalar(Vetor3 v) const;
+            double escalar(Vetor3 v) const;
 
             // Retorna o produto vetorial do vetor por um outro vetor v, mas se e somente se esses dois vetores forem tridimensionais.
-            Vetor3 pVetorial(Vetor3 v) const;
+            Vetor3 vetorial(Vetor3 v) const;
+
+            // Retorna o vetor refletido em relação a um outro vetor "v".
+            Vetor3 reflexo(Vetor3 v) const;
 
 };
 

@@ -113,40 +113,7 @@ Vetor3 Ponto3::operator - (Ponto3 ponto) const {
 
 }
 
-double Ponto3::getX() const {
-
-    return this->x;
-
-}
-void Ponto3::setX(double x) {
-
-    this->x = x;
-
-}
-
-double Ponto3::getY() const {
-
-    return this->y;
-
-}
-void Ponto3::setY(double y) {
-
-    this->y = y;
-
-}
-
-double Ponto3::getZ() const {
-
-    return this->z;
-
-}
-void Ponto3::setZ(double z) {
-
-    this->z = z;
-
-}
-
-std::array<double, 3> Ponto3::paraStdArray() const {
+std::array<double, 3> Ponto3::std_array() const {
 
     std::array<double, 3> a;
 
@@ -158,7 +125,7 @@ std::array<double, 3> Ponto3::paraStdArray() const {
 
 }
 
-Vetor3 Ponto3::paraVetor() const {
+Vetor3 Ponto3::vetor() const {
 
     return Vetor3(this->x, this->y, this->z);
 
