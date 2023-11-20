@@ -1,43 +1,22 @@
 #include "cena/Cena.hpp"
 #include <cmath>
 
-Cena::Cena() {
+Cena::Cena() {}
 
-    // Definindo preto como a cor de fundo padrão.
-    this->set_cor_fundo(rgb{0, 0, 0});
-    
-}
+Cena::Cena(Camera camera, IntensidadeLuz I_A) {
 
-Cena::Cena(rgb cor_fundo, IntensidadeLuz I_A) {
-
-    this->set_cor_fundo(cor_fundo);
     this->set_I_A(I_A);
+    this->set_camera(camera);
 
 }
 
-rgb Cena::get_cor_fundo() {
-
-    return this->cor_fundo;
-
-}
-void Cena::set_cor_fundo(rgb c) {
-
-    this->cor_fundo = c;
-
-}
-
-std::unique_ptr<LuzPontual>& Cena::get_fonte_luz() {
-
-    return this->fonte_luz;
-
-}
 void Cena::set_fonte_luz(std::unique_ptr<LuzPontual> luz) {
 
     this->fonte_luz = std::move(luz);
 
 }
 
-IntensidadeLuz Cena::get_I_A() {
+IntensidadeLuz Cena::get_I_A() const {
 
     return this->I_A;
 
@@ -48,13 +27,24 @@ void Cena::set_I_A(IntensidadeLuz i) {
 
 }
 
+Camera Cena::get_camera() const {
+
+    return this->camera;
+
+}
+void Cena::set_camera(Camera c) {
+
+    this->camera = c;
+
+}
+
 void Cena::inserir_solido(std::unique_ptr<Solido> solido) {
 
     this->solidos.push_back(std::move(solido));
 
 }
 
-rgb Cena::cor_interseccao(Raio& raio) {
+rgb Cena::cor_interseccao(Raio& raio, rgb cor_padrao) const {
 
     // Índice do sólido intersectado primeiro pelo raio da câmera.
     int indice_solido = -1;
@@ -86,7 +76,7 @@ rgb Cena::cor_interseccao(Raio& raio) {
     // Intensidades ambiente, difusa e especular da energia luminosa que vem do ponto intersectado.
     IntensidadeLuz I_A(0.0, 0.0, 0.0), I_D(0.0, 0.0, 0.0), I_E(0.0, 0.0, 0.0);
     // Intensidade final da energia luminosa que vai para a câmera.
-    IntensidadeLuz I_final(this->get_cor_fundo());
+    IntensidadeLuz I_final(cor_padrao);
 
     // K ambiente do sólido, K difusão do sólido e K especulamento do sólido.
     IntensidadeLuz k_A, k_D, k_E;
@@ -140,7 +130,7 @@ rgb Cena::cor_interseccao(Raio& raio) {
     // -----------------------------
 
     // Antes de calcular as intensidades de luz, checa se houve alguma intersecção e se tem um ponto de luz presente na cena.
-    if (indice_solido != -1 && this->get_fonte_luz() != nullptr) {
+    if (indice_solido != -1 && this->fonte_luz != nullptr) {
 
         p_int = raio.ponto_do_raio(min_t_int);
 
@@ -156,7 +146,7 @@ rgb Cena::cor_interseccao(Raio& raio) {
         // -------------------------------------------------------------------
 
         // Instanciando o raio da fonte de luz.
-        raio_luz = std::make_unique<Raio>(this->get_fonte_luz()->get_posicao(), p_int);
+        raio_luz = std::make_unique<Raio>(this->fonte_luz->get_posicao(), p_int);
 
         // Checando se o raio da luz intersectou o primeiro sólido.
         t_int_luz = this->solidos.at(0)->escalar_interseccao(*raio_luz);
@@ -196,7 +186,7 @@ rgb Cena::cor_interseccao(Raio& raio) {
         if (indice_solido_luz == indice_solido) {
 
             // Vetor que vai do ponto de intersecção até a posição da fonte de luz pontual normalizado.
-            l = (this->get_fonte_luz()->get_posicao() - p_int).unitario();
+            l = (this->fonte_luz->get_posicao() - p_int).unitario();
 
             // Vetor normal ao sólido no ponto de intersecção.
             n = this->solidos.at(indice_solido)->vetor_normal_ponto(p_int);
@@ -205,7 +195,7 @@ rgb Cena::cor_interseccao(Raio& raio) {
             k_D = this->solidos.at(indice_solido)->get_material().get_k_D();
 
             // I_D = I @ Kd
-            I_D = this->get_fonte_luz()->get_intensidade() * k_D;
+            I_D = this->fonte_luz->get_intensidade() * k_D;
 
             // aux = (l . n)
             aux = l.escalar(n);
@@ -220,7 +210,7 @@ rgb Cena::cor_interseccao(Raio& raio) {
             k_E = this->solidos.at(indice_solido)->get_material().get_k_E();
 
             // I_E = I @ Ke
-            I_E = this->get_fonte_luz()->get_intensidade() * k_E;
+            I_E = this->fonte_luz->get_intensidade() * k_E;
 
             // Vetor que sai do sólido e vai em direção ao olho do câmera.
             v = (raio.get_ponto_inicial() - p_int).unitario();

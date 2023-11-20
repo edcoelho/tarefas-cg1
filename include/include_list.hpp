@@ -29,5 +29,7 @@
 #include "luz/LuzPontual.hpp"
 
 #include "cena/Cena.hpp"
+#include "cena/Camera.hpp"
+#include "cena/Canvas.hpp"
 
 #endif
