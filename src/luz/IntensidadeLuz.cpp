@@ -29,8 +29,6 @@ IntensidadeLuz::IntensidadeLuz(std::array<double, 3> val) {
 
 IntensidadeLuz::IntensidadeLuz(rgb cor_rgb) {
 
-    std::size_t i;
-
     this->r = ((double) cor_rgb[0]) / 255.0;
     this->g = ((double) cor_rgb[1]) / 255.0;
     this->b = ((double) cor_rgb[2]) / 255.0;

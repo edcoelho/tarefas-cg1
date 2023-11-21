@@ -18,9 +18,3 @@ void FonteLuz::set_intensidade(IntensidadeLuz i) {
     this->intensidade = i;
 
 }
-
-bool FonteLuz::raio_valido(Raio& raio_luz) const {
-
-    return true;
-
-}

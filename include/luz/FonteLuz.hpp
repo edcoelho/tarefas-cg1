@@ -3,6 +3,7 @@
 
 #include "luz/IntensidadeLuz.hpp"
 #include "geometria/Raio.hpp"
+#include "algebra/Vetor3.hpp"
 #include "algebra/Ponto3.hpp"
 
 class FonteLuz {
@@ -23,13 +24,16 @@ class FonteLuz {
             IntensidadeLuz get_intensidade() const;
             void set_intensidade(IntensidadeLuz i);
 
-            virtual Ponto3 get_posicao() const = 0;
-            virtual void set_posicao(Ponto3 p) = 0;
-
         // --- MÉTODOS ---
 
-            // Retorna true se o raio for um raio de luz válido da fonte de luz.
-            virtual bool raio_valido(Raio& raio_luz) const;
+            // Retorna true se o ponto for capaz de ser iluminado pela fonte de luz no caso de não haver obstrução de luz.
+            virtual bool ponto_valido(const Ponto3& ponto) const = 0;
+
+            // Retorna o vetor direção que aponta do ponto para a fonte de luz.
+            virtual Vetor3 direcao_ponto_luz(const Ponto3& ponto) const = 0;
+
+            // Retorna a distância entre o ponto e a fonte de luz.
+            virtual double distancia_ponto_luz(const Ponto3& ponto) const = 0;
 
 };
 

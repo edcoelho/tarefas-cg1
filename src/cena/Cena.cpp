@@ -47,18 +47,18 @@ void Cena::inserir_fonte_luz(std::unique_ptr<FonteLuz> luz) {
 rgb Cena::cor_interseccao(Raio& raio, rgb cor_padrao) const {
 
     // Índice do sólido intersectado primeiro pelo raio da câmera.
-    int indice_solido = -1;
+    std::size_t indice_solido;
     // Distância da câmera ao ponto de intersecção com um sólido.
     double t_int;
     // Distância da câmera ao ponto de intersecção mais próximo com o sólido mais próximo.
     double min_t_int = INFINITY;
+    // Indica se um raio intersectou um sólido.
+    bool raio_intersectou = false;
 
-    // Índice do sólido intersectado primeiro pelo raio da fonte de luz pontual.
-    int indice_solido_luz = -1;
-    // Distância de uma fonte de luz ao ponto de intersecção com um sólido.
-    double t_int_luz;
-    // Distância de uma fonte de luz ao ponto de intersecção mais próximo com o sólido mais próximo.
-    double min_t_int_luz = INFINITY;
+    // Indica se um raio de luz foi obstruído por um outro sólido.
+    bool raio_luz_obstruido = false;
+    // Distância do ponto de intersecção até o ponto que obstrui um raio de luz.
+    double t_int_obstrucao;
 
     // Variável para auxiliar nos cálculos.
     double aux;
@@ -99,6 +99,7 @@ rgb Cena::cor_interseccao(Raio& raio, rgb cor_padrao) const {
 
                 min_t_int = t_int;
                 indice_solido = i;
+                raio_intersectou = true;
 
             }
 
@@ -111,7 +112,7 @@ rgb Cena::cor_interseccao(Raio& raio, rgb cor_padrao) const {
     // -----------------------------
 
     // Antes de calcular as intensidades de luz, checa se houve alguma intersecção e se tem um ponto de luz presente na cena.
-    if (indice_solido >= 0) {
+    if (raio_intersectou) {
 
         p_int = raio.ponto_do_raio(min_t_int);
 
@@ -129,32 +130,36 @@ rgb Cena::cor_interseccao(Raio& raio, rgb cor_padrao) const {
             // Itera sobre as fontes de luz.
             for (std::size_t i = 0; i < this->fontes_luz.size(); i++) {
 
-                if (this->fontes_luz[i] != nullptr) {
+                if (this->fontes_luz.at(i) != nullptr) {
 
                     // Instanciando o raio da fonte de luz.
-                    raio_luz = Raio(this->fontes_luz[i]->get_posicao(), p_int);
+                    raio_luz = Raio(p_int, this->fontes_luz.at(i)->direcao_ponto_luz(p_int));
 
-                    if (fontes_luz[i]->raio_valido(raio_luz)) {
+                    if (this->fontes_luz.at(i)->ponto_valido(p_int)) {
 
-                        // Checando se o raio de luz intersectou algum dos sólidos.
-                        for (int i = 0; i < this->solidos.size(); i++) {
+                        raio_luz_obstruido = false;
+                        std::size_t indice = 0;
 
-                            t_int_luz = this->solidos.at(i)->escalar_interseccao(raio_luz);
+                        // Checando se o raio de luz intersectou algum dos outros sólidos antes.
+                        while (!raio_luz_obstruido && indice < this->solidos.size()) {
 
-                            if (t_int_luz >= 0.0 && t_int_luz < min_t_int_luz) {
-                            
-                                min_t_int_luz = t_int_luz;
-                                indice_solido_luz = i;
+                            t_int_obstrucao = this->solidos.at(indice)->escalar_interseccao(raio_luz);
+
+                            if (this->fontes_luz.at(i)->distancia_ponto_luz(p_int) >= t_int_obstrucao && t_int_obstrucao >= 1e-12) {
+
+                                raio_luz_obstruido = true;
 
                             }
+
+                            indice++;
 
                         }
 
                         // Checando se o raio da fonte de luz não intersecta nenhum outro objeto, o que bloquearia a chegada da luz no ponto de intersecção.
-                        if (indice_solido_luz == indice_solido) {
+                        if (!raio_luz_obstruido) {
 
                             // Vetor que vai do ponto de intersecção até a posição da fonte de luz pontual normalizado.
-                            l = (this->fontes_luz[i]->get_posicao() - p_int).unitario();
+                            l = this->fontes_luz.at(i)->direcao_ponto_luz(p_int);
 
                             // Vetor normal ao sólido no ponto de intersecção.
                             n = this->solidos.at(indice_solido)->vetor_normal_ponto(p_int);
@@ -163,7 +168,7 @@ rgb Cena::cor_interseccao(Raio& raio, rgb cor_padrao) const {
                             k_D = this->solidos.at(indice_solido)->get_material().get_k_D();
 
                             // I_D = I @ Kd
-                            I_D = this->fontes_luz[i]->get_intensidade() * k_D;
+                            I_D = this->fontes_luz.at(i)->get_intensidade() * k_D;
 
                             // aux = (l . n)
                             aux = l.escalar(n);
@@ -178,7 +183,7 @@ rgb Cena::cor_interseccao(Raio& raio, rgb cor_padrao) const {
                             k_E = this->solidos.at(indice_solido)->get_material().get_k_E();
 
                             // I_E = I @ Ke
-                            I_E = this->fontes_luz[i]->get_intensidade() * k_E;
+                            I_E = this->fontes_luz.at(i)->get_intensidade() * k_E;
 
                             // Vetor que sai do sólido e vai em direção ao olho do câmera.
                             v = (raio.get_ponto_inicial() - p_int).unitario();

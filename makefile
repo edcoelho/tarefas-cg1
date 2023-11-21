@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-CXXFLAGS := -pedantic-errors
+CXXFLAGS := -pedantic-errors -Wall
 LDLIBS := -lSDL2
 
 # Diretórios importantes.

@@ -66,11 +66,11 @@ void Canvas::calcular_cores(Cena& cena) {
     double cX, cY;
 
     // Iterando na janela do pintor.
-    for (int l = 0; l < this->get_altura(); l++) {
+    for (std::size_t l = 0; l < this->get_altura(); l++) {
         
         cY = (double) cena.get_camera().get_altura()/2.0 - D_y/2.0 - l*D_y;
         
-        for (int c = 0; c < this->get_largura(); c++) {
+        for (std::size_t c = 0; c < this->get_largura(); c++) {
 
             cX = (double) -1.0 * cena.get_camera().get_largura()/2.0 + D_x/2.0 + c*D_x;
 
@@ -89,9 +89,9 @@ void Canvas::desenhar_pixels(SDL_Renderer* renderer) const {
     // Limpando o renderer antes de desenhar os pixels.
     SDL_RenderClear(renderer);
 
-    for (int l = 0; l < this->get_altura(); l++)
+    for (std::size_t l = 0; l < this->get_altura(); l++)
         
-        for (int c = 0; c < this->get_largura(); c++) 
+        for (std::size_t c = 0; c < this->get_largura(); c++) 
 
             if ((0 <= l && l < this->get_altura()) && (0 <= c && c < this->get_largura())) {
 

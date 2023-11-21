@@ -10,6 +10,7 @@ class LuzSpot : public FonteLuz {
 
     private:
         Ponto3 posicao;
+        // Direção do eixo da luz.
         Vetor3 direcao;
         // Ângulo de abertura em radianos
         double abertura;
@@ -35,7 +36,14 @@ class LuzSpot : public FonteLuz {
 
         // --- MÉTODOS ---
 
-            bool raio_valido(Raio& raio_luz) const override;
+            // Retorna true se o ponto for capaz de ser iluminado pela fonte de luz no caso de não haver obstrução de luz.
+            bool ponto_valido(const Ponto3& ponto) const override;
+            
+            // Retorna o vetor direção que aponta do ponto para a fonte de luz spot.
+            Vetor3 direcao_ponto_luz(const Ponto3& ponto) const override;
+
+            // Retorna a distância entre o ponto e a fonte de luz spot.
+            double distancia_ponto_luz(const Ponto3& ponto) const override;
 
 };
 

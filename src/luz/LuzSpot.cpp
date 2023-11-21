@@ -41,14 +41,26 @@ void LuzSpot::set_abertura(double a) {
 
 }
 
-bool LuzSpot::raio_valido(Raio& raio_luz) const {
+bool LuzSpot::ponto_valido(const Ponto3& ponto) const {
 
-    if (raio_luz.get_direcao().escalar(this->get_direcao()) >= std::cos(this->get_abertura())) {
+    if ((ponto - this->get_posicao()).unitario().escalar(this->get_direcao()) >= std::cos(this->get_abertura())) {
 
         return true;
 
     }
 
     return false;
+
+}
+
+Vetor3 LuzSpot::direcao_ponto_luz(const Ponto3& ponto) const {
+
+    return (this->get_posicao() - ponto).unitario();
+
+}
+
+double LuzSpot::distancia_ponto_luz(const Ponto3& ponto) const {
+
+    return (this->get_posicao() - ponto).norma();
 
 }

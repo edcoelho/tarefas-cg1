@@ -19,3 +19,21 @@ void LuzPontual::set_posicao(Ponto3 p) {
     this->posicao = p;
 
 }
+
+bool LuzPontual::ponto_valido(const Ponto3& ponto) const {
+
+    return true;
+
+}
+
+Vetor3 LuzPontual::direcao_ponto_luz(const Ponto3& ponto) const {
+
+    return (this->get_posicao() - ponto).unitario();
+
+}
+
+double LuzPontual::distancia_ponto_luz(const Ponto3& ponto) const {
+
+    return (this->get_posicao() - ponto).norma();
+
+}
