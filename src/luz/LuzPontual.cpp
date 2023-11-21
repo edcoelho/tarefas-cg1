@@ -1,20 +1,8 @@
 #include "luz/LuzPontual.hpp"
 
-LuzPontual::LuzPontual() {
+LuzPontual::LuzPontual() {}
 
-    this->set_posicao(Ponto3(0.0, 0.0, 0.0));
-    this->set_intensidade(IntensidadeLuz(1.0, 1.0, 1.0));
-
-}
-
-LuzPontual::LuzPontual(double x, double y, double z, double r, double g, double b) {
-
-    this->set_posicao(Ponto3(x, y, z));
-    this->set_intensidade(IntensidadeLuz(r, g, b));
-
-}
-
-LuzPontual::LuzPontual(Ponto3 posicao, IntensidadeLuz intensidade) {
+LuzPontual::LuzPontual(IntensidadeLuz intensidade, Ponto3 posicao) {
 
     this->set_posicao(posicao);
     this->set_intensidade(intensidade);
@@ -32,13 +20,20 @@ void LuzPontual::set_posicao(Ponto3 p) {
 
 }
 
-IntensidadeLuz LuzPontual::get_intensidade() const {
+bool LuzPontual::ponto_valido(const Ponto3& ponto) const {
 
-    return this->intensidade;
+    return true;
 
 }
-void LuzPontual::set_intensidade(IntensidadeLuz i) {
 
-    this->intensidade = i;
+Vetor3 LuzPontual::direcao_ponto_luz(const Ponto3& ponto) const {
+
+    return (this->get_posicao() - ponto).unitario();
+
+}
+
+double LuzPontual::distancia_ponto_luz(const Ponto3& ponto) const {
+
+    return (this->get_posicao() - ponto).norma();
 
 }
