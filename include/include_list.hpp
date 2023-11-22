@@ -24,6 +24,7 @@
 #include "geometria/Plano.hpp"
 #include "geometria/Cilindro.hpp"
 #include "geometria/Cone.hpp"
+#include "geometria/Triangulo.hpp"
 
 #include "luz/IntensidadeLuz.hpp"
 #include "luz/FonteLuz.hpp"
