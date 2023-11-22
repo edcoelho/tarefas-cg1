@@ -38,9 +38,9 @@ void Cena::inserir_solido(std::shared_ptr<Solido> solido) {
 
 }
 
-void Cena::inserir_malha(Malha malha) {
+void Cena::inserir_malha(std::shared_ptr<Malha> malha) {
 
-    this->malhas.push_back(malha);
+    this->malhas.push_back(std::move(malha));
 
 }
 
@@ -128,13 +128,13 @@ rgb Cena::cor_interseccao(Raio& raio, rgb cor_padrao) {
         // Checando malhas.
         for (std::size_t i = 0; i < this->malhas.size(); i++) {
 
-            t_int = this->malhas.at(i).escalar_interseccao(raio);
+            t_int = this->malhas.at(i)->escalar_interseccao(raio);
 
             if (t_int >= 0.0 && t_int < min_t_int) {
 
                 min_t_int = t_int;
                 indice_malha = i;
-                id_face = this->malhas.at(i).get_id_ultima_face();
+                id_face = this->malhas.at(i)->get_id_ultima_face();
                 raio_intersectou = true;
                 raio_intersectou_malha = true;
 
@@ -153,7 +153,7 @@ rgb Cena::cor_interseccao(Raio& raio, rgb cor_padrao) {
 
         if (raio_intersectou_malha) {
 
-            solido = std::make_shared<Triangulo>(this->malhas.at(indice_malha).triangulo_por_id_face(id_face));
+            solido = std::make_unique<Triangulo>(this->malhas.at(indice_malha)->triangulo_por_id_face(id_face));
 
         } else {
 
@@ -207,7 +207,7 @@ rgb Cena::cor_interseccao(Raio& raio, rgb cor_padrao) {
                         // Checando se o raio de luz intersectou alguma das malhas antes.
                         while (!raio_luz_obstruido && indice < this->malhas.size()) {
 
-                            t_int_obstrucao = this->malhas.at(indice).escalar_interseccao(raio_luz);
+                            t_int_obstrucao = this->malhas.at(indice)->escalar_interseccao(raio_luz);
 
                             if (this->fontes_luz.at(i)->distancia_ponto_luz(p_int) >= t_int_obstrucao && t_int_obstrucao >= 1e-12) {
 
@@ -222,7 +222,7 @@ rgb Cena::cor_interseccao(Raio& raio, rgb cor_padrao) {
                         // Checando se o raio da fonte de luz não intersecta nenhum outro objeto, o que bloquearia a chegada da luz no ponto de intersecção.
                         if (!raio_luz_obstruido) {
 
-                            // Vetor que vai do ponto de intersecção até a posição da fonte de luz pontual normalizado.
+                            // Vetor que vai do ponto de intersecção até a posição da fonte de luz normalizado.
                             l = this->fontes_luz.at(i)->direcao_ponto_luz(p_int);
 
                             // Vetor normal ao sólido no ponto de intersecção.

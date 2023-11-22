@@ -69,10 +69,17 @@ int main(int argc, char* argv[]) {
 
         // --- INSERÇÃO DAS MALHAS PERSONALIZADAS NA CENA ---
 
-            // cena.inserir_malha(Malha);
+            // cena.inserir_malha(std::make_shared<Malha>(Malha));
             // ...
 
         // --- FIM DA INSERÇÃO DAS MALHAS PERSONALIZADAS NA CENA ---
+
+        // --- INSERÇÃO DE MALHAS PRÉ-DEFINIDAS NA CENA ---
+
+            // cena.inserir_malha(std::make_shared<Classe da malha específica>(...));
+            // ...
+
+        // --- FIM DA INSERÇÃO DE MALHAS PRÉ-DEFINIDAS NA CENA --
 
         // --- INSERÇÃ0 DE SÓLIDOS NA CENA ---
 

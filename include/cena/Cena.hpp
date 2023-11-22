@@ -17,7 +17,7 @@ class Cena {
         // Vetor com ponteiros para os sólidos presentes na cena.
         std::vector<std::shared_ptr<Solido>> solidos;
         // Vetor com malhas presentes na cena.
-        std::vector<Malha> malhas;
+        std::vector<std::shared_ptr<Malha>> malhas;
         // Luz pontual presente na cena.
         std::vector<std::unique_ptr<FonteLuz>> fontes_luz;
         // Intensidade da luz ambiente.
@@ -47,7 +47,7 @@ class Cena {
         void inserir_solido(std::shared_ptr<Solido> solido);
 
         // Insere uma malha na cena.
-        void inserir_malha(Malha malha);
+        void inserir_malha(std::shared_ptr<Malha> malha);
 
         // Insere uma nova fonte de luz na cena.
         void inserir_fonte_luz(std::unique_ptr<FonteLuz> luz);

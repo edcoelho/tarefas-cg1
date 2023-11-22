@@ -2,10 +2,10 @@
 
 Material::Material() {
 
-    this->set_k_A(IntensidadeLuz(0.0, 0.0, 0.0));
-    this->set_k_D(rgb{150, 150, 150});
+    this->set_k_A(IntensidadeLuz(1.0, 1.0, 1.0));
+    this->set_k_D(IntensidadeLuz(0.7, 0.7, 0.7));
     this->set_k_E(IntensidadeLuz(1.0, 1.0, 1.0));
-    this->set_espelhamento(10);
+    this->set_espelhamento(10.0);
 
 }
 
