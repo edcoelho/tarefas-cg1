@@ -29,10 +29,12 @@
 #include "geometria/malha/Aresta.hpp"
 #include "geometria/malha/Face.hpp"
 #include "geometria/malha/Malha.hpp"
+
 #include "geometria/malha/MalhaEspecifica.hpp"
 #include "geometria/malha/RetanguloXY.hpp"
 #include "geometria/malha/RetanguloXZ.hpp"
 #include "geometria/malha/RetanguloYZ.hpp"
+#include "geometria/malha/Paralelepipedo.hpp"
 
 #include "luz/IntensidadeLuz.hpp"
 #include "luz/FonteLuz.hpp"
