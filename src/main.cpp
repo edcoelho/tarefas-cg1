@@ -32,7 +32,54 @@ int main(int argc, char* argv[]) {
 
     // --- INSERÇÃO DE ELEMENTOS NA CENA ---
 
-        // ...
+        // --- INSERÇÃO DE FONTES DE LUZES NA CENA ---
+
+            // cena.inserir_fonte_luz(std::make_unique<Classe da fonte>(...))
+            // ...
+
+        // --- FIM DA INSERÇÃO DE LUZES NA CENA ---
+
+        // --- CRIAÇÃO DE MALHAS PERSONALIZADAS ---
+
+            // Malha malha(Material);
+            // ...
+
+            // --- INSERÇÃO DE VÉRTICES ---
+            
+                // malha.inserir_vertice(Ponto3);
+                // ...
+
+            // --- FIM DA INSERÇÃO DE VÉRTICES ---
+
+            // --- INSERÇÃO DE ARESTAS ---
+
+                // malha.inserir_aresta(Aresta);
+                // ...
+
+            // --- FIM DA INSERÇÃO DE ARESTAS ---
+
+            // --- INSERÇÃO DE FACES ---
+
+                // malha.inserir_face(Face);
+                // ...
+
+            // --- FIM DA INSERÇÃO DE FACES ---
+
+        // --- FIM DA CRIAÇÃO DE MALHAS PERSONALIZADAS ---
+
+        // --- INSERÇÃO DAS MALHAS PERSONALIZADAS NA CENA ---
+
+            // cena.inserir_malha(Malha);
+            // ...
+
+        // --- FIM DA INSERÇÃO DAS MALHAS PERSONALIZADAS NA CENA ---
+
+        // --- INSERÇÃ0 DE SÓLIDOS NA CENA ---
+
+            // cena.inserir_solido(std::make_shared<Classe do sólido>(...));
+            // ...
+
+        // --- FIM DA INSERÇÃ0 DE SÓLIDOS NA CENA ---
 
     // --- FIM DA INSERÇÃO DE ELEMENTOS NA CENA ---
 
