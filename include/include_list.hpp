@@ -35,6 +35,7 @@
 #include "geometria/malha/RetanguloXZ.hpp"
 #include "geometria/malha/RetanguloYZ.hpp"
 #include "geometria/malha/Paralelepipedo.hpp"
+#include "geometria/malha/Piramide.hpp"
 
 #include "luz/IntensidadeLuz.hpp"
 #include "luz/FonteLuz.hpp"
