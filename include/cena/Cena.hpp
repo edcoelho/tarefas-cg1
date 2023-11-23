@@ -5,6 +5,7 @@
 #include <vector>
 #include "geometria/Solido.hpp"
 #include "geometria/Raio.hpp"
+#include "geometria/malha/Malha.hpp"
 #include "luz/LuzPontual.hpp"
 #include "utils/tipos.hpp"
 #include "luz/IntensidadeLuz.hpp"
@@ -14,9 +15,11 @@ class Cena {
 
     private:
         // Vetor com ponteiros para os sólidos presentes na cena.
-        std::vector<std::unique_ptr<Solido>> solidos;
+        std::vector<std::shared_ptr<Solido>> solidos;
+        // Vetor com malhas presentes na cena.
+        std::vector<std::shared_ptr<Malha>> malhas;
         // Luz pontual presente na cena.
-        std::unique_ptr<LuzPontual> fonte_luz;
+        std::vector<std::unique_ptr<FonteLuz>> fontes_luz;
         // Intensidade da luz ambiente.
         IntensidadeLuz I_A;
 
@@ -32,8 +35,6 @@ class Cena {
 
         // --- GETTERS E SETTERS ---
 
-        void set_fonte_luz(std::unique_ptr<LuzPontual> luz);
-
         Camera get_camera() const;
         void set_camera(Camera c);
 
@@ -43,11 +44,17 @@ class Cena {
         // --- MÉTODOS ---
 
         // Insere um novo sólido na cena.
-        void inserir_solido(std::unique_ptr<Solido> solido);
+        void inserir_solido(std::shared_ptr<Solido> solido);
+
+        // Insere uma malha na cena.
+        void inserir_malha(std::shared_ptr<Malha> malha);
+
+        // Insere uma nova fonte de luz na cena.
+        void inserir_fonte_luz(std::unique_ptr<FonteLuz> luz);
         
         // Chaca qual sólido o raio intersectou primeiro, calcula a interação da luz com o sólido e retorna a cor rgb correspondente.
         // Se o raio não intersectar nada, retorna a cor de fundo.
-        rgb cor_interseccao(Raio& raio, rgb cor_padrao = rgb{0, 0, 0}) const;
+        rgb cor_interseccao(Raio& raio, rgb cor_padrao = rgb{0, 0, 0});
 
 };
 

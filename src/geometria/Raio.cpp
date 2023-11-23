@@ -15,6 +15,13 @@ Raio::Raio(Ponto3 ponto_inicial, Ponto3 ponto_x) {
 
 }
 
+Raio::Raio(Ponto3 ponto_inicial, Vetor3 direcao) {
+
+    this->set_ponto_inicial(ponto_inicial);
+    this->set_direcao(direcao.unitario());
+
+}
+
 Ponto3 Raio::get_ponto_inicial() {
 
     return this->ponto_inicial;
@@ -33,7 +40,7 @@ Vetor3 Raio::get_direcao() {
 }
 void Raio::set_direcao(Vetor3 d) {
 
-    this->direcao = d;
+    this->direcao = d.unitario();
 
 }
 

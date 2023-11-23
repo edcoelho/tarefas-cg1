@@ -222,7 +222,6 @@ Vetor3 Vetor3::unitario() const {
 double Vetor3::escalar(Vetor3 vetor) const {
 
     double resultado;
-    std::size_t i;
 
     resultado = this->x * vetor[0];
     resultado = resultado + this->y * vetor[1];

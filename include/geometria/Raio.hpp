@@ -21,6 +21,8 @@ class Raio {
         // ponto_x: outro ponto qualquer do raio
         Raio(Ponto3 ponto_inicial, Ponto3 ponto_x);
 
+        Raio(Ponto3 ponto_inicial, Vetor3 direcao);
+
         // --- GETTERS E SETTERS ---
 
         Ponto3 get_ponto_inicial();

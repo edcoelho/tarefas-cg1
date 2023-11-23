@@ -1,28 +1,27 @@
-#ifndef LUZ_LUZPONTUAL_HPP
-#define LUZ_LUZPONTUAL_HPP
+#ifndef LUZ_LUZDIRECIONAL_HPP
+#define LUZ_LUZDIRECIONAL_HPP
 
-#include "luz/IntensidadeLuz.hpp"
 #include "luz/FonteLuz.hpp"
-#include "algebra/Ponto3.hpp"
+#include "algebra/Vetor3.hpp"
 
-class LuzPontual : public FonteLuz {
+class LuzDirecional : public FonteLuz {
 
-    private:
-        // Posição do ponto de luz.
-        Ponto3 posicao;
+     private:
+        // Direção dos raios de luz.
+        Vetor3 direcao;
 
     public:
 
         // --- CONSTRUTORES ---
 
-            LuzPontual();
+            LuzDirecional();
 
-            LuzPontual(IntensidadeLuz intensidade, Ponto3 posicao);
+            LuzDirecional(IntensidadeLuz intensidade, Vetor3 direcao);
 
         // --- GETTERS E SETTERS ---
 
-            Ponto3 get_posicao() const;
-            void set_posicao(Ponto3 p);
+            Vetor3 get_direcao() const;
+            void set_direcao(Vetor3 d);
 
         // --- MÉTODOS ---
 
