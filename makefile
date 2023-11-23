@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 
 CXXFLAGS := -pedantic-errors -Wall
-LDLIBS := -lSDL2
+LDLIBS := -lSDL2 -lm
 
 # Diretórios importantes.
 SRC_DIR := src/
