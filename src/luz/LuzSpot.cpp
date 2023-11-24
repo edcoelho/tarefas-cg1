@@ -1,21 +1,17 @@
 #include "luz/LuzSpot.hpp"
 #include <cmath>
 
-LuzSpot::LuzSpot(IntensidadeLuz intensidade, Ponto3 posicao, Vetor3 direcao, double abertura) {
-    this->set_intensidade(intensidade);
-    this->set_posicao(posicao);
+LuzSpot::LuzSpot() : LuzPontual() {
+
+    this->set_direcao(Vetor3(0.0, -1.0, 0.0));
+    this->set_abertura(M_PI_2);
+
+}
+
+LuzSpot::LuzSpot(IntensidadeLuz intensidade, Ponto3 posicao, Vetor3 direcao, double abertura, double atenuacao_a, double atenuacao_b, double atenuacao_c) : LuzPontual(intensidade, posicao, atenuacao_a, atenuacao_b, atenuacao_c) {
+
     this->set_direcao(direcao);
     this->set_abertura(abertura);
-}
-
-Ponto3 LuzSpot::get_posicao() const {
-
-    return this->posicao;
-
-}
-void LuzSpot::set_posicao(Ponto3 p) {
-
-    this->posicao = p;
 
 }
 
@@ -37,6 +33,9 @@ double LuzSpot::get_abertura() const {
 }
 void LuzSpot::set_abertura(double a) {
 
+    a = a > M_PI ? M_PI : a;
+    a = a < 0.0 ? 0.0 : a;
+
     this->abertura = a;
 
 }
@@ -50,17 +49,5 @@ bool LuzSpot::ponto_valido(const Ponto3& ponto) const {
     }
 
     return false;
-
-}
-
-Vetor3 LuzSpot::direcao_ponto_luz(const Ponto3& ponto) const {
-
-    return (this->get_posicao() - ponto).unitario();
-
-}
-
-double LuzSpot::distancia_ponto_luz(const Ponto3& ponto) const {
-
-    return (this->get_posicao() - ponto).norma();
 
 }

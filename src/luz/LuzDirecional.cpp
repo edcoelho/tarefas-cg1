@@ -1,11 +1,10 @@
 #include "luz/LuzDirecional.hpp"
 #include <cmath>
 
-LuzDirecional::LuzDirecional() {}
+LuzDirecional::LuzDirecional() : FonteLuz() {}
 
-LuzDirecional::LuzDirecional(IntensidadeLuz intensidade, Vetor3 direcao) {
+LuzDirecional::LuzDirecional(IntensidadeLuz intensidade, Vetor3 direcao) : FonteLuz(intensidade, 0.0, 0.0, 1.0) {
 
-    this->set_intensidade(intensidade);
     this->set_direcao(direcao);
 
 }
@@ -21,12 +20,6 @@ void LuzDirecional::set_direcao(Vetor3 d) {
 
 }
 
-bool LuzDirecional::ponto_valido(const Ponto3& ponto) const {
-
-    return true;
-
-}
-
 Vetor3 LuzDirecional::direcao_ponto_luz(const Ponto3& ponto) const {
 
     return this->get_direcao() * -1.0;
@@ -36,5 +29,11 @@ Vetor3 LuzDirecional::direcao_ponto_luz(const Ponto3& ponto) const {
 double LuzDirecional::distancia_ponto_luz(const Ponto3& ponto) const {
 
     return INFINITY;
+
+}
+
+double LuzDirecional::fator_atenuacao(const Ponto3& ponto) const {
+
+    return 1.0;
 
 }
