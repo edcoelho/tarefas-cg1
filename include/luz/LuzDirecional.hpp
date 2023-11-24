@@ -25,14 +25,14 @@ class LuzDirecional : public FonteLuz {
 
         // --- MÉTODOS ---
 
-            // Retorna true se o ponto for capaz de ser iluminado pela fonte de luz no caso de não haver obstrução de luz.
-            bool ponto_valido(const Ponto3& ponto) const override;
-
             // Retorna o vetor direção que aponta do ponto para a fonte de luz.
             Vetor3 direcao_ponto_luz(const Ponto3& ponto) const override;
 
             // Retorna a distância entre o ponto e a fonte de luz pontual.
             double distancia_ponto_luz(const Ponto3& ponto) const override;
+
+            // Retorna o fator de atenuação da luz num ponto.
+            double fator_atenuacao(const Ponto3& ponto) const override;
 
 };
 

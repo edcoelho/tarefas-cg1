@@ -86,7 +86,7 @@ rgb Cena::cor_interseccao(Raio& raio, rgb cor_padrao) {
     // Intensidades ambiente, difusa e especular da energia luminosa que vem do ponto intersectado.
     IntensidadeLuz I_A(0.0, 0.0, 0.0), I_D(0.0, 0.0, 0.0), I_E(0.0, 0.0, 0.0);
     // Intensidade final da energia luminosa que vai para a câmera.
-    IntensidadeLuz I_final(cor_padrao);
+    IntensidadeLuz I_final(0.0, 0.0, 0.0);
 
     // K ambiente do sólido, K difusão do sólido e K especulamento do sólido.
     IntensidadeLuz k_A, k_D, k_E;
@@ -163,15 +163,6 @@ rgb Cena::cor_interseccao(Raio& raio, rgb cor_padrao) {
 
         p_int = raio.ponto_do_raio(min_t_int);
 
-        // Conseguindo o K ambiente do sólido.
-        k_A = solido->get_material().get_k_A();
-
-        // I_A = Ia @ k_A
-        // Ia: intensidade da luz ambiente.
-        I_A = this->get_I_A() * k_A;
-
-        I_final = I_A;
-
         if (this->fontes_luz.size() > 0) {
 
             // Itera sobre as fontes de luz.
@@ -238,7 +229,7 @@ rgb Cena::cor_interseccao(Raio& raio, rgb cor_padrao) {
                             aux = l.escalar(n);
 
                             // Se o produto escalar for negativo, ou seja, se o ângulo entre l e n está no intervalo (90º, 270º), então a intensidade difusa é zerada.
-                            aux = aux < 0 ? 0 : aux;
+                            aux = aux < 0.0 ? 0.0 : aux;
                             
                             // I_D = I_D * (l . n)
                             I_D = I_D * aux;
@@ -258,17 +249,17 @@ rgb Cena::cor_interseccao(Raio& raio, rgb cor_padrao) {
                             aux = v.escalar(r);
 
                             // Se o produto escalar for negativo, ou seja, se o ângulo entre v e r está no intervalo (90º, 270º), então a intensidade especular é zerada.
-                            aux = aux < 0 ? 0 : aux;
+                            aux = aux < 0.0 ? 0.0 : aux;
 
                             espelhamento = solido->get_material().get_espelhamento();
 
                             // I_E = I_E * (v . r)^espelhamento
                             I_E = I_E * std::pow(aux, espelhamento);
 
-                        }
+                            // Aplicando as componentes difusa e especular atenuadas na intensidade final que vai para a câmera.
+                            I_final = I_final + (I_D + I_E) * this->fontes_luz.at(i)->fator_atenuacao(p_int);
 
-                        // Somando as intensidades para obter a intensidade final que vai para a câmera.
-                        I_final = I_final + I_D + I_E;
+                        }
 
                     }
 
@@ -277,6 +268,15 @@ rgb Cena::cor_interseccao(Raio& raio, rgb cor_padrao) {
             }
 
         }
+
+        // Conseguindo o K ambiente do sólido.
+        k_A = solido->get_material().get_k_A();
+
+        // I_A = Ia @ k_A
+        // Ia: intensidade da luz ambiente.
+        I_A = this->get_I_A() * k_A;
+
+        I_final = I_final + I_A;
 
     } else {
 
