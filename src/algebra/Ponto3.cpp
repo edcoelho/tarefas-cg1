@@ -113,18 +113,6 @@ Vetor3 Ponto3::operator - (Ponto3 ponto) const {
 
 }
 
-std::array<double, 3> Ponto3::std_array() const {
-
-    std::array<double, 3> a;
-
-    a[0] = this->x;
-    a[1] = this->y;
-    a[2] = this->z;
-
-    return a;
-
-}
-
 Vetor3 Ponto3::vetor() const {
 
     return Vetor3(this->x, this->y, this->z);

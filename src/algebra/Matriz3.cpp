@@ -165,6 +165,31 @@ Matriz3 Matriz3::operator - (double const escalar) const {
 
 }
 
+Matriz3 Matriz3::operator * (Matriz3 const& matriz) const {
+
+    Matriz3 resultado;
+    std::size_t i, j;
+
+    for (i = 0; i < 3; i++)
+        for (j = 0; j < 3; j++)
+            resultado(i, j) = this->operator()(i, 0) * matriz(0, j) + this->operator()(i, 1) * matriz(1, j) + this->operator()(i, 2) * matriz(2, j);
+
+    return resultado;
+
+}
+
+Vetor3 Matriz3::operator * (Vetor3 const& vetor) const {
+
+    Vetor3 resultado;
+    std::size_t i;
+
+    for (i = 0; i < 3; i++)
+        resultado[i] = this->operator()(i, 0) * vetor[0] + this->operator()(i, 1) * vetor[1] + this->operator()(i, 2) * vetor[2];
+
+    return resultado;
+
+}
+
 Matriz3 Matriz3::operator * (double const escalar) const {
 
     Matriz3 resultado;
@@ -178,19 +203,6 @@ Matriz3 Matriz3::operator * (double const escalar) const {
 
 }
 
-Matriz3 Matriz3::operator % (Matriz3 const& matriz) const {
-
-    Matriz3 resultado;
-    std::size_t i, j;
-
-    for (i = 0; i < 3; i++)
-        for (j = 0; j < 3; j++)
-            resultado(i, j) = this->operator()(i, j) * matriz(i,j);
-
-    return resultado;
-
-}
-
 double Matriz3::det() const {
 
     double determinante;
@@ -199,17 +211,5 @@ double Matriz3::det() const {
     determinante = this->a00 * this->a11 * this->a22 + this->a01 * this->a12 * this->a20 + this->a02 * this->a10 * this->a21 - this->a02 * this->a11 * this->a20 - this->a00 * this->a12 * this->a21 - this->a01 * this->a10 * this->a22;
 
     return determinante;
-
-}
-
-Matriz3 Matriz3::hadamard(Matriz3 const& matriz) const {
-
-    Matriz3 resultado;
-
-    for (std::size_t i = 0; i < 3; i++)
-        for (std::size_t j = 0; j < 3; j++)
-            resultado(i, j) = this->operator()(i, j) * matriz(i,j);
-
-    return resultado;
 
 }

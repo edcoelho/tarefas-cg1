@@ -2,6 +2,7 @@
 #define MATRIZ_HPP
 
 #include <array>
+#include "algebra/Vetor3.hpp"
 
 class Matriz3 {
 
@@ -39,27 +40,19 @@ class Matriz3 {
             // Operador para subtração de um escalar de uma matriz.
             Matriz3 operator - (double const escalar) const;
 
+            // Operador para multiplicação de duas matrizes.
+            Matriz3 operator * (Matriz3 const& matriz) const;
+
+            // Operador para multiplicação da matriz por um vetor.
+            Vetor3 operator * (Vetor3 const& vetor) const;
+
             // Operador para produto de uma matriz por um escalar.
             Matriz3 operator * (double const escalar) const;
-
-            // Operador para produto de Hadamard de duas matrizes.
-            Matriz3 operator % (Matriz3 const& matriz) const;
-
-    // --- GETTERS E SETTERS ---
-
-        std::array<std::array<double, 3>, 3> get_elementos() const;
-        void set_elementos(std::array<std::array<double, 3>, 3> e);
 
     // --- OUTROS MÉTODOS ---
 
         // Retorna o determinante da matriz se ela for quadrada.
         double det() const;
-
-        // Retorna o produto de Hadamard da matriz por uma outra matriz.
-        Matriz3 hadamard(Matriz3 const& matriz) const;
-
-        // Retorna um std::array<std::array<double, 3>, 3> com os elementos da matriz.
-        std::array<std::array<double, 3>, 3> std_array() const;
 
 };
 

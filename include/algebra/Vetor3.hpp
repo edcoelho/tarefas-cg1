@@ -48,9 +48,6 @@ class Vetor3 {
             // Operador para produto de um vetor por um escalar.
             Vetor3 operator * (double const escalar) const;
 
-            // Operador para produto de Hadamard de dois vetores.
-            Vetor3 operator % (Vetor3 const& vetor) const;
-
         // --- OUTROS MÉTODOS ---
 
             // Retorna a norma/módulo do vetor.
@@ -58,9 +55,6 @@ class Vetor3 {
 
             // Normaliza o vetor.
             void normalizar();
-
-            // Retorna um std::array<double, 3> com os elementos do vetor.
-            std::array<double, 3> std_array() const;
 
             // Retorna um Ponto3 cujas coordenadas são os elementos do vetor.
             Ponto3 ponto() const;

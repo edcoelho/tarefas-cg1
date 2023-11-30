@@ -39,10 +39,6 @@ class Ponto3 {
 
         // --- OUTROS MÉTODOS ---
 
-            // Retorna um std::array<double, 3> com as coordenadas do ponto.
-
-            std::array<double, 3> std_array() const;
-
             // Retorna um Vetor cujos elementos são as coordenadas do ponto.
 
             Vetor3 vetor() const;

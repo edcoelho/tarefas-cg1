@@ -152,18 +152,6 @@ Vetor3 Vetor3::operator * (double const escalar) const {
 
 }
 
-Vetor3 Vetor3::operator % (Vetor3 const& vetor) const {
-
-    Vetor3 resultado;
-
-    resultado[0] = this->x * vetor[0];
-    resultado[1] = this->y * vetor[1];
-    resultado[2] = this->z * vetor[2];
-
-    return resultado;
-
-}
-
 double Vetor3::norma() const {
 
     double norma;
@@ -185,18 +173,6 @@ void Vetor3::normalizar() {
     this->x = this->x / norma;
     this->y = this->y / norma;
     this->z = this->z / norma;
-
-}
-
-std::array<double, 3> Vetor3::std_array() const {
-
-    std::array<double, 3> a;
-
-    a[0] = this->x;
-    a[1] = this->y;
-    a[2] = this->z;
-
-    return a;
 
 }
 
