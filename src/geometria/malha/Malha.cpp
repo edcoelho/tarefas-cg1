@@ -161,3 +161,19 @@ Triangulo Malha::triangulo_por_id_face(std::size_t id_face) const {
     return Triangulo(this->buscar_vertice_por_id(id_vertice_1), this->buscar_vertice_por_id(id_vertice_2), this->buscar_vertice_por_id(id_vertice_3), this->get_material());
 
 }
+
+void Malha::transladar(double x, double y, double z) {
+
+    Matriz4 matriz_t;
+
+    matriz_t(0, 3) = x;
+    matriz_t(1, 3) = y;
+    matriz_t(2, 3) = z;
+
+    for (auto& vertice : this->vertices) {
+
+        vertice = matriz_t * vertice;
+
+    }
+
+}
