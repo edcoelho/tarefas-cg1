@@ -287,9 +287,17 @@ Ponto3 Matriz4::operator * (Ponto3 const& ponto) const {
     Ponto3 resultado(0.0);
     std::size_t i, j;
 
-    for (i = 0; i < 4; i++)
-        for (j = 0; j < 4; j++)
+    for (i = 0; i < 3; i++) {
+
+        for (j = 0; j < 3; j++) {
+
             resultado[i] = resultado[i] + this->operator()(i, j) * ponto[j];
+
+        }
+
+        resultado[i] = resultado[i] + this->operator()(i, 3);
+
+    }
 
     return resultado;
 
