@@ -2,8 +2,10 @@
 #define GEOMETRIA_MALHA_MALHA_HPP
 
 #include <vector>
+#include "utils/tipos.hpp"
 #include "algebra/Ponto3.hpp"
 #include "algebra/Vetor3.hpp"
+#include "algebra/Matriz4.hpp"
 #include "utils/Material.hpp"
 #include "geometria/Triangulo.hpp"
 #include "geometria/malha/Aresta.hpp"
@@ -61,6 +63,30 @@ class Malha {
 
             // Retorna um objeto do tipo Triangulo de acordo com o ID da face.
             Triangulo triangulo_por_id_face(std::size_t id_face) const;
+
+            // Aplica uma matriz de transformação qualquer.
+            void transformar(Matriz4 const& matriz);
+
+            // Aplica uma translação.
+            void transladar(double x, double y, double z);
+
+            // Aplica uma rotação em um dos eixos canônicos.
+            void rotacionar(double angulo, Eixo3 eixo);
+            // Aplica uma rotação em um eixo arbitrário.
+            void rotacionar(double angulo, Ponto3 ponto_eixo, Vetor3 direcao_eixo);
+
+            // Aplica uma escala.
+            void escalar(double fator_x, double fator_y, double fator_z);
+            // Aplica uma escala com um ponto de amarra.
+            void escalar(double fator_x, double fator_y, double fator_z, Ponto3 ponto_amarra);
+
+            // Aplica um cisalhamento.
+            void cisalhar(double angulo, tipo_plano plano, Eixo3 eixo);
+
+            // Aplica um espelhamento em um dos planos canônicos.
+            void espelhar(tipo_plano plano);
+            // Aplica um espelhamento em um plano arbitrário.
+            void espelhar(Vetor3 vetor_normal_plano, Ponto3 ponto_plano);
 
 };
 

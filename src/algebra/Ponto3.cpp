@@ -3,9 +3,10 @@
 
 Ponto3::Ponto3() {
 
-    this->x = 0.0;
-    this->y = 0.0;
-    this->z = 0.0;
+    std::size_t i;
+
+    for (i = 0; i < 3; i++)
+        this->operator[](i) = 0.0;
 
 }
 
@@ -17,11 +18,12 @@ Ponto3::Ponto3(double x, double y, double z) {
 
 }
 
-Ponto3::Ponto3(std::array<double, 3> c) {
+Ponto3::Ponto3(double valor) {
 
-    this->x = c[0];
-    this->y = c[1];
-    this->z = c[2];
+    std::size_t i;
+
+    for (i = 0; i < 3; i++)
+        this->operator[](i) = valor;
 
 }
 
@@ -79,37 +81,37 @@ double& Ponto3::operator [] (std::size_t coordenada) {
 
 Ponto3 Ponto3::operator + (Vetor3 vetor)  const {
 
-    Ponto3 temp;
+    Ponto3 resultado(0.0);
+    std::size_t i;
 
-    temp[0] = this->x + vetor[0];
-    temp[1] = this->y + vetor[1];
-    temp[2] = this->z + vetor[2];
+    for (i = 0; i < 3; i++)
+        resultado[i] = this->operator[](i) + vetor[i];
 
-    return temp;
+    return resultado;
 
 }
 
 Ponto3 Ponto3::operator - (Vetor3 vetor) const {
 
-    Ponto3 temp;
+    Ponto3 resultado(0.0);
+    std::size_t i;
 
-    temp[0] = this->x - vetor[0];
-    temp[1] = this->y - vetor[1];
-    temp[2] = this->z - vetor[2];
+    for (i = 0; i < 3; i++)
+        resultado[i] = this->operator[](i) - vetor[i];
 
-    return temp;
+    return resultado;
 
 }
 
 Vetor3 Ponto3::operator - (Ponto3 ponto) const {
 
-    Vetor3 temp;
+    Vetor3 resultado(0.0);
+    std::size_t i;
 
-    temp[0] = this->x - ponto[0];
-    temp[1] = this->y - ponto[1];
-    temp[2] = this->z - ponto[2];
+    for (i = 0; i < 3; i++)
+        resultado[i] = this->operator[](i) - ponto[i];
 
-    return temp;
+    return resultado;
 
 }
 

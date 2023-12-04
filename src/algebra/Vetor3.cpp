@@ -5,9 +5,10 @@
 
 Vetor3::Vetor3() {
 
-    this->x = 0.0;
-    this->y = 0.0;
-    this->z = 0.0;
+    std::size_t i;
+
+    for (i = 0; i < 3; i++)
+        this->operator[](i) = 1.0;
 
 }
 
@@ -19,11 +20,12 @@ Vetor3::Vetor3(double x, double y, double z) {
 
 }
 
-Vetor3::Vetor3(std::array<double, 3> e) {
+Vetor3::Vetor3(double valor) {
 
-    this->x = e[0];
-    this->y = e[1];
-    this->z = e[2];
+    std::size_t i;
+
+    for (i = 0; i < 3; i++)
+        this->operator[](i) = valor;
 
 }
 
@@ -82,23 +84,11 @@ double& Vetor3::operator [] (std::size_t indice) {
 
 Vetor3 Vetor3::operator + (Vetor3 const& vetor) const {
 
-    Vetor3 resultado;
+    Vetor3 resultado(0.0);
+    std::size_t i;
 
-    resultado[0] = this->x + vetor[0];
-    resultado[1] = this->y + vetor[1];
-    resultado[2] = this->z + vetor[2];
-
-    return resultado;
-
-}
-
-Vetor3 Vetor3::operator + (double const escalar) const {
-
-    Vetor3 resultado;
-
-    resultado[0] = this->x + escalar;
-    resultado[1] = this->y + escalar;
-    resultado[2] = this->z + escalar;
+    for (i = 0; i < 3; i++)
+        resultado[i] = this->operator[](i) + vetor[i];
 
     return resultado;
 
@@ -106,23 +96,11 @@ Vetor3 Vetor3::operator + (double const escalar) const {
 
 Vetor3 Vetor3::operator - (Vetor3 const& vetor) const {
 
-    Vetor3 resultado;
+    Vetor3 resultado(0.0);
+    std::size_t i;
 
-    resultado[0] = this->x - vetor[0];
-    resultado[1] = this->y - vetor[1];
-    resultado[2] = this->z - vetor[2];
-
-    return resultado;
-
-}
-
-Vetor3 Vetor3::operator - (double const escalar) const {
-
-    Vetor3 resultado;
-
-    resultado[0] = this->x - escalar;
-    resultado[1] = this->y - escalar;
-    resultado[2] = this->z - escalar;
+    for (i = 0; i < 3; i++)
+        resultado[i] = this->operator[](i) - vetor[i];
 
     return resultado;
 
@@ -130,7 +108,7 @@ Vetor3 Vetor3::operator - (double const escalar) const {
 
 Vetor3 Vetor3::operator * (Vetor3 const vetor) const {
 
-    Vetor3 resultado;
+    Vetor3 resultado(0.0);
 
     resultado[0] = (this->y * vetor[2]) - (this->z * vetor[1]);
     resultado[1] = (this->z * vetor[0]) - (this->x * vetor[2]);
@@ -142,11 +120,11 @@ Vetor3 Vetor3::operator * (Vetor3 const vetor) const {
 
 Vetor3 Vetor3::operator * (double const escalar) const {
 
-    Vetor3 resultado;
+    Vetor3 resultado(0.0);
+    std::size_t i;
 
-    resultado[0] = this->x * escalar;
-    resultado[1] = this->y * escalar;
-    resultado[2] = this->z * escalar;
+    for (i = 0; i < 3; i++)
+        resultado[i] = this->operator[](i) * escalar;
 
     return resultado;
 
@@ -154,11 +132,11 @@ Vetor3 Vetor3::operator * (double const escalar) const {
 
 double Vetor3::norma() const {
 
-    double norma;
+    double norma = 0.0;
+    std::size_t i;
 
-    norma = this->x * this->x;
-    norma = norma + (this->y * this->y);
-    norma = norma + (this->z * this->z);
+    for (i = 0; i < 3; i++)
+        norma = norma + this->operator[](i) * this->operator[](i);
 
     return std::sqrt(norma);
 
@@ -166,13 +144,11 @@ double Vetor3::norma() const {
 
 void Vetor3::normalizar() {
 
-    double norma;
+    double norma = this->norma();
+    std::size_t i;
 
-    norma = this->norma();
-
-    this->x = this->x / norma;
-    this->y = this->y / norma;
-    this->z = this->z / norma;
+    for (i = 0; i < 3; i++)
+        this->operator[](i) = this->operator[](i)/norma;
 
 }
 
@@ -186,10 +162,10 @@ Vetor3 Vetor3::unitario() const {
 
     Vetor3 vetor(this->x, this->y, this->z);
     double norma = vetor.norma();
+    std::size_t i;
 
-    vetor[0] = this->x / norma;
-    vetor[1] = this->y / norma;
-    vetor[2] = this->z / norma;
+    for (i = 0; i < 3; i++)
+        vetor[i] = vetor[i]/norma;
 
     return vetor;
 
@@ -197,11 +173,11 @@ Vetor3 Vetor3::unitario() const {
 
 double Vetor3::escalar(Vetor3 vetor) const {
 
-    double resultado;
+    double resultado = 0.0;
+    std::size_t i;
 
-    resultado = this->x * vetor[0];
-    resultado = resultado + this->y * vetor[1];
-    resultado = resultado + this->z * vetor[2];
+    for (i = 0; i < 3; i++)
+        resultado = resultado + this->operator[](i) * vetor[i];
 
     return resultado;
 

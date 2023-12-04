@@ -12,6 +12,25 @@ typedef unsigned char canal_RGB;
 // Estrutura para ajudar na representação de uma cor.
 typedef std::array<canal_RGB, 3> rgb;
 
+// Estrutura para representar uma matriz com cores.
 typedef std::vector<std::vector<rgb>> matriz_cores;
+
+// Eixos no espaço tridimensional.
+enum Eixo3 {
+
+    EIXO_X,
+    EIXO_Y,
+    EIXO_Z
+
+};
+
+// Planos no espaço tridimensional.
+enum tipo_plano {
+
+    PLANO_XY,
+    PLANO_XZ,
+    PLANO_YZ
+
+};
 
 #endif

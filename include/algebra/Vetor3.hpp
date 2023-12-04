@@ -20,55 +20,49 @@ class Vetor3 {
 
             Vetor3(double x, double y, double z);
 
-            Vetor3(std::array<double, 3> e);
+            Vetor3(double valor);
 
         // --- OPERADORES ---
 
-            // Operador para acessar um elemento de um vetor.
+            // Operador para acessar um elemento de um Vetor3.
             double operator [] (std::size_t indice) const;
 
-            // Operador para definir o valor de um elemento de um vetor.
+            // Operador para definir o valor de um elemento de um Vetor3.
             double& operator [] (std::size_t indice);
 
-            // Operador para adição de dois vetores.
+            // Operador para adição de dois Vetor3.
             Vetor3 operator + (Vetor3 const& vetor) const;
 
-            // Operador para adição de um escalar a um vetor.
-            Vetor3 operator + (double const escalar) const;
-
-            // Operador para subtração de dois vetores.
+            // Operador para subtração de dois Vetor3.
             Vetor3 operator - (Vetor3 const& vetor) const;
 
-            // Operador para subtração de um escalar de um vetor.
-            Vetor3 operator - (double const escalar) const;
-
-            // Operador para produto vetorial do vetor por outro vetor.
+            // Operador para produto vetorial do Vetor3 por outro Vetor3.
             Vetor3 operator * (Vetor3 const vetor) const;
 
-            // Operador para produto de um vetor por um escalar.
+            // Operador para produto de um Vetor3 por um escalar.
             Vetor3 operator * (double const escalar) const;
 
         // --- OUTROS MÉTODOS ---
 
-            // Retorna a norma/módulo do vetor.
+            // Retorna a norma/módulo do Vetor3.
             double norma() const;
 
             // Normaliza o vetor.
             void normalizar();
 
-            // Retorna um Ponto3 cujas coordenadas são os elementos do vetor.
+            // Retorna um Ponto3 cujas coordenadas são os elementos do Vetor3.
             Ponto3 ponto() const;
 
-            // Retorna o vetor unitário.
+            // Retorna o Vetor3 unitário de mesmo sentido e direção.
             Vetor3 unitario() const;
 
-            // Retorna o produto escalar do vetor por um outro vetor v.
+            // Retorna o produto escalar do Vetor3 por um outro Vetor3 "v".
             double escalar(Vetor3 v) const;
 
-            // Retorna o produto vetorial do vetor por um outro vetor v, mas se e somente se esses dois vetores forem tridimensionais.
+            // Retorna o produto vetorial do Vetor3 por um outro Vetor3 "v".
             Vetor3 vetorial(Vetor3 v) const;
 
-            // Retorna o vetor refletido em relação a um outro vetor "v".
+            // Retorna o Vetor3 refletido em relação a um outro Vetor3 "v".
             Vetor3 reflexo(Vetor3 v) const;
 
 };

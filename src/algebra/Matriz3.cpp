@@ -9,7 +9,10 @@ Matriz3::Matriz3() {
 
         for (j = 0; j < 3; j++) {
 
-            this->operator()(i, j) = 0.0;
+            if (i == j)
+                this->operator()(i, j) = 1.0;
+            else
+                this->operator()(i, j) = 0.0;
 
         }
 
@@ -33,13 +36,13 @@ Matriz3::Matriz3(double a00, double a01, double a02, double a10, double a11, dou
 
 }
 
-Matriz3::Matriz3(std::array<std::array<double, 3>, 3> e) {
+Matriz3::Matriz3(double valor) {
 
     std::size_t i, j;
 
     for (i = 0; i < 3; i++)
         for (j = 0; j < 3; j++)
-            this->operator()(i, j) = e[i][j];
+            this->operator()(i, j) = valor;
 
 }
 
@@ -49,21 +52,51 @@ double Matriz3::operator () (std::size_t linha, std::size_t coluna) const {
 
         if (linha == 0) {
 
-            if (coluna == 0) return this->a00;
-            if (coluna == 1) return this->a01;
-            if (coluna == 2) return this->a02;
+            if (coluna == 0) {
+                
+                return this->a00;
+                
+            } else if (coluna == 1) {
+                
+                return this->a01;
+                
+            } else {
+                
+                return this->a02;
+                
+            }
 
         } else if (linha == 1) {
 
-            if (coluna == 0) return this->a10;
-            if (coluna == 1) return this->a11;
-            if (coluna == 2) return this->a12;
+            if (coluna == 0) {
+                
+                return this->a10;
+                
+            } else if (coluna == 1) {
+                
+                return this->a11;
+                
+            } else {
+                
+                return this->a12;
+                
+            }
 
         } else {
 
-            if (coluna == 0) return this->a20;
-            if (coluna == 1) return this->a21;
-            if (coluna == 2) return this->a22;
+            if (coluna == 0) {
+                
+                return this->a20;
+                
+            } else if (coluna == 1) {
+                
+                return this->a21;
+                
+            } else {
+                
+                return this->a22;
+                
+            }
 
         }
 
@@ -73,9 +106,6 @@ double Matriz3::operator () (std::size_t linha, std::size_t coluna) const {
 
     }
 
-    // Retorno para acalmar o compilador.
-    return this->a00;
-
 }
 
 double& Matriz3::operator () (std::size_t linha, std::size_t coluna) {
@@ -84,21 +114,51 @@ double& Matriz3::operator () (std::size_t linha, std::size_t coluna) {
 
         if (linha == 0) {
 
-            if (coluna == 0) return this->a00;
-            if (coluna == 1) return this->a01;
-            if (coluna == 2) return this->a02;
+            if (coluna == 0) {
+                
+                return this->a00;
+                
+            } else if (coluna == 1) {
+                
+                return this->a01;
+                
+            } else {
+                
+                return this->a02;
+                
+            }
 
         } else if (linha == 1) {
 
-            if (coluna == 0) return this->a10;
-            if (coluna == 1) return this->a11;
-            if (coluna == 2) return this->a12;
+            if (coluna == 0) {
+                
+                return this->a10;
+                
+            } else if (coluna == 1) {
+                
+                return this->a11;
+                
+            } else {
+                
+                return this->a12;
+                
+            }
 
         } else {
 
-            if (coluna == 0) return this->a20;
-            if (coluna == 1) return this->a21;
-            if (coluna == 2) return this->a22;
+            if (coluna == 0) {
+                
+                return this->a20;
+                
+            } else if (coluna == 1) {
+                
+                return this->a21;
+                
+            } else {
+                
+                return this->a22;
+                
+            }
 
         }
 
@@ -108,14 +168,11 @@ double& Matriz3::operator () (std::size_t linha, std::size_t coluna) {
 
     }
 
-    // Retorno para acalmar o compilador.
-    return this->a00;
-
 }
 
 Matriz3 Matriz3::operator + (Matriz3 const& matriz) const {
 
-    Matriz3 resultado;
+    Matriz3 resultado(0.0);
     std::size_t i, j;
 
     for (i = 0; i < 3; i++)
@@ -126,22 +183,9 @@ Matriz3 Matriz3::operator + (Matriz3 const& matriz) const {
 
 }
 
-Matriz3 Matriz3::operator + (double const escalar) const {
-
-    Matriz3 resultado;
-    std::size_t i, j;
-
-    for (i = 0; i < 3; i++)
-        for (j = 0; j < 3; j++)
-            resultado(i, j) = this->operator()(i, j) + escalar;
-
-    return resultado;
-
-}
-
 Matriz3 Matriz3::operator - (Matriz3 const& matriz) const {
 
-    Matriz3 resultado;
+    Matriz3 resultado(0.0);
     std::size_t i, j;
 
     for (i = 0; i < 3; i++)
@@ -152,27 +196,15 @@ Matriz3 Matriz3::operator - (Matriz3 const& matriz) const {
 
 }
 
-Matriz3 Matriz3::operator - (double const escalar) const {
-
-    Matriz3 resultado;
-    std::size_t i, j;
-
-    for (i = 0; i < 3; i++)
-        for (j = 0; j < 3; j++)
-            resultado(i, j) = this->operator()(i, j) - escalar;
-
-    return resultado;
-
-}
-
 Matriz3 Matriz3::operator * (Matriz3 const& matriz) const {
 
-    Matriz3 resultado;
-    std::size_t i, j;
+    Matriz3 resultado(0.0);
+    std::size_t i, j, k;
 
     for (i = 0; i < 3; i++)
         for (j = 0; j < 3; j++)
-            resultado(i, j) = this->operator()(i, 0) * matriz(0, j) + this->operator()(i, 1) * matriz(1, j) + this->operator()(i, 2) * matriz(2, j);
+            for (k = 0; k < 3; k++)
+                resultado(i, j) = resultado(i, j) + this->operator()(i, k) * matriz(k, j);
 
     return resultado;
 
@@ -180,11 +212,25 @@ Matriz3 Matriz3::operator * (Matriz3 const& matriz) const {
 
 Vetor3 Matriz3::operator * (Vetor3 const& vetor) const {
 
-    Vetor3 resultado;
-    std::size_t i;
+    Vetor3 resultado(0.0);
+    std::size_t i, j;
 
     for (i = 0; i < 3; i++)
-        resultado[i] = this->operator()(i, 0) * vetor[0] + this->operator()(i, 1) * vetor[1] + this->operator()(i, 2) * vetor[2];
+        for (j = 0; j < 3; j++)
+            resultado[i] = resultado[i] + this->operator()(i, j) * vetor[j];
+
+    return resultado;
+
+}
+
+Ponto3 Matriz3::operator * (Ponto3 const& ponto) const {
+
+    Ponto3 resultado(0.0);
+    std::size_t i, j;
+
+    for (i = 0; i < 3; i++)
+        for (j = 0; j < 3; j++)
+            resultado[i] = resultado[i] + this->operator()(i, j) * ponto[j];
 
     return resultado;
 
@@ -192,7 +238,7 @@ Vetor3 Matriz3::operator * (Vetor3 const& vetor) const {
 
 Matriz3 Matriz3::operator * (double const escalar) const {
 
-    Matriz3 resultado;
+    Matriz3 resultado(0.0);
     std::size_t i, j;
 
     for (i = 0; i < 3; i++)
@@ -200,16 +246,5 @@ Matriz3 Matriz3::operator * (double const escalar) const {
             resultado(i, j) = this->operator()(i, j) * escalar;
 
     return resultado;
-
-}
-
-double Matriz3::det() const {
-
-    double determinante;
-
-    // Regra de Sarrus
-    determinante = this->a00 * this->a11 * this->a22 + this->a01 * this->a12 * this->a20 + this->a02 * this->a10 * this->a21 - this->a02 * this->a11 * this->a20 - this->a00 * this->a12 * this->a21 - this->a01 * this->a10 * this->a22;
-
-    return determinante;
 
 }
