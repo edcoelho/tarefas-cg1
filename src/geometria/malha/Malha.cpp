@@ -323,22 +323,6 @@ void Malha::rotacionar(double angulo, Ponto3 ponto_eixo, Vetor3 direcao_eixo) {
 
 }
 
-void Malha::escalar(double fator_x, double fator_y, double fator_z) {
-
-    Matriz4 matriz_esc;
-
-    matriz_esc(0, 0) = fator_x;
-    matriz_esc(1, 1) = fator_y;
-    matriz_esc(2, 2) = fator_z;
-
-    for (auto& vertice : this->vertices) {
-
-        vertice = matriz_esc * vertice;
-
-    }
-
-}
-
 void Malha::escalar(double fator_x, double fator_y, double fator_z, Ponto3 ponto_amarra) {
 
     Matriz4 matriz_t_para_origem, matriz_esc, matriz_t_para_original;
@@ -347,14 +331,18 @@ void Malha::escalar(double fator_x, double fator_y, double fator_z, Ponto3 ponto
     matriz_esc(1, 1) = fator_y;
     matriz_esc(2, 2) = fator_z;
 
-    for (int i = 0; i < 3; i++) {
+    if (ponto_amarra != Ponto3(0.0)) {
 
-        matriz_t_para_origem(i, 3) = -ponto_amarra[i];
-        matriz_t_para_original(i, 3) = ponto_amarra[i];
+        for (int i = 0; i < 3; i++) {
+
+            matriz_t_para_origem(i, 3) = -ponto_amarra[i];
+            matriz_t_para_original(i, 3) = ponto_amarra[i];
+
+        }
+
+        matriz_esc = matriz_t_para_original * matriz_esc * matriz_t_para_origem;
 
     }
-
-    matriz_esc = matriz_t_para_original * matriz_esc * matriz_t_para_origem;
 
     for (auto& vertice : this->vertices) {
 

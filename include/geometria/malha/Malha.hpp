@@ -96,9 +96,7 @@ class Malha {
             void rotacionar(double angulo, Ponto3 ponto_eixo, Vetor3 direcao_eixo);
 
             // Aplica uma escala.
-            void escalar(double fator_x, double fator_y, double fator_z);
-            // Aplica uma escala com um ponto de amarra.
-            void escalar(double fator_x, double fator_y, double fator_z, Ponto3 ponto_amarra);
+            void escalar(double fator_x, double fator_y, double fator_z, Ponto3 ponto_amarra = Ponto3(0.0));
 
             // Aplica um cisalhamento num plano formado pelo eixo1 e eixo2 cisalhando no eixo2.
             void cisalhar(double angulo, EixoCanonico eixo1, EixoCanonico eixo2, Ponto3 ponto_amarra = Ponto3(0.0));
