@@ -48,6 +48,12 @@ class Matriz4 {
             // Operador para produto de uma Matriz4 por um escalar.
             Matriz4 operator * (double const escalar) const;
 
+            // Operador para igualdade de Matriz4.
+            bool operator == (Matriz4 const& matriz) const;
+
+            // Operador para desigualdade de Matriz4.
+            bool operator != (Matriz4 const& matriz) const;
+
 };
 
 

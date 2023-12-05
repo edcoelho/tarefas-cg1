@@ -42,6 +42,12 @@ class Vetor3 {
             // Operador para produto de um Vetor3 por um escalar.
             Vetor3 operator * (double const escalar) const;
 
+            // Operador para igualdade de Vetor3.
+            bool operator == (Vetor3 const& vetor) const;
+
+            // Operador para desigualdade de Vetor3.
+            bool operator != (Vetor3 const& vetor) const;
+
         // --- OUTROS MÉTODOS ---
 
             // Retorna a norma/módulo do Vetor3.

@@ -315,3 +315,22 @@ Matriz4 Matriz4::operator * (double const escalar) const {
     return resultado;
 
 }
+
+bool Matriz4::operator == (Matriz4 const& matriz) const {
+
+    std::size_t i, j;
+
+    for (i = 0; i < 4; i++)
+        for (j = 0; j < 4; j++)
+            if (this->operator()(i, j) != matriz(i, j))
+                return false;
+
+    return true;
+
+}
+
+bool Matriz4::operator != (Matriz4 const& matriz) const {
+
+    return !(this->operator==(matriz));
+
+}

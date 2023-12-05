@@ -130,6 +130,24 @@ Vetor3 Vetor3::operator * (double const escalar) const {
 
 }
 
+bool Vetor3::operator == (Vetor3 const& vetor) const {
+
+    std::size_t i;
+
+    for (i = 0; i < 3; i++)
+        if (this->operator[](i) != vetor[i])
+            return false;
+
+    return true;
+
+}
+
+bool Vetor3::operator != (Vetor3 const& vetor) const {
+
+    return !(this->operator==(vetor));
+
+}
+
 double Vetor3::norma() const {
 
     double norma = 0.0;

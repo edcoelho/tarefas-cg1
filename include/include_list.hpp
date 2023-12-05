@@ -14,7 +14,6 @@
 #include "utils/tipos.hpp"
 #include "utils/Material.hpp"
 
-#include "algebra/Matriz3.hpp"
 #include "algebra/Matriz4.hpp"
 #include "algebra/Vetor3.hpp"
 #include "algebra/Ponto3.hpp"
