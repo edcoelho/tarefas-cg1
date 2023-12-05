@@ -16,7 +16,7 @@ typedef std::array<canal_RGB, 3> rgb;
 typedef std::vector<std::vector<rgb>> matriz_cores;
 
 // Eixos no espaço tridimensional.
-enum Eixo3 {
+enum tipo_eixo {
 
     EIXO_X,
     EIXO_Y,

@@ -71,7 +71,7 @@ class Malha {
             void transladar(double x, double y, double z);
 
             // Aplica uma rotação em um dos eixos canônicos.
-            void rotacionar(double angulo, Eixo3 eixo);
+            void rotacionar(double angulo, tipo_eixo eixo);
             // Aplica uma rotação em um eixo arbitrário.
             void rotacionar(double angulo, Ponto3 ponto_eixo, Vetor3 direcao_eixo);
 
@@ -81,7 +81,7 @@ class Malha {
             void escalar(double fator_x, double fator_y, double fator_z, Ponto3 ponto_amarra);
 
             // Aplica um cisalhamento.
-            void cisalhar(double angulo, tipo_plano plano, Eixo3 eixo);
+            void cisalhar(double angulo, tipo_plano plano, tipo_eixo eixo);
 
             // Aplica um espelhamento em um dos planos canônicos.
             void espelhar(tipo_plano plano);
