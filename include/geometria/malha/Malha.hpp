@@ -8,9 +8,29 @@
 #include "algebra/Matriz4.hpp"
 #include "utils/Material.hpp"
 #include "geometria/Triangulo.hpp"
-#include "geometria/malha/Aresta.hpp"
-#include "geometria/malha/Face.hpp"
 
+// Estrutura para representar uma aresta de uma face triangular.
+struct Aresta {
+
+    Aresta(std::size_t id_vertice1 = 0, std::size_t id_vertice2 = 0);
+
+    std::size_t id_vertice1;
+    std::size_t id_vertice2;
+
+};
+
+// Estrutura para representar uma face triangular.
+struct Face {
+
+    Face(std::size_t id_aresta1 = 0, std::size_t id_aresta2 = 0, std::size_t id_aresta3 = 0);
+
+    std::size_t id_aresta1;
+    std::size_t id_aresta2;
+    std::size_t id_aresta3;
+
+};
+
+// Malha de faces triangulares.
 class Malha {
 
     private:
@@ -61,7 +81,7 @@ class Malha {
             // Se não houver intersecção, retorna -1.
             double escalar_interseccao(Raio& raio);
 
-            // Retorna um objeto do tipo Triangulo de acordo com o ID da face.
+            // Retorna um objeto do tipo Triangulo correspondente à face do ID passado.
             Triangulo triangulo_por_id_face(std::size_t id_face) const;
 
             // Aplica uma matriz de transformação qualquer.

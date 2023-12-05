@@ -1,6 +1,21 @@
 #include "geometria/malha/Malha.hpp"
 #include <cmath>
 
+Aresta::Aresta(std::size_t id_vertice1, std::size_t id_vertice2) {
+
+    this->id_vertice1 = id_vertice1;
+    this->id_vertice2 = id_vertice2;
+
+}
+
+Face::Face(std::size_t id_aresta1, std::size_t id_aresta2, std::size_t id_aresta3) {
+
+    this->id_aresta1 = id_aresta1;
+    this->id_aresta2 = id_aresta2;
+    this->id_aresta3 = id_aresta3;
+
+}
+
 Malha::Malha() {}
 
 Malha::Malha(Material material) {
@@ -106,55 +121,39 @@ double Malha::escalar_interseccao(Raio& raio) {
 
 Triangulo Malha::triangulo_por_id_face(std::size_t id_face) const {
 
+    Face face;
+    Aresta aresta1, aresta2;
+
     // IDs dos vertices da face.
 
     std::size_t id_vertice_1, id_vertice_2, id_vertice_3;
-
-    // IDs das arestas da face.
-    std::size_t id_aresta_1, id_aresta_2;
-
-    // IDs dos vértices das arestas.
-
-    std::size_t id_vertice_1_aresta_1, id_vertice_2_aresta_1;
-    std::size_t id_vertice_1_aresta_2, id_vertice_2_aresta_2;
 
     // Variáveis auxiliares.
 
     std::size_t aux1;
     float aux2;
 
-    Face face;
-    Aresta aresta1, aresta2;
-
     face = this->buscar_face_por_id(id_face);
 
-    id_aresta_1 = face.get_id_aresta1();
-    id_aresta_2 = face.get_id_aresta2();
-
-    aresta1 = this->buscar_aresta_por_id(id_aresta_1);
-    aresta2 = this->buscar_aresta_por_id(id_aresta_2);
-
-    id_vertice_1_aresta_1 = aresta1.get_id_vertice1();
-    id_vertice_2_aresta_1 = aresta1.get_id_vertice2();
-    id_vertice_1_aresta_2 = aresta2.get_id_vertice1();
-    id_vertice_2_aresta_2 = aresta2.get_id_vertice2();
+    aresta1 = this->buscar_aresta_por_id(face.id_aresta1);
+    aresta2 = this->buscar_aresta_por_id(face.id_aresta2);
 
     // Determinando vértices em sentido anti-horário.
 
-    aux1 = id_vertice_1_aresta_1 * id_vertice_2_aresta_1;
-    aux2 = (float) aux1 / (float) id_vertice_1_aresta_2;
+    aux1 = aresta1.id_vertice1 * aresta1.id_vertice2;
+    aux2 = (float) aux1 / (float) aresta2.id_vertice1;
 
-    if (aux2 == ((float) id_vertice_1_aresta_1) || aux2 == ((float) id_vertice_2_aresta_1)) {
+    if (aux2 == ((float) aresta1.id_vertice1) || aux2 == ((float) aresta1.id_vertice2)) {
 
-        id_vertice_1 = id_vertice_1_aresta_2;
-        id_vertice_2 = id_vertice_2_aresta_2;
+        id_vertice_1 = aresta2.id_vertice1;
+        id_vertice_2 = aresta2.id_vertice2;
         id_vertice_3 = aux2;
 
     } else {
 
-        id_vertice_1 = id_vertice_2_aresta_2;
-        id_vertice_2 = id_vertice_1_aresta_2;
-        id_vertice_3 = aux1 / id_vertice_2_aresta_2;
+        id_vertice_1 = aresta2.id_vertice2;
+        id_vertice_2 = aresta2.id_vertice1;
+        id_vertice_3 = aux1 / aresta2.id_vertice2;
         
     }
 

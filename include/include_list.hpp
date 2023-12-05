@@ -27,10 +27,7 @@
 #include "geometria/Cone.hpp"
 #include "geometria/Triangulo.hpp"
 
-#include "geometria/malha/Aresta.hpp"
-#include "geometria/malha/Face.hpp"
 #include "geometria/malha/Malha.hpp"
-
 #include "geometria/malha/MalhaEspecifica.hpp"
 #include "geometria/malha/RetanguloXY.hpp"
 #include "geometria/malha/RetanguloXZ.hpp"
