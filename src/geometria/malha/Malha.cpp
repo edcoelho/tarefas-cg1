@@ -1,5 +1,6 @@
 #include "geometria/malha/Malha.hpp"
 #include <cmath>
+#include <stdexcept>
 
 Aresta::Aresta(std::size_t id_vertice1, std::size_t id_vertice2) {
 
@@ -177,7 +178,7 @@ void Malha::transladar(double x, double y, double z) {
 
 }
 
-void Malha::rotacionar(double angulo, tipo_eixo eixo) {
+void Malha::rotacionar(double angulo, EixoCanonico eixo) {
 
     Matriz4 matriz_r;
     double cos_angulo, sen_angulo;
@@ -358,6 +359,86 @@ void Malha::escalar(double fator_x, double fator_y, double fator_z, Ponto3 ponto
     for (auto& vertice : this->vertices) {
 
         vertice = matriz_esc * vertice;
+
+    }
+
+}
+
+void Malha::cisalhar(double angulo, EixoCanonico eixo1, EixoCanonico eixo2, Ponto3 ponto_amarra) {
+
+    Matriz4 matriz_t_para_origem, matriz_c, matriz_t_para_original;
+    double tan_angulo;
+
+    if (eixo1 != eixo2) {
+
+        tan_angulo = std::tan(angulo);
+
+        if (eixo1 == EIXO_X) {
+
+            if (eixo2 == EIXO_Y) {
+
+                // Cisalhamento XY
+                matriz_c(1, 2) = tan_angulo;
+
+            } else {
+
+                // Cisalhamento XZ
+                matriz_c(2, 1) = tan_angulo;
+
+            }
+
+        } else if (eixo1 == EIXO_Y) {
+
+            if (eixo2 == EIXO_X) {
+
+                // Cisalhamento YX
+                matriz_c(0, 2) = tan_angulo;
+
+            } else {
+
+                // Cisalhamento YZ
+                matriz_c(2, 0) = tan_angulo;
+
+            }
+
+        } else {
+
+            if (eixo2 == EIXO_X) {
+
+                // Cisalhamento ZX
+                matriz_c(0, 1) = tan_angulo;
+
+            } else {
+
+                // Cisalhamento ZY
+                matriz_c(1, 0) = tan_angulo;
+
+            }
+
+        }
+
+        if (ponto_amarra != Ponto3(0.0)) {
+
+            for (int i = 0; i < 3; i++) {
+
+                matriz_t_para_origem(i, 3) = -ponto_amarra[i];
+                matriz_t_para_original(i, 3) = ponto_amarra[i];
+
+            }
+
+            matriz_c = matriz_t_para_original * matriz_c * matriz_t_para_origem;
+
+        }
+
+        for (auto& vertice : this->vertices) {
+
+            vertice = matriz_c * vertice;
+
+        }
+
+    } else {
+
+        throw std::invalid_argument("Erro: Tentativa de aplicar um cisalhamento em um plano formado por dois eixos canônicos iguais.");
 
     }
 

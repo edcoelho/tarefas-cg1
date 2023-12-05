@@ -16,20 +16,11 @@ typedef std::array<canal_RGB, 3> rgb;
 typedef std::vector<std::vector<rgb>> matriz_cores;
 
 // Eixos no espaço tridimensional.
-enum tipo_eixo {
+enum EixoCanonico {
 
     EIXO_X,
     EIXO_Y,
     EIXO_Z
-
-};
-
-// Planos no espaço tridimensional.
-enum tipo_plano {
-
-    PLANO_XY,
-    PLANO_XZ,
-    PLANO_YZ
 
 };
 
