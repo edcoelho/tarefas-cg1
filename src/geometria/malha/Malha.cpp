@@ -162,6 +162,8 @@ Triangulo Malha::triangulo_por_id_face(std::size_t id_face) const {
 
 }
 
+void Malha::transformar(Matriz4 const& matriz) {}
+
 void Malha::transladar(double x, double y, double z) {
 
     Matriz4 matriz_t;
@@ -431,3 +433,7 @@ void Malha::cisalhar(double angulo, EixoCanonico eixo1, EixoCanonico eixo2, Pont
     }
 
 }
+
+void Malha::espelhar(EixoCanonico eixo1, EixoCanonico eixo2) {}
+
+void Malha::espelhar(Vetor3 vetor_normal_plano, Ponto3 ponto_plano) {}

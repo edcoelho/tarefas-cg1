@@ -34,14 +34,17 @@ struct Face {
 class Malha {
 
     private:
-        std::vector<Ponto3> vertices;
-        std::vector<Aresta> arestas;
-        std::vector<Face> faces;
-        
+
         Material material;
 
         // ID da última face intersectada.
         std::size_t id_ultima_face;
+
+    protected:
+
+        std::vector<Ponto3> vertices;
+        std::vector<Aresta> arestas;
+        std::vector<Face> faces;
 
     public:
 
@@ -85,26 +88,26 @@ class Malha {
             Triangulo triangulo_por_id_face(std::size_t id_face) const;
 
             // Aplica uma matriz de transformação qualquer.
-            void transformar(Matriz4 const& matriz);
+            virtual void transformar(Matriz4 const& matriz);
 
             // Aplica uma translação.
-            void transladar(double x, double y, double z);
+            virtual void transladar(double x, double y, double z);
 
             // Aplica uma rotação em um dos eixos canônicos.
-            void rotacionar(double angulo, EixoCanonico eixo);
+            virtual void rotacionar(double angulo, EixoCanonico eixo);
             // Aplica uma rotação em um eixo arbitrário.
-            void rotacionar(double angulo, Ponto3 ponto_eixo, Vetor3 direcao_eixo);
+            virtual void rotacionar(double angulo, Ponto3 ponto_eixo, Vetor3 direcao_eixo);
 
             // Aplica uma escala.
-            void escalar(double fator_x, double fator_y, double fator_z, Ponto3 ponto_amarra = Ponto3(0.0));
+            virtual void escalar(double fator_x, double fator_y, double fator_z, Ponto3 ponto_amarra = Ponto3(0.0));
 
             // Aplica um cisalhamento num plano formado pelo eixo1 e eixo2 cisalhando no eixo2.
-            void cisalhar(double angulo, EixoCanonico eixo1, EixoCanonico eixo2, Ponto3 ponto_amarra = Ponto3(0.0));
+            virtual void cisalhar(double angulo, EixoCanonico eixo1, EixoCanonico eixo2, Ponto3 ponto_amarra = Ponto3(0.0));
 
             // Aplica um espelhamento em um plano formado por dois dos eixos canônicos.
-            void espelhar(EixoCanonico eixo1, EixoCanonico eixo2);
+            virtual void espelhar(EixoCanonico eixo1, EixoCanonico eixo2);
             // Aplica um espelhamento em um plano arbitrário.
-            void espelhar(Vetor3 vetor_normal_plano, Ponto3 ponto_plano);
+            virtual void espelhar(Vetor3 vetor_normal_plano, Ponto3 ponto_plano);
 
 };
 

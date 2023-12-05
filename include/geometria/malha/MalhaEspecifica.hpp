@@ -12,6 +12,9 @@ class MalhaEspecifica : public Malha {
             // Calcula e inseres os vértices, arestas e faces da malha específica.
             virtual void calcular_estrutura() = 0;
 
+            // Recalcula os atributos da malha específica.
+            virtual void recalcular_atributos() = 0;
+
 };
 
 #endif
