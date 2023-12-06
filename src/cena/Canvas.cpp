@@ -18,7 +18,6 @@ Canvas::Canvas(std::size_t altura, std::size_t largura, rgb cor_padrao) {
 
     this->pixel_buffer = std::vector<std::vector<rgb>>(altura, std::vector<rgb>(largura, cor_padrao));
 
-
 }
 
 std::size_t Canvas::get_altura() const {
@@ -59,23 +58,34 @@ void Canvas::calcular_cores(Cena& cena) {
     // Raio para o ray casting.
     Raio raio;
 
-    // Dimensões dos retângulos na janela do pintor.
-    double D_x = cena.get_camera().get_largura()/(this->get_largura()),
-           D_y = cena.get_camera().get_altura()/(this->get_altura());
-    // Coordenadas do centro de um retângulo na tela de mosquito.
+    // Dimensões dos pixels no canvas.
+
+    double D_x = cena.get_camera().get_largura_fov()/(this->get_largura()),
+           D_y = cena.get_camera().get_altura_fov()/(this->get_altura());
+
+    // Coordenadas do centro de um ponto na janela do campo de visão correspondente a um pixel no canvas.
     double cX, cY;
 
-    // Iterando na janela do pintor.
+    Ponto3 centro_pixel;
+
+    // Iterando no campo de visão.
     for (std::size_t l = 0; l < this->get_altura(); l++) {
         
-        cY = (double) cena.get_camera().get_altura()/2.0 - D_y/2.0 - l*D_y;
+        cY = (double) cena.get_camera().get_altura_fov()/2.0 - D_y/2.0 - l*D_y;
         
         for (std::size_t c = 0; c < this->get_largura(); c++) {
 
-            cX = (double) -1.0 * cena.get_camera().get_largura()/2.0 + D_x/2.0 + c*D_x;
+            cX = (double) -1.0 * cena.get_camera().get_largura_fov()/2.0 + D_x/2.0 + c*D_x;
 
-            // Lançando o raio.
-            raio = Raio(cena.get_camera().get_posicao(), Ponto3(cX, cY, -1.0 * cena.get_camera().get_distancia()));
+            centro_pixel[0] = cX;
+            centro_pixel[1] = cY;
+            centro_pixel[2] = -cena.get_camera().get_distancia_fov();
+
+            // Convertendo o ponto do centro do pixel para coordenadas de mundo.
+            centro_pixel = cena.get_camera().get_matriz_camera_mundo() * centro_pixel;
+
+            // Lançando o raio em coordenadas de mundo.
+            raio = Raio(cena.get_camera().get_posicao(), centro_pixel);
             this->pixel_buffer[c][l] = cena.cor_interseccao(raio, this->get_cor_padrao());
 
         }
