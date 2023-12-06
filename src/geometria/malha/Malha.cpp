@@ -434,6 +434,127 @@ void Malha::cisalhar(double angulo, EixoCanonico eixo1, EixoCanonico eixo2, Pont
 
 }
 
-void Malha::espelhar(EixoCanonico eixo1, EixoCanonico eixo2) {}
+void Malha::refletir(EixoCanonico eixo1, EixoCanonico eixo2) {
 
-void Malha::espelhar(Vetor3 vetor_normal_plano, Ponto3 ponto_plano) {}
+    Matriz4 matriz_esp;
+    std::size_t aux; // Variável para auxiliar na troca da ordem das arestas.
+
+    if (eixo1 != eixo2) {
+
+        if (eixo1 == EIXO_X) {
+
+            if (eixo2 == EIXO_Y) {
+
+                // Reflexão XY
+                matriz_esp(2, 2) = -1.0;
+
+            } else {
+
+                // Reflexão XZ
+                matriz_esp(1, 1) = -1.0;
+
+            }
+
+        } else if (eixo1 == EIXO_Y) {
+
+            if (eixo2 == EIXO_X) {
+
+                // Reflexão XY
+                matriz_esp(2, 2) = -1.0;
+
+            } else {
+
+                // Reflexão YZ
+                matriz_esp(0, 0) = -1.0;
+
+            }
+
+        } else {
+
+            if (eixo2 == EIXO_X) {
+
+                // Reflexão XZ
+                matriz_esp(1, 1) = -1.0;
+
+            } else {
+
+                // Reflexão YZ
+                matriz_esp(0, 0) = -1.0;
+
+            }
+
+        }
+
+        for (auto& vertice : this->vertices) {
+
+            vertice = matriz_esp * vertice;
+
+        }
+
+        // Trocando a posição das arestas na faces para que elas fiquem armazenadas no sentido anti-horário e, assim, não invertam o vetor normal das faces.
+        for (auto& face : this->faces) {
+
+            aux = face.id_aresta2;
+            face.id_aresta2 = face.id_aresta3;
+            face.id_aresta3 = aux;
+
+        }
+
+    } else {
+
+        throw std::invalid_argument("Erro: Tentativa de aplicar uma reflexão em um plano formado por dois eixos canônicos iguais.");
+
+    }
+
+}
+
+void Malha::refletir(Vetor3 vetor_normal_plano, Ponto3 ponto_plano) {
+
+    Matriz4 matriz_esp, matriz_t_origem_para_ponto, matriz_householder, matriz_t_ponto_para_origem;
+    std::size_t aux; // Variável para auxiliar na troca da ordem das arestas.
+
+    for (int i = 0; i < 3; i++) {
+
+        matriz_t_ponto_para_origem(i, 3) = -ponto_plano[i];
+        matriz_t_origem_para_ponto(i, 3) = ponto_plano[i];
+
+    }
+
+    vetor_normal_plano.normalizar();
+
+    for (int i = 0; i < 3; i++) {
+
+        for (int j = 0; j < 3; j++) {
+
+            matriz_householder(i, j) = matriz_householder(i, j) - (2 * vetor_normal_plano[i] * vetor_normal_plano[j]);
+
+        }
+
+    }
+
+    if (ponto_plano != Ponto3(0.0)) {
+
+        matriz_esp = matriz_t_origem_para_ponto * matriz_householder * matriz_t_ponto_para_origem;
+
+    } else {
+
+        matriz_esp = matriz_householder;
+
+    }
+
+    for (auto& vertice : this->vertices) {
+
+        vertice = matriz_esp * vertice;
+
+    }
+
+    // Trocando a posição das arestas na faces para que elas fiquem armazenadas no sentido anti-horário e, assim, não invertam o vetor normal das faces.
+    for (auto& face : this->faces) {
+
+        aux = face.id_aresta2;
+        face.id_aresta2 = face.id_aresta3;
+        face.id_aresta3 = aux;
+
+    }
+
+}

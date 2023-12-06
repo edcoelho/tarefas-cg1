@@ -59,10 +59,10 @@ class Paralelepipedo : public MalhaEspecifica {
             // Aplica um cisalhamento num plano formado pelo eixo1 e eixo2 cisalhando no eixo2.
             void cisalhar(double angulo, EixoCanonico eixo1, EixoCanonico eixo2, Ponto3 ponto_amarra = Ponto3(0.0)) override;
 
-            // Aplica um espelhamento em um plano formado por dois dos eixos canônicos.
-            void espelhar(EixoCanonico eixo1, EixoCanonico eixo2) override;
-            // Aplica um espelhamento em um plano arbitrário.
-            void espelhar(Vetor3 vetor_normal_plano, Ponto3 ponto_plano) override;
+            // Aplica uma reflexão em um plano formado por dois dos eixos canônicos.
+            void refletir(EixoCanonico eixo1, EixoCanonico eixo2) override;
+            // Aplica uma reflexão em um plano arbitrário.
+            void refletir(Vetor3 vetor_normal_plano, Ponto3 ponto_plano = Ponto3(0.0)) override;
 
 };
 

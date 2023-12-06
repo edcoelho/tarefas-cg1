@@ -170,11 +170,11 @@ void RetanguloYZ::cisalhar(double angulo, EixoCanonico eixo1, EixoCanonico eixo2
 
 }
 
-void RetanguloYZ::espelhar(EixoCanonico eixo1, EixoCanonico eixo2) {
+void RetanguloYZ::refletir(EixoCanonico eixo1, EixoCanonico eixo2) {
 
     this->vertices.push_back(this->centro_base);
 
-    Malha::espelhar(eixo1, eixo2);
+    Malha::refletir(eixo1, eixo2);
 
     this->centro_base = this->vertices.back();
     this->vertices.pop_back();
@@ -183,11 +183,11 @@ void RetanguloYZ::espelhar(EixoCanonico eixo1, EixoCanonico eixo2) {
 
 }
 
-void RetanguloYZ::espelhar(Vetor3 vetor_normal_plano, Ponto3 ponto_plano) {
+void RetanguloYZ::refletir(Vetor3 vetor_normal_plano, Ponto3 ponto_plano) {
 
     this->vertices.push_back(this->centro_base);
 
-    Malha::espelhar(vetor_normal_plano, ponto_plano);
+    Malha::refletir(vetor_normal_plano, ponto_plano);
 
     this->centro_base = this->vertices.back();
     this->vertices.pop_back();

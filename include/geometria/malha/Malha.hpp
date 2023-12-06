@@ -104,10 +104,10 @@ class Malha {
             // Aplica um cisalhamento num plano formado pelo eixo1 e eixo2 cisalhando no eixo2.
             virtual void cisalhar(double angulo, EixoCanonico eixo1, EixoCanonico eixo2, Ponto3 ponto_amarra = Ponto3(0.0));
 
-            // Aplica um espelhamento em um plano formado por dois dos eixos canônicos.
-            virtual void espelhar(EixoCanonico eixo1, EixoCanonico eixo2);
-            // Aplica um espelhamento em um plano arbitrário.
-            virtual void espelhar(Vetor3 vetor_normal_plano, Ponto3 ponto_plano);
+            // Aplica uma reflexão em um plano formado por dois dos eixos canônicos.
+            virtual void refletir(EixoCanonico eixo1, EixoCanonico eixo2);
+            // Aplica uma reflexão em um plano arbitrário.
+            virtual void refletir(Vetor3 vetor_normal_plano, Ponto3 ponto_plano = Ponto3(0.0));
 
 };
 
