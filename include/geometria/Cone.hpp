@@ -28,24 +28,20 @@ class Cone : public Solido {
         // --- GETTERS E SETTERS ---
 
         Ponto3 get_centro_base() const;
-        // Se o parâmetro "recalcular" receber o valor true, então os outros atributos do cone são recalculados.
-        void set_centro_base(Ponto3 cb, bool recalcular = false);
+        void set_centro_base(Ponto3 cb);
 
         Ponto3 get_vertice() const;
-        // Se o parâmetro "recalcular" receber o valor true, então os outros atributos do cone são recalculados.
-        void set_vertice(Ponto3 v, bool recalcular = false);
+        void set_vertice(Ponto3 v);
 
         Vetor3 get_direcao() const;
         // Normaliza o vetor "d" antes de atribuir o seu valor ao vetor direção do cone.
-        // Se o parâmetro "recalcular" receber o valor true, então os outros atributos do cone são recalculados.
-        void set_direcao(Vetor3 d, bool recalcular = false);
+        void set_direcao(Vetor3 d);
 
         double get_raio_base() const;
         void set_raio_base(double r);
 
         double get_altura() const;
-        // Se o parâmetro "recalcular" receber o valor true, então os outros atributos do cone são recalculados.
-        void set_altura(double a, bool recalcular = false);
+        void set_altura(double a);
 
         // --- MÉTODOS ---
 
