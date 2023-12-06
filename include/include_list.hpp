@@ -14,7 +14,7 @@
 #include "utils/tipos.hpp"
 #include "utils/Material.hpp"
 
-#include "algebra/Matriz3.hpp"
+#include "algebra/Matriz4.hpp"
 #include "algebra/Vetor3.hpp"
 #include "algebra/Ponto3.hpp"
 
@@ -26,10 +26,7 @@
 #include "geometria/Cone.hpp"
 #include "geometria/Triangulo.hpp"
 
-#include "geometria/malha/Aresta.hpp"
-#include "geometria/malha/Face.hpp"
 #include "geometria/malha/Malha.hpp"
-
 #include "geometria/malha/MalhaEspecifica.hpp"
 #include "geometria/malha/RetanguloXY.hpp"
 #include "geometria/malha/RetanguloXZ.hpp"

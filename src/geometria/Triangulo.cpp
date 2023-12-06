@@ -104,6 +104,6 @@ double Triangulo::escalar_interseccao(Raio& raio) const {
 
 Vetor3 Triangulo::vetor_normal_ponto(Ponto3 ponto) const {
 
-    return this->normal;
+    return (this->vertice2 - this->vertice1).vetorial(this->vertice3 - this->vertice1).unitario();
 
 }

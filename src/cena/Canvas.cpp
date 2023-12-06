@@ -118,7 +118,8 @@ int Canvas::loop(Cena& cena, const char* titulo) {
     SDL_Event event;
 
     bool repetir_loop = true; // Variável de controle do loop principal.
-    bool atualizar_janela = true; // Variável para controlar se a matriz de cores deve ser calculada e desenhada.
+    bool recalcular_cores = true; // Variável para controlar se a matriz de cores deve ser calculada.
+    bool renderizar_pixel_buffer = true; // Variável para controlar se a matriz de cores deve ser desenhada.
 
     // Inicializando o subsistema de vídeo e de input da SDL.
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -177,7 +178,16 @@ int Canvas::loop(Cena& cena, const char* titulo) {
                 // Força uma atualização da janela se a tecla "F5" for pressionada.
                 } else if (!strcmp(SDL_GetKeyName(event.key.keysym.sym), "F5")) {
                     
-                    atualizar_janela = true;
+                    recalcular_cores = true;
+
+                }
+
+            } else if (event.type == SDL_WINDOWEVENT) {
+
+                if (event.window.event == SDL_WINDOWEVENT_SHOWN) {
+
+                    // Força o pixel buffer a ser renderizado novamente quando a tela é maximizada para evitar o bug da tela transparente.
+                    renderizar_pixel_buffer = true;
 
                 }
 
@@ -186,16 +196,23 @@ int Canvas::loop(Cena& cena, const char* titulo) {
         }
 
         // Calcula e desenha a matriz de cores apenas se for necessário para otimizar o programa.
-        if (atualizar_janela) {
+        if (recalcular_cores) {
 
             // Chamando a função para calcular a matriz de cores que será pintada.
             this->calcular_cores(cena);
 
-            // Chamando a função para pintar os pixels.
-            desenhar_pixels(renderer);
-
-            atualizar_janela = false;
+            renderizar_pixel_buffer = true;
+            recalcular_cores = false;
         
+        }
+
+        if (renderizar_pixel_buffer) {
+
+            // Chamando a função para pintar os pixels.
+            this->desenhar_pixels(renderer);
+
+            renderizar_pixel_buffer = false;
+
         }
 
     }
