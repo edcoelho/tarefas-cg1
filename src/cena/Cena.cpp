@@ -21,7 +21,7 @@ void Cena::set_I_A(IntensidadeLuz i) {
 
 }
 
-Camera Cena::get_camera() const {
+Camera& Cena::get_camera() {
 
     return this->camera;
 

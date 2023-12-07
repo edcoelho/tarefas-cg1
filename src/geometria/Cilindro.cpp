@@ -3,11 +3,11 @@
 
 Cilindro::Cilindro() {
 
-    this->set_centro_base(Ponto3(0.0, -1.0, 0.0));
-    this->set_centro_topo(Ponto3(0.0, 1.0, 0.0));
-    this->set_direcao(Vetor3(0.0, 1.0, 0.0));
-    this->set_altura(2);
-    this->set_raio(1);
+    this->centro_base = Ponto3(0.0, -1.0, 0.0);
+    this->centro_topo = Ponto3(0.0, 1.0, 0.0);
+    this->direcao = Vetor3(0.0, 1.0, 0.0);
+    this->altura = 2;
+    this->raio = 1;
 
 }
 
@@ -15,23 +15,23 @@ Cilindro::Cilindro(Ponto3 centro_base, Ponto3 centro_topo, double raio, Material
 
     Vetor3 vetor_altura = centro_topo - centro_base;
 
-    this->set_centro_base(centro_base);
-    this->set_centro_topo(centro_topo);
-    this->set_direcao(vetor_altura);
-    this->set_altura(vetor_altura.norma());
-    this->set_raio(raio);
+    this->centro_base = centro_base;
+    this->centro_topo = centro_topo;
+    this->direcao = vetor_altura;
+    this->altura = vetor_altura.norma();
+    this->raio = raio;
     this->set_material(material);
 
 }
 
 Cilindro::Cilindro(Ponto3 centro_base, Vetor3 direcao, double raio, double altura, Material material) {
 
-    this->set_centro_base(centro_base);
-    this->set_direcao(direcao);
-    this->set_raio(raio);
-    this->set_altura(altura);
+    this->centro_base = centro_base;
+    this->direcao = direcao;
+    this->raio = raio;
+    this->altura = altura;
+    this->centro_topo = centro_base + (this->get_direcao() * altura);
     this->set_material(material);
-    this->set_centro_topo(centro_base + (this->get_direcao() * altura));
     
 }
 
@@ -40,20 +40,15 @@ Ponto3 Cilindro::get_centro_base() const {
     return this->centro_base;
 
 }
-void Cilindro::set_centro_base(Ponto3 cb, bool recalcular) {
+void Cilindro::set_centro_base(Ponto3 cb) {
 
     Vetor3 vetor_altura;
 
     this->centro_base = cb;
+    vetor_altura = this->get_centro_topo() - cb;
 
-    if (recalcular) {
-
-        vetor_altura = this->get_centro_topo() - cb;
-
-        this->set_direcao(vetor_altura);
-        this->set_altura(vetor_altura.norma());
-
-    }
+    this->set_direcao(vetor_altura);
+    this->set_altura(vetor_altura.norma());
 
 }
 
@@ -62,20 +57,15 @@ Ponto3 Cilindro::get_centro_topo() const {
     return this->centro_topo;
 
 }
-void Cilindro::set_centro_topo(Ponto3 ct, bool recalcular) {
+void Cilindro::set_centro_topo(Ponto3 ct) {
 
     Vetor3 vetor_altura;
 
     this->centro_topo = ct;
+    vetor_altura = ct - this->get_centro_base();
 
-    if (recalcular) {
-
-        vetor_altura = ct - this->get_centro_base();
-
-        this->set_direcao(vetor_altura);
-        this->set_altura(vetor_altura.norma());
-
-    }
+    this->set_direcao(vetor_altura);
+    this->set_altura(vetor_altura.norma());
 
 }
 
@@ -84,16 +74,12 @@ Vetor3 Cilindro::get_direcao() const {
     return this->direcao;
 
 }
-void Cilindro::set_direcao(Vetor3 d, bool recalcular) {
+void Cilindro::set_direcao(Vetor3 d) {
 
     d.normalizar();
     this->direcao = d;
 
-    if (recalcular) {
-
-        this->set_centro_topo(this->get_centro_base() + (d * this->get_altura()));
-
-    }
+    this->set_centro_topo(this->get_centro_base() + (d * this->get_altura()));
 
 }
 
@@ -102,15 +88,11 @@ double Cilindro::get_altura() const {
     return this->altura;
 
 }
-void Cilindro::set_altura(double a, bool recalcular) {
+void Cilindro::set_altura(double a) {
 
     this->altura = a;
 
-    if (recalcular) {
-
-        this->set_centro_topo(this->get_centro_base() + (this->get_direcao() * a));
-
-    }
+    this->set_centro_topo(this->get_centro_base() + (this->get_direcao() * a));
 
 }
 

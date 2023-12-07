@@ -2,18 +2,30 @@
 
 // -- CONSTANTES --
 
-// Altura da janela do pintor.
-const double H_J = 60.0;
-// Largura da janela do pintor.
-const double W_J = 60.0;
+// Posição da câmera.
+Ponto3 posicao_camera(0.0, 0.0, 0.0);
+
+// Ponto para onde a câmera aponta (look at).
+Ponto3 ponto_visada(0.0, 0.0, 1.0);
+
+// Ponto de amarra do plano sargital da câmera (view up).
+Ponto3 ponto_amarra_sargital(0.0, 1.0, 0.0);
+
+// x máximo do campo de visão.
+const double x_max = 30.0;
+// x mínimo do campo de visão.
+const double x_min = -30.0;
+// y máximo do campo de visão.
+const double y_max = 30.0;
+// y mínimo do campo de visão.
+const double y_min = -30.0;
+// Distância focal da câmera.
+const double distancia_focal = 30.0;
 
 // Largura (número de colunas) em pixels do canvas.
-const std::size_t W_C = 500;
+const std::size_t largura_canvas = 500;
 // Altura (número de linhas) em pixels do canvas.
-const std::size_t H_C = 500;
-
-// Coordenada z da janela do pintor.
-const double z_J = 30.0;
+const std::size_t altura_canvas = 500;
 
 // Intensidade da luz ambiente.
 IntensidadeLuz I_A(0.3f, 0.3f, 0.3f);
@@ -21,14 +33,13 @@ IntensidadeLuz I_A(0.3f, 0.3f, 0.3f);
 // Cor do background.
 const rgb cor_bg{0, 0, 0};
 
-// Posição do olho do pintor
-Ponto3 ponto_olho(0.0, 0.0, 0.0);
-
 int main(int argc, char* argv[]) {
 
-    Canvas canvas(H_C, W_C, cor_bg);
+    Canvas canvas(altura_canvas, largura_canvas, cor_bg);
 
-    Cena cena(Camera(H_J, W_J, z_J, ponto_olho), I_A);
+    Camera camera(posicao_camera, ponto_visada, ponto_amarra_sargital, x_max, x_min, y_max, y_min, distancia_focal);
+
+    Cena cena(camera, I_A);
 
     // --- INSERÇÃO DE ELEMENTOS NA CENA ---
 
@@ -87,6 +98,15 @@ int main(int argc, char* argv[]) {
             // ...
 
         // --- FIM DA INSERÇÃ0 DE SÓLIDOS NA CENA ---
+
+        // --- MANIPULAÇÃO DA CÂMERA ---
+
+            //cena.get_camera().set_posicao(...);
+            //cena.get_camera().set_ponto_visada(...);
+            //cena.get_camera().set_ponto_amarra(...);
+            // ...
+
+        // --- FIM DA MANIPULAÇÃO DA CAMERA ---
 
     // --- FIM DA INSERÇÃO DE ELEMENTOS NA CENA ---
 

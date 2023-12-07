@@ -43,7 +43,11 @@ class Matriz4 {
 
             // Operador para multiplicação de uma Matriz4 por um Ponto3.
             // A 4ª coordenada que é necessária para a multiplicação pelo Ponto3 é 1.
-            Ponto3 operator * (Ponto3 const& vetor) const;
+            Ponto3 operator * (Ponto3 const& ponto) const;
+
+            // Operador para multiplicação de uma Matriz4 por um Vetor3.
+            // A 4ª coordenada que é necessária para a multiplicação pelo Vetor3 é 0.
+            Vetor3 operator * (Vetor3 const& vetor) const;
 
             // Operador para produto de uma Matriz4 por um escalar.
             Matriz4 operator * (double const escalar) const;

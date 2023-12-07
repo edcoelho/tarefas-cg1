@@ -1,15 +1,5 @@
 #include "cena/Canvas.hpp"
 
-Canvas::Canvas() {
-
-    this->set_altura(500);
-    this->set_largura(500);
-    this->set_cor_padrao(rgb{0, 0, 0});
-
-    this->pixel_buffer = std::vector<std::vector<rgb>>(500, std::vector<rgb>(500, rgb{0, 0, 0}));
-
-}
-
 Canvas::Canvas(std::size_t altura, std::size_t largura, rgb cor_padrao) {
 
     this->set_altura(altura);
@@ -17,7 +7,6 @@ Canvas::Canvas(std::size_t altura, std::size_t largura, rgb cor_padrao) {
     this->set_cor_padrao(cor_padrao);
 
     this->pixel_buffer = std::vector<std::vector<rgb>>(altura, std::vector<rgb>(largura, cor_padrao));
-
 
 }
 
@@ -59,24 +48,34 @@ void Canvas::calcular_cores(Cena& cena) {
     // Raio para o ray casting.
     Raio raio;
 
-    // Dimensões dos retângulos na janela do pintor.
-    double D_x = cena.get_camera().get_largura()/(this->get_largura()),
-           D_y = cena.get_camera().get_altura()/(this->get_altura());
-    // Coordenadas do centro de um retângulo na tela de mosquito.
-    double cX, cY;
+    // Largura do campo de visão.
+    double largura_fov = cena.get_camera().get_x_max() - cena.get_camera().get_x_min();
+    // Altura do campo de visão.
+    double altura_fov = cena.get_camera().get_y_max() - cena.get_camera().get_y_min();
 
-    // Iterando na janela do pintor.
+    // Dimensões dos pixels no canvas.
+
+    double D_x = largura_fov/this->get_largura(),
+           D_y = altura_fov/this->get_altura();
+
+    // Posição na janela do campo de visão por onde passará um raio.
+    Ponto3 centro_pixel;
+
+    // Iterando no campo de visão.
     for (std::size_t l = 0; l < this->get_altura(); l++) {
-        
-        cY = (double) cena.get_camera().get_altura()/2.0 - D_y/2.0 - l*D_y;
         
         for (std::size_t c = 0; c < this->get_largura(); c++) {
 
-            cX = (double) -1.0 * cena.get_camera().get_largura()/2.0 + D_x/2.0 + c*D_x;
+            centro_pixel[0] = cena.get_camera().get_x_min() + D_x/2.0 + c*D_x;
+            centro_pixel[1] = cena.get_camera().get_y_max() - D_y/2.0 - l*D_y;
+            centro_pixel[2] = -cena.get_camera().get_distancia_focal();
 
-            // Lançando o raio.
-            raio = Raio(cena.get_camera().get_posicao(), Ponto3(cX, cY, -1.0 * cena.get_camera().get_distancia()));
-            this->pixel_buffer[c][l] = cena.cor_interseccao(raio, this->get_cor_padrao());
+            // Convertendo o ponto do centro do pixel para coordenadas de mundo.
+            centro_pixel = cena.get_camera().get_matriz_camera_mundo() * centro_pixel;
+
+            // Lançando o raio em coordenadas de mundo.
+            raio = Raio(cena.get_camera().get_posicao(), centro_pixel);
+            this->pixel_buffer[l][c] = cena.cor_interseccao(raio, this->get_cor_padrao());
 
         }
 
@@ -96,7 +95,7 @@ void Canvas::desenhar_pixels(SDL_Renderer* renderer) const {
             if ((0 <= l && l < this->get_altura()) && (0 <= c && c < this->get_largura())) {
 
                 // Definindo a cor que será pintada. Essa função segue o padrão RGBA, mas o canal alpha está sendo ignorado.
-                SDL_SetRenderDrawColor(renderer, this->pixel_buffer[c][l][0], this->pixel_buffer[c][l][1], this->pixel_buffer[c][l][2], 255);
+                SDL_SetRenderDrawColor(renderer, this->pixel_buffer[l][c][0], this->pixel_buffer[l][c][1], this->pixel_buffer[l][c][2], 255);
 
                 // Pintando o pixel.
                 SDL_RenderDrawPoint(renderer, c, l);

@@ -35,7 +35,8 @@ class Cena {
 
         // --- GETTERS E SETTERS ---
 
-        Camera get_camera() const;
+        // Retorna uma referência para a câmera da cena.
+        Camera& get_camera();
         void set_camera(Camera c);
 
         IntensidadeLuz get_I_A() const;
