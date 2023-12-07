@@ -12,6 +12,7 @@ Camera::Camera(Ponto3 posicao, Ponto3 ponto_visada, Ponto3 ponto_amarra, double 
     this->y_max = y_max;
     this->y_min = y_min;
     this->distancia_focal = distancia_focal;
+    this->distancia_focal_padrao = distancia_focal;
 
     this->recalcular_matrizes();
 
@@ -145,5 +146,33 @@ Matriz4 const& Camera::get_matriz_camera_mundo() const {
 Matriz4 const& Camera::get_matriz_mundo_camera() const {
 
     return this->matriz_mundo_camera;
+
+}
+
+void Camera::aumentar_zoom(double fator) {
+
+    if (fator >= 1.0) {
+
+        this->distancia_focal = this->distancia_focal * fator;
+
+    }
+
+}
+
+void Camera::diminuir_zoom(double divisor) {
+
+    if (divisor >= 1.0) {
+
+        if (this->distancia_focal / divisor >= this->distancia_focal_padrao) {
+
+            this->distancia_focal = this->distancia_focal / divisor;
+
+        } else {
+
+            this->distancia_focal = this->distancia_focal_padrao;
+
+        }
+
+    }
 
 }

@@ -17,8 +17,11 @@ class Camera {
         Ponto3 ponto_amarra;
         // Limites da janela do campo de visão em coordenadas de câmera.
         double x_max, x_min, y_max, y_min;
-        // Distância focal da câmera.
+        // Distância focal atual da câmera.
         double distancia_focal;
+
+        // Distância focal padrão da câmera.
+        double distancia_focal_padrao;
 
         // Matriz para mudar coordenadas de câmera para mundo.
         Matriz4 matriz_camera_mundo;
@@ -62,6 +65,14 @@ class Camera {
             Matriz4 const& get_matriz_camera_mundo() const;
 
             Matriz4 const& get_matriz_mundo_camera() const;
+
+        // --- OUTROS MÉTODOS ---
+
+            // Aumenta o zoom em n vezes.
+            void aumentar_zoom(double fator);
+
+            // Diminui o zoom em n vezes.
+            void diminuir_zoom(double divisor);
 
 };
 
