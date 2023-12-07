@@ -2,14 +2,16 @@
 
 // --- CONSTRUTORES ---
 
-Camera::Camera(Ponto3 posicao, Ponto3 ponto_visada, Ponto3 ponto_amarra, double altura_fov, double largura_fov, double distancia_fov) {
+Camera::Camera(Ponto3 posicao, Ponto3 ponto_visada, Ponto3 ponto_amarra, double x_max, double x_min, double y_max, double y_min, double distancia_focal) {
 
     this->posicao = posicao;
     this->ponto_visada = ponto_visada;
     this->ponto_amarra = ponto_amarra;
-    this->altura_fov = altura_fov;
-    this->largura_fov = largura_fov;
-    this->distancia_fov = distancia_fov;
+    this->x_max = x_max;
+    this->x_min = x_min;
+    this->y_max = y_max;
+    this->y_min = y_min;
+    this->distancia_focal = distancia_focal;
 
     this->recalcular_matrizes();
 
@@ -79,36 +81,58 @@ void Camera::set_ponto_amarra(Ponto3 pa) {
 
 }
 
-double Camera::get_altura_fov() const {
+double Camera::get_x_max() const {
 
-    return this->altura_fov;
-
-}
-void Camera::set_altura_fov(double a) {
-
-    this->altura_fov = a;
+    return this->x_max;
 
 }
+void Camera::set_x_max(double x) {
 
-double Camera::get_largura_fov() const {
-
-    return this->largura_fov;
-
-}
-void Camera::set_largura_fov(double l) {
-
-    this->largura_fov = l;
+    this->x_max = x;
 
 }
 
-double Camera::get_distancia_fov() const {
+double Camera::get_x_min() const {
 
-    return this->distancia_fov;
+    return this->x_min;
 
 }
-void Camera::set_distancia_fov(double d) {
+void Camera::set_x_min(double x) {
 
-    this->distancia_fov = d;
+    this->x_min = x;
+
+}
+
+double Camera::get_y_max() const {
+
+    return this->y_max;
+
+}
+void Camera::set_y_max(double y) {
+
+    this->y_max = y;
+
+}
+
+double Camera::get_y_min() const {
+
+    return this->y_min;
+
+}
+void Camera::set_y_min(double y) {
+
+    this->y_min = y;
+
+}
+
+double Camera::get_distancia_focal() const {
+
+    return this->distancia_focal;
+
+}
+void Camera::set_distancia_focal(double d) {
+
+    this->distancia_focal = d;
 
 }
 

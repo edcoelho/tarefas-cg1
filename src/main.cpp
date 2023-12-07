@@ -11,12 +11,16 @@ Ponto3 ponto_visada(0.0, 0.0, 1.0);
 // Ponto de amarra do plano sargital da câmera (view up).
 Ponto3 ponto_amarra_sargital(0.0, 1.0, 0.0);
 
-// Altura da janela de campo de visão.
-const double altura_fov = 60.0;
-// Largura da janela de campo de visão.
-const double largura_fov = 60.0;
-// Distância da janela do campo de visão.
-const double distancia_fov = 30.0;
+// x máximo do campo de visão.
+const double x_max = 30.0;
+// x mínimo do campo de visão.
+const double x_min = -30.0;
+// y máximo do campo de visão.
+const double y_max = 30.0;
+// y mínimo do campo de visão.
+const double y_min = -30.0;
+// Distância focal da câmera.
+const double distancia_focal = 30.0;
 
 // Largura (número de colunas) em pixels do canvas.
 const std::size_t largura_canvas = 500;
@@ -33,7 +37,7 @@ int main(int argc, char* argv[]) {
 
     Canvas canvas(altura_canvas, largura_canvas, cor_bg);
 
-    Camera camera(posicao_camera, ponto_visada, ponto_amarra_sargital, altura_fov, largura_fov, distancia_fov);
+    Camera camera(posicao_camera, ponto_visada, ponto_amarra_sargital, x_max, x_min, y_max, y_min, distancia_focal);
 
     Cena cena(camera, I_A);
 

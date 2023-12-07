@@ -23,9 +23,7 @@ class Canvas {
 
         // --- CONSTRUTORES ---
 
-            Canvas();
-
-            Canvas(std::size_t altura, std::size_t largura, rgb cor_padrao = rgb{0, 0, 0});
+            Canvas(std::size_t altura = 500, std::size_t largura = 500, rgb cor_padrao = rgb{0, 0, 0});
 
         // --- GETTERS E SETTERS ---
 

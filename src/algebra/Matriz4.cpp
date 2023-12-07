@@ -303,6 +303,25 @@ Ponto3 Matriz4::operator * (Ponto3 const& ponto) const {
 
 }
 
+Vetor3 Matriz4::operator * (Vetor3 const& vetor) const {
+
+    Vetor3 resultado(0.0);
+    std::size_t i, j;
+
+    for (i = 0; i < 3; i++) {
+
+        for (j = 0; j < 3; j++) {
+
+            resultado[i] = resultado[i] + this->operator()(i, j) * vetor[j];
+
+        }
+
+    }
+
+    return resultado;
+
+}
+
 Matriz4 Matriz4::operator * (double const escalar) const {
 
     Matriz4 resultado(0.0);

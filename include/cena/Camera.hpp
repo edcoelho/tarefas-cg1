@@ -15,12 +15,10 @@ class Camera {
         Ponto3 ponto_visada;
         // Ponto que amarra o plano sargital da câmera.
         Ponto3 ponto_amarra;
-        // Altura da janela do campo de visão.
-        double altura_fov;
-        // Largura da janela do campo de visão.
-        double largura_fov;
-        // Distância da câmera até a janela do campo de visão.
-        double distancia_fov;
+        // Limites da janela do campo de visão em coordenadas de câmera.
+        double x_max, x_min, y_max, y_min;
+        // Distância focal da câmera.
+        double distancia_focal;
 
         // Matriz para mudar coordenadas de câmera para mundo.
         Matriz4 matriz_camera_mundo;
@@ -33,7 +31,7 @@ class Camera {
 
         // --- CONSTRUTORES ---
 
-            Camera(Ponto3 posicao = Ponto3(0.0), Ponto3 ponto_visada = Ponto3(0.0, 0.0, 1.0), Ponto3 ponto_amarra = Ponto3(0.0, 1.0, 0.0), double altura_fov = 60.0, double largura_fov = 60.0, double distancia_fov = 30.0);
+            Camera(Ponto3 posicao = Ponto3(0.0), Ponto3 ponto_visada = Ponto3(0.0, 0.0, 1.0), Ponto3 ponto_amarra = Ponto3(0.0, 1.0, 0.0), double x_max = 30.0, double x_min = -30.0, double y_max = 30.0, double y_min = -30.0, double distancia_focal = 30.0);
 
         // --- GETTERS E SETTERS ---
 
@@ -46,14 +44,20 @@ class Camera {
             Ponto3 get_ponto_amarra() const;
             void set_ponto_amarra(Ponto3 pa);
 
-            double get_altura_fov() const;
-            void set_altura_fov(double a);
+            double get_x_max() const;
+            void set_x_max(double x);
 
-            double get_largura_fov() const;
-            void set_largura_fov(double l);
+            double get_x_min() const;
+            void set_x_min(double x);
 
-            double get_distancia_fov() const;
-            void set_distancia_fov(double d);
+            double get_y_max() const;
+            void set_y_max(double y);
+
+            double get_y_min() const;
+            void set_y_min(double y);
+
+            double get_distancia_focal() const;
+            void set_distancia_focal(double d);
 
             Matriz4 const& get_matriz_camera_mundo() const;
 
