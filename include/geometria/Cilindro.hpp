@@ -19,11 +19,11 @@ class Cilindro : public Solido {
     public:
         // --- CONSTRUTORES ---
 
-        Cilindro();
+        Cilindro(Material material = Material());
 
-        Cilindro(Ponto3 centro_base, Ponto3 centro_topo, double raio, Material material);
+        Cilindro(Ponto3 centro_base, Ponto3 centro_topo, double raio, Material material = Material());
 
-        Cilindro(Ponto3 centro_base, Vetor3 direcao, double raio, double altura, Material material);
+        Cilindro(Ponto3 centro_base, Vetor3 direcao, double raio, double altura, Material material = Material());
 
         // --- GETTERS E SETTERS ---
 

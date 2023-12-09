@@ -14,9 +14,7 @@ class LuzDirecional : public FonteLuz {
 
         // --- CONSTRUTORES ---
 
-            LuzDirecional();
-
-            LuzDirecional(IntensidadeLuz intensidade, Vetor3 direcao);
+            LuzDirecional(Vetor3 direcao = Vetor3(), IntensidadeLuz intensidade = IntensidadeLuz());
 
         // --- GETTERS E SETTERS ---
 

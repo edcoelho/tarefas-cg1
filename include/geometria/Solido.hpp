@@ -16,8 +16,7 @@ class Solido {
 
         // --- CONSTRUTORES ---
 
-        Solido();
-        Solido(Material material);
+        Solido(Material material = Material());
 
         // --- GETTERS E SETTERS ---
 

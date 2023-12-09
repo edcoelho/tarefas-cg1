@@ -14,8 +14,9 @@ class Esfera : public Solido {
 
         // --- CONSTRUTORES ---
 
-        Esfera();
-        Esfera(Ponto3 centro, double raio, Material material);
+        Esfera(Material material = Material());
+
+        Esfera(Ponto3 centro, double raio, Material material = Material());
 
         // --- GETTERS E SETTERS ---
 

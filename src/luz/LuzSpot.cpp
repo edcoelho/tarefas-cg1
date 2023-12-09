@@ -1,14 +1,7 @@
 #include "luz/LuzSpot.hpp"
 #include <cmath>
 
-LuzSpot::LuzSpot() : LuzPontual() {
-
-    this->set_direcao(Vetor3(0.0, -1.0, 0.0));
-    this->set_abertura(M_PI_2);
-
-}
-
-LuzSpot::LuzSpot(IntensidadeLuz intensidade, Ponto3 posicao, Vetor3 direcao, double abertura, double atenuacao_a, double atenuacao_b, double atenuacao_c) : LuzPontual(intensidade, posicao, atenuacao_a, atenuacao_b, atenuacao_c) {
+LuzSpot::LuzSpot(Vetor3 direcao, double abertura, Ponto3 posicao, IntensidadeLuz intensidade, double atenuacao_a, double atenuacao_b, double atenuacao_c) : LuzPontual(posicao, intensidade, atenuacao_a, atenuacao_b, atenuacao_c) {
 
     this->set_direcao(direcao);
     this->set_abertura(abertura);

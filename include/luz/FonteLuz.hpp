@@ -24,9 +24,7 @@ class FonteLuz {
 
         // --- CONSTRUTORES ---
 
-            FonteLuz();
-
-            FonteLuz(IntensidadeLuz intensidade, double atenuacao_a = 0.0, double atenuacao_b = 0.0, double atenuacao_c = 1.0);
+            FonteLuz(IntensidadeLuz intensidade = IntensidadeLuz(), double atenuacao_a = 0.0, double atenuacao_b = 0.0, double atenuacao_c = 1.0);
 
         // --- GETTERS E SETTERS ---
 

@@ -16,8 +16,9 @@ class Plano : public Solido {
 
         // --- CONSTRUTORES ---
 
-        Plano();
-        Plano(Ponto3 ponto, Vetor3 normal, Material material);
+        Plano(Material material = Material());
+
+        Plano(Ponto3 ponto, Vetor3 normal, Material material = Material());
 
         // --- GETTERS E SETTERS ---
 

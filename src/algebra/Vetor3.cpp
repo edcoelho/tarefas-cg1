@@ -3,12 +3,12 @@
 #include <stdexcept>
 #include <cmath>
 
-Vetor3::Vetor3() {
+Vetor3::Vetor3(double valor) {
 
     std::size_t i;
 
     for (i = 0; i < 3; i++)
-        this->operator[](i) = 1.0;
+        this->operator[](i) = valor;
 
 }
 
@@ -17,15 +17,6 @@ Vetor3::Vetor3(double x, double y, double z) {
     this->x = x;
     this->y = y;
     this->z = z;
-
-}
-
-Vetor3::Vetor3(double valor) {
-
-    std::size_t i;
-
-    for (i = 0; i < 3; i++)
-        this->operator[](i) = valor;
 
 }
 

@@ -1,9 +1,7 @@
 #include "luz/LuzPontual.hpp"
 #include <cmath>
 
-LuzPontual::LuzPontual() : FonteLuz() {}
-
-LuzPontual::LuzPontual(IntensidadeLuz intensidade, Ponto3 posicao, double atenuacao_a, double atenuacao_b, double atenuacao_c) : FonteLuz(intensidade, atenuacao_a, atenuacao_b, atenuacao_c) {
+LuzPontual::LuzPontual(Ponto3 posicao, IntensidadeLuz intensidade, double atenuacao_a, double atenuacao_b, double atenuacao_c) : FonteLuz(intensidade, atenuacao_a, atenuacao_b, atenuacao_c) {
 
     this->set_posicao(posicao);
 

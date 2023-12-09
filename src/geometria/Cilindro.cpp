@@ -1,7 +1,7 @@
 #include "geometria/Cilindro.hpp"
 #include <cmath>
 
-Cilindro::Cilindro() {
+Cilindro::Cilindro(Material material) : Solido(material) {
 
     this->centro_base = Ponto3(0.0, -1.0, 0.0);
     this->centro_topo = Ponto3(0.0, 1.0, 0.0);
@@ -11,7 +11,7 @@ Cilindro::Cilindro() {
 
 }
 
-Cilindro::Cilindro(Ponto3 centro_base, Ponto3 centro_topo, double raio, Material material) {
+Cilindro::Cilindro(Ponto3 centro_base, Ponto3 centro_topo, double raio, Material material) : Solido(material) {
 
     Vetor3 vetor_altura = centro_topo - centro_base;
 
@@ -20,18 +20,16 @@ Cilindro::Cilindro(Ponto3 centro_base, Ponto3 centro_topo, double raio, Material
     this->direcao = vetor_altura;
     this->altura = vetor_altura.norma();
     this->raio = raio;
-    this->set_material(material);
 
 }
 
-Cilindro::Cilindro(Ponto3 centro_base, Vetor3 direcao, double raio, double altura, Material material) {
+Cilindro::Cilindro(Ponto3 centro_base, Vetor3 direcao, double raio, double altura, Material material) : Solido(material) {
 
     this->centro_base = centro_base;
     this->direcao = direcao;
     this->raio = raio;
     this->altura = altura;
     this->centro_topo = centro_base + (this->get_direcao() * altura);
-    this->set_material(material);
     
 }
 

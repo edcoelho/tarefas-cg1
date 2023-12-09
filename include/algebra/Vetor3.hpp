@@ -16,11 +16,9 @@ class Vetor3 {
 
         // --- CONSTRUTORES ---
 
-            Vetor3();
+            Vetor3(double valor = 1.0);
 
             Vetor3(double x, double y, double z);
-
-            Vetor3(double valor);
 
         // --- OPERADORES ---
 

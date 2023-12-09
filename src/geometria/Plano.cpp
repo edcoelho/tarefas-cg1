@@ -1,17 +1,16 @@
 #include "geometria/Plano.hpp"
 
-Plano::Plano() {
+Plano::Plano(Material material) : Solido(material) {
 
     this->set_ponto(Ponto3(0.0, 0.0, 0.0));
     this->set_normal(Vetor3(0.0, 1.0, 0.0));
 
 }
 
-Plano::Plano(Ponto3 ponto, Vetor3 normal, Material material) {
+Plano::Plano(Ponto3 ponto, Vetor3 normal, Material material) : Solido(material) {
 
     this->set_ponto(ponto);
     this->set_normal(normal);
-    this->set_material(material);
 
 }
 

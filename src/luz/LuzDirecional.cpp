@@ -1,9 +1,7 @@
 #include "luz/LuzDirecional.hpp"
 #include <cmath>
 
-LuzDirecional::LuzDirecional() : FonteLuz() {}
-
-LuzDirecional::LuzDirecional(IntensidadeLuz intensidade, Vetor3 direcao) : FonteLuz(intensidade, 0.0, 0.0, 1.0) {
+LuzDirecional::LuzDirecional(Vetor3 direcao, IntensidadeLuz intensidade) : FonteLuz(intensidade, 0.0, 0.0, 1.0) {
 
     this->set_direcao(direcao);
 

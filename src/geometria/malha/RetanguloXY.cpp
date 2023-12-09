@@ -2,18 +2,6 @@
 
 // --- CONSTRUTORES ---
 
-RetanguloXY::RetanguloXY() {
-
-    this->centro_base = Ponto3();
-    this->largura = 30.0;
-    this->altura = 60.0;
-    this->set_material(Material());
-    this->sentido_vetor_normal = true;
-
-    this->calcular_estrutura();
-
-}
-
 RetanguloXY::RetanguloXY(Ponto3 centro_base, double largura, double altura, Material material, bool sentido_vetor_normal) {
 
     this->centro_base = centro_base;

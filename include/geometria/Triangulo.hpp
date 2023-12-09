@@ -22,9 +22,9 @@ class Triangulo : public Solido {
 
         // --- CONSTRUTORES ---
 
-            Triangulo();
+            Triangulo(Material material = Material());
 
-            Triangulo(Ponto3 vertice1, Ponto3 vertice2, Ponto3 vertice3, Material material);
+            Triangulo(Ponto3 vertice1, Ponto3 vertice2, Ponto3 vertice3, Material material = Material());
 
         // --- GETTERS E SETTERS ---
 

@@ -19,8 +19,7 @@ class Material {
 
         // --- CONSTRUTORES ---
 
-        Material();
-        Material(IntensidadeLuz ka, IntensidadeLuz kd, IntensidadeLuz ke, double espelhamento);
+        Material(IntensidadeLuz ka = IntensidadeLuz(1.0, 1.0, 1.0), IntensidadeLuz kd = IntensidadeLuz(0.7, 0.7, 0.7), IntensidadeLuz ke = IntensidadeLuz(1.0, 1.0, 1.0), double espelhamento = 10.0);
 
         // --- GETTERS E SETTERS ---
 

@@ -4,6 +4,7 @@
 #include "Vetor3.hpp"
 #include <array>
 
+// Ponto num espaço tridimensional. Inicializa na origem do sistema de coordenadas por padrão.
 class Ponto3 {
 
     private:
@@ -14,11 +15,9 @@ class Ponto3 {
     public:
         // --- CONSTRUTORES ---
 
-            Ponto3();
+            Ponto3(double valor = 0.0);
 
             Ponto3(double x, double y, double z);
-
-            Ponto3(double valor);
 
         // --- OPERADORES ---
 

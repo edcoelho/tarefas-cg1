@@ -1,6 +1,7 @@
 #ifndef LUZ_LUZSPOT_HPP
 #define LUZ_LUZSPOT_HPP
 
+#include <cmath>
 #include "algebra/Ponto3.hpp"
 #include "algebra/Vetor3.hpp"
 #include "luz/LuzPontual.hpp"
@@ -16,9 +17,7 @@ class LuzSpot : public LuzPontual {
 
         // --- CONSTRUTORES ---
 
-            LuzSpot();
-
-            LuzSpot(IntensidadeLuz intensidade, Ponto3 posicao, Vetor3 direcao, double abertura, double atenuacao_a = 0.0, double atenuacao_b = 0.0, double atenuacao_c = 1.0);
+            LuzSpot(Vetor3 direcao = Vetor3(), double abertura = M_PI_2, Ponto3 posicao = Ponto3(), IntensidadeLuz intensidade = IntensidadeLuz(), double atenuacao_a = 0.0, double atenuacao_b = 0.0, double atenuacao_c = 1.0);
 
         // -- GETTERS E SETTERS ---
 

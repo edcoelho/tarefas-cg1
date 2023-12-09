@@ -19,11 +19,11 @@ class Cone : public Solido {
     public:
         // --- CONSTRUTORES ---
 
-        Cone();
+        Cone(Material material = Material());
 
-        Cone(Ponto3 centro_base, Ponto3 vertice, double raio_base, Material material);
+        Cone(Ponto3 centro_base, Ponto3 vertice, double raio_base, Material material = Material());
 
-        Cone(Ponto3 centro_base, Vetor3 direcao, double raio_base, double altura, Material material);
+        Cone(Ponto3 centro_base, Vetor3 direcao, double raio_base, double altura, Material material = Material());
 
         // --- GETTERS E SETTERS ---
 

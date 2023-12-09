@@ -1,14 +1,5 @@
 #include "utils/Material.hpp"
 
-Material::Material() {
-
-    this->set_k_A(IntensidadeLuz(1.0, 1.0, 1.0));
-    this->set_k_D(IntensidadeLuz(0.7, 0.7, 0.7));
-    this->set_k_E(IntensidadeLuz(1.0, 1.0, 1.0));
-    this->set_espelhamento(10.0);
-
-}
-
 Material::Material(IntensidadeLuz ka, IntensidadeLuz kd, IntensidadeLuz ke, double espelhamento) {
 
     this->set_k_A(ka);

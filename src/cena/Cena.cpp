@@ -1,8 +1,6 @@
 #include "cena/Cena.hpp"
 #include <cmath>
 
-Cena::Cena() {}
-
 Cena::Cena(Camera camera, IntensidadeLuz I_A) {
 
     this->set_I_A(I_A);

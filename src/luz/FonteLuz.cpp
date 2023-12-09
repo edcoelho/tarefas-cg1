@@ -1,14 +1,6 @@
 #include "luz/FonteLuz.hpp"
 #include <cmath>
 
-FonteLuz::FonteLuz() {
-
-    this->set_atenuacao_a(0.0);
-    this->set_atenuacao_b(0.0);
-    this->set_atenuacao_c(1.0);
-    
-}
-
 FonteLuz::FonteLuz(IntensidadeLuz intensidade, double atenuacao_a, double atenuacao_b, double atenuacao_c) {
 
     this->set_intensidade(intensidade);

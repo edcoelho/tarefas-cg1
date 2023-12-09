@@ -30,9 +30,7 @@ class RetanguloXZ : public MalhaEspecifica {
 
         // --- CONSTRUTORES ---
 
-            RetanguloXZ();
-
-            RetanguloXZ(Ponto3 centro_base, double largura, double altura, Material material, bool sentido_vetor_normal = true);
+            RetanguloXZ(Ponto3 centro_base = Ponto3(), double largura = 30.0, double altura = 60.0, Material material = Material(), bool sentido_vetor_normal = true);
 
         // --- GETTERS E SETTERS ---
 

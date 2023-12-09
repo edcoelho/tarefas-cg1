@@ -17,19 +17,8 @@ Face::Face(std::size_t id_aresta1, std::size_t id_aresta2, std::size_t id_aresta
 
 }
 
-Malha::Malha() {}
-
 Malha::Malha(Material material) {
 
-    this->set_material(material);
-
-}
-
-Malha::Malha(std::vector<Ponto3> vertices, std::vector<Aresta> arestas, std::vector<Face> faces, Material material) {
-
-    this->vertices = vertices;
-    this->arestas = arestas;
-    this->faces = faces;
     this->set_material(material);
 
 }

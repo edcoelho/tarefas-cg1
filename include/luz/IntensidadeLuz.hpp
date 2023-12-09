@@ -14,11 +14,7 @@ class IntensidadeLuz {
     public:
         // --- CONSTRUTORES ---
 
-            IntensidadeLuz();
-
-            IntensidadeLuz(double r, double g, double b);
-
-            IntensidadeLuz(std::array<double, 3> val);
+            IntensidadeLuz(double r = 1.0, double g = 1.0, double b = 1.0);
 
             IntensidadeLuz(rgb cor_rgb);
 

@@ -26,9 +26,7 @@ class Piramide : public MalhaEspecifica {
 
         // --- CONSTRUTORES ---
 
-            Piramide();
-
-            Piramide(Ponto3 centro_base, double largura_base, double comprimento_base, double altura, Material material);
+            Piramide(Ponto3 centro_base = Ponto3(), double largura_base = 30.0, double comprimento_base = 30.0, double altura = 30.0, Material material = Material());
 
         // --- GETTERS E SETTERS ---
 

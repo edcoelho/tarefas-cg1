@@ -1,12 +1,12 @@
 #include "algebra/Ponto3.hpp"
 #include <stdexcept>
 
-Ponto3::Ponto3() {
+Ponto3::Ponto3(double valor) {
 
     std::size_t i;
 
     for (i = 0; i < 3; i++)
-        this->operator[](i) = 0.0;
+        this->operator[](i) = valor;
 
 }
 
@@ -15,15 +15,6 @@ Ponto3::Ponto3(double x, double y, double z) {
     this->x = x;
     this->y = y;
     this->z = z;
-
-}
-
-Ponto3::Ponto3(double valor) {
-
-    std::size_t i;
-
-    for (i = 0; i < 3; i++)
-        this->operator[](i) = valor;
 
 }
 

@@ -1,28 +1,11 @@
 #include "luz/IntensidadeLuz.hpp"
 #include <stdexcept>
 
-IntensidadeLuz::IntensidadeLuz() {
-
-    this->r = 1.0;
-    this->g = 1.0;
-    this->b = 1.0;
-
-}
-
 IntensidadeLuz::IntensidadeLuz(double r, double g, double b) {
 
     this->r = r;
     this->g = g;
     this->b = b;
-    this->consertar();
-
-}
-
-IntensidadeLuz::IntensidadeLuz(std::array<double, 3> val) {
-
-    this->r = val[0];
-    this->g = val[1];
-    this->b = val[2];
     this->consertar();
 
 }

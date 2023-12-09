@@ -50,11 +50,7 @@ class Malha {
 
         // --- CONSTRUTORES ---
 
-            Malha();
-
-            Malha(Material material);
-
-            Malha(std::vector<Ponto3> vertices, std::vector<Aresta> arestas, std::vector<Face> faces, Material material);
+            Malha(Material material = Material());
 
         // --- GETTERS E SETTERS ---
 

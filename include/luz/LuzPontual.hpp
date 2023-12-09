@@ -15,9 +15,7 @@ class LuzPontual : public FonteLuz {
 
         // --- CONSTRUTORES ---
 
-            LuzPontual();
-
-            LuzPontual(IntensidadeLuz intensidade, Ponto3 posicao, double atenuacao_a = 0.0, double atenuacao_b = 0.0, double atenuacao_c = 1.0);
+            LuzPontual(Ponto3 posicao = Ponto3(), IntensidadeLuz intensidade = IntensidadeLuz(), double atenuacao_a = 0.0, double atenuacao_b = 0.0, double atenuacao_c = 1.0);
 
         // --- GETTERS E SETTERS ---
 

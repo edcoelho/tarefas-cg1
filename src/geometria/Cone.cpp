@@ -1,9 +1,9 @@
 #include "geometria/Cone.hpp"
 #include <cmath>
 
-Cone::Cone() {
+Cone::Cone(Material material) : Solido(material) {
 
-    this->centro_base = Ponto3(0.0, -1.0, 0.0);
+    this->centro_base = Ponto3(0.0);
     this->vertice = Ponto3(0.0, 1.0, 0.0);
     this->direcao = Vetor3(0.0, 1.0, 0.0);
     this->raio_base = 1;
@@ -11,7 +11,7 @@ Cone::Cone() {
 
 }
 
-Cone::Cone(Ponto3 centro_base, Ponto3 vertice, double raio_base, Material material) {
+Cone::Cone(Ponto3 centro_base, Ponto3 vertice, double raio_base, Material material) : Solido(material) {
 
     Vetor3 vetor_altura = vertice - centro_base;
 
@@ -20,7 +20,6 @@ Cone::Cone(Ponto3 centro_base, Ponto3 vertice, double raio_base, Material materi
     this->direcao = vetor_altura;
     this->raio_base = raio_base;
     this->altura = vetor_altura.norma();
-    this->set_material(material);
 
 }
 

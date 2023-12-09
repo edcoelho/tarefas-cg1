@@ -1,7 +1,5 @@
 #include "geometria/Solido.hpp"
 
-Solido::Solido() {}
-
 Solido::Solido(Material material) {
 
     this->set_material(material);

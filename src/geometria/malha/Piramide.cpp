@@ -2,18 +2,6 @@
 
 // --- CONSTRUTORES ---
 
-Piramide::Piramide() {
-
-    this->centro_base = Ponto3();
-    this->largura_base = 30.0;
-    this->comprimento_base = 30.0;
-    this->altura = 60.0;
-    this->set_material(Material());
-
-    this->calcular_estrutura();
-
-}
-
 Piramide::Piramide(Ponto3 centro_base, double largura_base, double comprimento_base, double altura, Material material) {
 
     this->centro_base = centro_base;
