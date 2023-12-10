@@ -80,3 +80,5 @@ Vetor3 Esfera::vetor_normal_ponto(Ponto3 ponto) const {
     return (ponto - this->get_centro()).unitario();
 
 }
+
+IntensidadeLuz Esfera::cor_textura(Ponto3 ponto) { return this->get_material().get_k_D(); }

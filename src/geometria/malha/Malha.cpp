@@ -109,6 +109,22 @@ double Malha::escalar_interseccao(Raio& raio) {
 
 }
 
+bool Malha::tem_textura() const {
+
+    if (this->material.get_textura() != nullptr) {
+
+        return true;
+
+    } else {
+
+        return false;
+
+    }
+
+}
+
+IntensidadeLuz Malha::cor_textura(Ponto3 ponto) { return this->get_material().get_k_D(); }
+
 Triangulo Malha::triangulo_por_id_face(std::size_t id_face) const {
 
     Face face;

@@ -111,3 +111,5 @@ Vetor3 Triangulo::vetor_normal_ponto(Ponto3 ponto) const {
     return this->normal;
 
 }
+
+IntensidadeLuz Triangulo::cor_textura(Ponto3 ponto) { return this->get_material().get_k_D(); }

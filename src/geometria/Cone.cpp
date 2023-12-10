@@ -258,3 +258,5 @@ Vetor3 Cone::vetor_normal_ponto(Ponto3 ponto) const {
     }
 
 }
+
+IntensidadeLuz Cone::cor_textura(Ponto3 ponto) { return this->get_material().get_k_D(); }

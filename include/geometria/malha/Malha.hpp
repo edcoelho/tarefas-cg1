@@ -74,11 +74,15 @@ class Malha {
             Face buscar_face_por_id(std::size_t id) const;
             void inserir_face(Face f);
 
-            // TODO: Lista de materiais
-
             // Se a malha for intersectada pelo raio, retorna o escalar que é a distância entre o ponto inicial do raio e o ponto de intersecção mais próximo. Além disso, salva a intersecção no histórico de intersecções.
             // Se não houver intersecção, retorna -1.
             double escalar_interseccao(Raio& raio);
+
+            // Retorna true se o material do sólido é uma textura.
+            bool tem_textura() const;
+
+            // Retorna cor em formato de IntensidadeLuz do pixel da textura correspondente a um ponto.
+            virtual IntensidadeLuz cor_textura(Ponto3 ponto);
 
             // Retorna um objeto do tipo Triangulo correspondente à face do ID passado.
             Triangulo triangulo_por_id_face(std::size_t id_face) const;

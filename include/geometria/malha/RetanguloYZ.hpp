@@ -44,6 +44,9 @@ class RetanguloYZ : public MalhaEspecifica {
 
         // --- OUTROS MÉTODOS ---
 
+            // Retorna cor em formato de IntensidadeLuz do pixel da textura correspondente a um ponto.
+            IntensidadeLuz cor_textura(Ponto3 ponto) override;
+
             // Aplica uma matriz de transformação qualquer.
             void transformar(Matriz4 const& matriz) override;
 

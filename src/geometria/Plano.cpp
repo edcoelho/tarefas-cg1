@@ -1,4 +1,6 @@
 #include "geometria/Plano.hpp"
+#include "utils/tipos.hpp"
+#include <cmath>
 
 Plano::Plano(Material material) : Solido(material) {
 
@@ -60,5 +62,64 @@ double Plano::escalar_interseccao(Raio& raio) const {
 Vetor3 Plano::vetor_normal_ponto(Ponto3 ponto) const {
 
     return this->get_normal();
+
+}
+
+IntensidadeLuz Plano::cor_textura(Ponto3 ponto) {
+
+    // Base para coordenadas no plano.
+    Vetor3 v1 = this->normal, v2;
+    // Coordenadas de textura.
+    std::size_t x, y;
+    // Índice com menor valor no vetor normal.
+    std::size_t menor_indice = 0;
+    // Dimensões da textura.
+    std::size_t altura_textura = this->get_material().get_textura()->get_altura_pixels(), largura_textura = this->get_material().get_textura()->get_largura_pixels();
+    // Cor RGB do pixel da textura correspondende à intersecção.
+    rgb cor_pixel;
+
+    // Escolhendo índice com menor valor do vetor normal ao plano.
+    for (int i = 0; i < 3; i++) {
+
+        if (this->normal[menor_indice] > this->normal[i]) {
+
+            menor_indice = i;
+
+        }
+        
+    }
+
+    // Trocando os dois maiores valores do vetor normal ao plano de lugar e invertendo o sinal de um dos valores para obter um vetor ortogonal pertencente ao plano.
+    if (menor_indice == 0) {
+
+        v1[1] = this->normal[2];
+        v1[2] = -this->normal[1];
+
+    } else if (menor_indice == 1) {
+
+        v1[0] = this->normal[2];
+        v1[2] = -this->normal[0];
+
+    } else {
+
+        v1[0] = this->normal[1];
+        v1[1] = -this->normal[0];
+
+    }
+
+    v1.normalizar();
+
+    // Obtendo um vetor ortogonal ao primeiro que também esteja no plano para formar base de coordenadas de textura.
+    v2 = v1.vetorial(this->normal);
+    v2.normalizar();
+
+    // Obtendo coordenadas de textura.
+    x = (std::size_t) (ponto - this->ponto).escalar(v1) % altura_textura;
+    y = (std::size_t) std::abs((ponto - this->ponto).escalar(v2)) % largura_textura;
+
+    // Obtendo a cor do pixel da textura.
+    cor_pixel = this->get_material().get_textura()->get_cor_pixel(x, y);
+
+    return IntensidadeLuz(cor_pixel);
 
 }

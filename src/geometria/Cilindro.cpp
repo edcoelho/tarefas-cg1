@@ -358,3 +358,5 @@ Vetor3 Cilindro::vetor_normal_ponto(Ponto3 ponto) const {
     }
 
 }
+
+IntensidadeLuz Cilindro::cor_textura(Ponto3 ponto) { return this->get_material().get_k_D(); }

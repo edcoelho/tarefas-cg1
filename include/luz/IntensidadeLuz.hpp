@@ -14,7 +14,9 @@ class IntensidadeLuz {
     public:
         // --- CONSTRUTORES ---
 
-            IntensidadeLuz(double r = 1.0, double g = 1.0, double b = 1.0);
+            IntensidadeLuz(double r, double g, double b);
+
+            IntensidadeLuz(double valor = 1.0);
 
             IntensidadeLuz(rgb cor_rgb);
 

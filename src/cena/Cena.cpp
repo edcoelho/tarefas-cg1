@@ -88,6 +88,8 @@ rgb Cena::cor_interseccao(Raio& raio, rgb cor_padrao) {
 
     // K ambiente do sólido, K difusão do sólido e K especulamento do sólido.
     IntensidadeLuz k_A, k_D, k_E;
+    // K do pixel da textura correspondente ao ponto intersectado.
+    IntensidadeLuz k_textura;
 
     // Índice da malha intersectada primeiro pelo raio da câmera.
     std::size_t indice_malha;
@@ -149,17 +151,35 @@ rgb Cena::cor_interseccao(Raio& raio, rgb cor_padrao) {
     // Antes de calcular as intensidades de luz, checa se houve alguma intersecção e se tem um ponto de luz presente na cena.
     if (raio_intersectou) {
 
+        // Conseguindo o ponto de intersecção.
+        p_int = raio.ponto_do_raio(min_t_int);
+
         if (raio_intersectou_malha) {
 
-            solido = std::make_unique<Triangulo>(this->malhas.at(indice_malha)->triangulo_por_id_face(id_face));
+            // Conseguindo o triângulo intersectado.
+            solido = std::make_shared<Triangulo>(this->malhas.at(indice_malha)->triangulo_por_id_face(id_face));
+
+            // Checando se a malha tem textura.
+            if (solido->tem_textura()) {
+
+                // Conseguindo a cor do pixel da textura correspondente ao ponto intersectado.
+                k_textura = this->malhas.at(indice_malha)->cor_textura(p_int);
+
+            }
 
         } else {
 
             solido = this->solidos.at(indice_solido);
 
-        }
+            // Checando se o sólido tem textura.
+            if (solido->tem_textura()) {
 
-        p_int = raio.ponto_do_raio(min_t_int);
+                // Conseguindo a cor do pixel da textura correspondente ao ponto intersectado.
+                k_textura = solido->cor_textura(p_int);
+
+            }
+
+        }
 
         if (this->fontes_luz.size() > 0) {
 
@@ -209,14 +229,14 @@ rgb Cena::cor_interseccao(Raio& raio, rgb cor_padrao) {
                     // Checando se o raio da fonte de luz não intersecta nenhum outro objeto, o que bloquearia a chegada da luz no ponto de intersecção.
                     if (!raio_luz_obstruido) {
 
+                        // Se o sólido tiver textura, atribui o k da textura ao k difuso. Em caso contrário, pega o k difuso do material do objeto.
+                        k_D = solido->tem_textura() ? k_textura : solido->get_material().get_k_D();
+
                         // Vetor que vai do ponto de intersecção até a posição da fonte de luz normalizado.
                         l = this->fontes_luz.at(i)->direcao_ponto_luz(p_int);
 
                         // Vetor normal ao sólido no ponto de intersecção.
                         n = solido->vetor_normal_ponto(p_int);
-
-                        // Conseguindo o K difuso do sólido.
-                        k_D = solido->get_material().get_k_D();
 
                         // I_D = I @ Kd
                         I_D = this->fontes_luz.at(i)->get_intensidade() * k_D;
@@ -263,8 +283,8 @@ rgb Cena::cor_interseccao(Raio& raio, rgb cor_padrao) {
 
         }
 
-        // Conseguindo o K ambiente do sólido.
-        k_A = solido->get_material().get_k_A();
+        // Se o sólido tiver textura, atribui o k da textura ao k ambiente. Em caso contrário, pega o k ambiente do material do objeto.
+        k_A = solido->tem_textura() ? k_textura : solido->get_material().get_k_A();
 
         // I_A = Ia @ k_A
         // Ia: intensidade da luz ambiente.

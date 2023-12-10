@@ -26,7 +26,7 @@ rgb Textura::get_cor_pixel(std::size_t x, std::size_t y) {
     return this->pixels[x][y];
 
 }
-#include <iostream>
+
 void Textura::carregar_imagem(const char* arquivo) {
 
     SDL_Surface* imagem;
@@ -45,8 +45,6 @@ void Textura::carregar_imagem(const char* arquivo) {
         // Guardando o tamanho da nova textura.
         this->altura_pixels = imagem->h;
         this->largura_pixels = imagem->w;
-
-        std::cout << imagem->h << " " << imagem->w << std::endl;
 
         for (std::size_t linha = 0; linha < this->altura_pixels; linha++) {
 

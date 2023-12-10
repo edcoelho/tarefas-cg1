@@ -17,3 +17,17 @@ void Solido::set_material(Material material) {
     this->material = material;
 
 }
+
+bool Solido::tem_textura() const {
+
+    if (this->material.get_textura() != nullptr) {
+
+        return true;
+
+    } else {
+
+        return false;
+
+    }
+
+}

@@ -35,6 +35,9 @@ class Esfera : public Solido {
         // Retorna o vetor unitário normal a superfície da esfera num ponto.
         Vetor3 vetor_normal_ponto(Ponto3 ponto) const override;
 
+        // Retorna cor em formato de IntensidadeLuz do pixel da textura correspondente a um ponto.
+        IntensidadeLuz cor_textura(Ponto3 ponto) override;
+
 };
 
 #endif

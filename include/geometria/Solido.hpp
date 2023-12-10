@@ -32,6 +32,12 @@ class Solido {
         // Retorna o vetor unitário normal a superfície do sólido num ponto.
         virtual Vetor3 vetor_normal_ponto(Ponto3 ponto) const = 0;
 
+        // Retorna true se o material do sólido é uma textura.
+        bool tem_textura() const;
+
+        // Retorna cor em formato de IntensidadeLuz do pixel da textura correspondente a um ponto.
+        virtual IntensidadeLuz cor_textura(Ponto3 ponto) = 0;
+
 };
 
 #endif

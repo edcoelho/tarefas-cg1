@@ -80,6 +80,8 @@ void RetanguloXZ::recalcular_atributos() {
 
 }
 
+IntensidadeLuz RetanguloXZ::cor_textura(Ponto3 ponto) { return this->get_material().get_k_D(); }
+
 void RetanguloXZ::transformar(Matriz4 const& matriz) {
 
     this->vertices.push_back(this->centro_base);

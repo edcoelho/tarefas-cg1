@@ -107,6 +107,8 @@ void Paralelepipedo::recalcular_atributos() {
 
 }
 
+IntensidadeLuz Paralelepipedo::cor_textura(Ponto3 ponto) { return this->get_material().get_k_D(); }
+
 void Paralelepipedo::transformar(Matriz4 const& matriz) {
 
     this->vertices.push_back(this->centro_base);
