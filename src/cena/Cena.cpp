@@ -166,98 +166,94 @@ rgb Cena::cor_interseccao(Raio& raio, rgb cor_padrao) {
             // Itera sobre as fontes de luz.
             for (std::size_t i = 0; i < this->fontes_luz.size(); i++) {
 
-                if (this->fontes_luz.at(i) != nullptr) {
+                if (this->fontes_luz.at(i)->ponto_valido(p_int)) {
 
                     // Instanciando o raio da fonte de luz.
                     raio_luz = Raio(p_int, this->fontes_luz.at(i)->direcao_ponto_luz(p_int));
 
-                    if (this->fontes_luz.at(i)->ponto_valido(p_int)) {
+                    raio_luz_obstruido = false;
+                    std::size_t indice = 0;
 
-                        raio_luz_obstruido = false;
-                        std::size_t indice = 0;
+                    // Checando se o raio de luz intersectou algum dos sólidos antes.
+                    while (!raio_luz_obstruido && indice < this->solidos.size()) {
 
-                        // Checando se o raio de luz intersectou algum dos sólidos antes.
-                        while (!raio_luz_obstruido && indice < this->solidos.size()) {
+                        t_int_obstrucao = this->solidos.at(indice)->escalar_interseccao(raio_luz);
 
-                            t_int_obstrucao = this->solidos.at(indice)->escalar_interseccao(raio_luz);
+                        if (this->fontes_luz.at(i)->distancia_ponto_luz(p_int) >= t_int_obstrucao && t_int_obstrucao >= 1e-12) {
 
-                            if (this->fontes_luz.at(i)->distancia_ponto_luz(p_int) >= t_int_obstrucao && t_int_obstrucao >= 1e-12) {
-
-                                raio_luz_obstruido = true;
-
-                            }
-
-                            indice++;
+                            raio_luz_obstruido = true;
 
                         }
 
-                        indice = 0;
+                        indice++;
 
-                        // Checando se o raio de luz intersectou alguma das malhas antes.
-                        while (!raio_luz_obstruido && indice < this->malhas.size()) {
+                    }
 
-                            t_int_obstrucao = this->malhas.at(indice)->escalar_interseccao(raio_luz);
+                    indice = 0;
 
-                            if (this->fontes_luz.at(i)->distancia_ponto_luz(p_int) >= t_int_obstrucao && t_int_obstrucao >= 1e-12) {
+                    // Checando se o raio de luz intersectou alguma das malhas antes.
+                    while (!raio_luz_obstruido && indice < this->malhas.size()) {
 
-                                raio_luz_obstruido = true;
+                        t_int_obstrucao = this->malhas.at(indice)->escalar_interseccao(raio_luz);
 
-                            }
+                        if (this->fontes_luz.at(i)->distancia_ponto_luz(p_int) >= t_int_obstrucao && t_int_obstrucao >= 1e-12) {
 
-                            indice++;
-
-                        }
-
-                        // Checando se o raio da fonte de luz não intersecta nenhum outro objeto, o que bloquearia a chegada da luz no ponto de intersecção.
-                        if (!raio_luz_obstruido) {
-
-                            // Vetor que vai do ponto de intersecção até a posição da fonte de luz normalizado.
-                            l = this->fontes_luz.at(i)->direcao_ponto_luz(p_int);
-
-                            // Vetor normal ao sólido no ponto de intersecção.
-                            n = solido->vetor_normal_ponto(p_int);
-
-                            // Conseguindo o K difuso do sólido.
-                            k_D = solido->get_material().get_k_D();
-
-                            // I_D = I @ Kd
-                            I_D = this->fontes_luz.at(i)->get_intensidade() * k_D;
-
-                            // aux = (l . n)
-                            aux = l.escalar(n);
-
-                            // Se o produto escalar for negativo, ou seja, se o ângulo entre l e n está no intervalo (90º, 270º), então a intensidade difusa é zerada.
-                            aux = aux < 0.0 ? 0.0 : aux;
-                            
-                            // I_D = I_D * (l . n)
-                            I_D = I_D * aux;
-
-                            // Conseguindo o K especular do sólido.
-                            k_E = solido->get_material().get_k_E();
-
-                            // I_E = I @ Ke
-                            I_E = this->fontes_luz.at(i)->get_intensidade() * k_E;
-
-                            // Vetor que sai do sólido e vai em direção ao olho do câmera.
-                            v = (raio.get_ponto_inicial() - p_int).unitario();
-                            // Vetor "reflexo" da luz no sólido.
-                            r = l.reflexo(n);
-
-                            // aux = v . r
-                            aux = v.escalar(r);
-
-                            // Se o produto escalar for negativo, ou seja, se o ângulo entre v e r está no intervalo (90º, 270º), então a intensidade especular é zerada.
-                            aux = aux < 0.0 ? 0.0 : aux;
-
-                            espelhamento = solido->get_material().get_espelhamento();
-
-                            // I_E = I_E * (v . r)^espelhamento
-                            I_E = I_E * std::pow(aux, espelhamento);
-
-                            // Aplicando as componentes difusa e especular atenuadas na intensidade final que vai para a câmera.
-                            I_final = I_final + (I_D + I_E) * this->fontes_luz.at(i)->fator_atenuacao(p_int);
+                            raio_luz_obstruido = true;
 
                         }
+
+                        indice++;
+
+                    }
+
+                    // Checando se o raio da fonte de luz não intersecta nenhum outro objeto, o que bloquearia a chegada da luz no ponto de intersecção.
+                    if (!raio_luz_obstruido) {
+
+                        // Vetor que vai do ponto de intersecção até a posição da fonte de luz normalizado.
+                        l = this->fontes_luz.at(i)->direcao_ponto_luz(p_int);
+
+                        // Vetor normal ao sólido no ponto de intersecção.
+                        n = solido->vetor_normal_ponto(p_int);
+
+                        // Conseguindo o K difuso do sólido.
+                        k_D = solido->get_material().get_k_D();
+
+                        // I_D = I @ Kd
+                        I_D = this->fontes_luz.at(i)->get_intensidade() * k_D;
+
+                        // aux = (l . n)
+                        aux = l.escalar(n);
+
+                        // Se o produto escalar for negativo, ou seja, se o ângulo entre l e n está no intervalo (90º, 270º), então a intensidade difusa é zerada.
+                        aux = aux < 0.0 ? 0.0 : aux;
+                        
+                        // I_D = I_D * (l . n)
+                        I_D = I_D * aux;
+
+                        // Conseguindo o K especular do sólido.
+                        k_E = solido->get_material().get_k_E();
+
+                        // I_E = I @ Ke
+                        I_E = this->fontes_luz.at(i)->get_intensidade() * k_E;
+
+                        // Vetor que sai do sólido e vai em direção ao olho do câmera.
+                        v = (raio.get_ponto_inicial() - p_int).unitario();
+                        // Vetor "reflexo" da luz no sólido.
+                        r = l.reflexo(n);
+
+                        // aux = v . r
+                        aux = v.escalar(r);
+
+                        // Se o produto escalar for negativo, ou seja, se o ângulo entre v e r está no intervalo (90º, 270º), então a intensidade especular é zerada.
+                        aux = aux < 0.0 ? 0.0 : aux;
+
+                        espelhamento = solido->get_material().get_espelhamento();
+
+                        // I_E = I_E * (v . r)^espelhamento
+                        I_E = I_E * std::pow(aux, espelhamento);
+
+                        // Aplicando as componentes difusa e especular atenuadas na intensidade final que vai para a câmera.
+                        I_final = I_final + (I_D + I_E) * this->fontes_luz.at(i)->fator_atenuacao(p_int);
 
                     }
 
