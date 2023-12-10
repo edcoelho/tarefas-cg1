@@ -37,14 +37,15 @@ class Malha {
 
         Material material;
 
-        // ID da última face intersectada.
-        std::size_t id_ultima_face;
-
     protected:
 
         std::vector<Ponto3> vertices;
         std::vector<Aresta> arestas;
         std::vector<Face> faces;
+
+        // Triângulo correspondente à última face intersectada.
+        Triangulo ultima_face_intersectada;
+        std::size_t id_ultima_face_intersectada;
 
     public:
 
@@ -57,8 +58,9 @@ class Malha {
             Material get_material() const;
             void set_material(Material m);
 
-            std::size_t get_id_ultima_face() const;
-            void set_id_ultima_face(std::size_t id);
+            std::size_t get_id_ultima_face_intersectada() const;
+
+            Triangulo get_ultima_face_intersectada();
 
         // --- OUTROS MÉTODOS ---
 

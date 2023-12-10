@@ -14,7 +14,7 @@ class RetanguloYZ : public MalhaEspecifica {
 
         // Indica se o vetor normal aponta para o X positivo.
         // Se for true, o vetor normal aponta para o X positivo, e, em caso contrário, aponta para o X negativo.
-        bool sentido_vetor_normal;
+        bool aponta_para_positivo;
 
         // Recalcula os atributos da malha específica.
         void recalcular_atributos() override;
@@ -30,7 +30,7 @@ class RetanguloYZ : public MalhaEspecifica {
 
         // --- CONSTRUTORES ---
 
-            RetanguloYZ(Ponto3 centro_base = Ponto3(), double largura = 30.0, double altura = 60.0, Material material = Material(), bool sentido_vetor_normal = true);
+            RetanguloYZ(Ponto3 centro_base = Ponto3(), double largura = 30.0, double altura = 60.0, Material material = Material(), bool aponta_para_positivo = true);
 
         // --- GETTERS E SETTERS ---
 
@@ -39,8 +39,6 @@ class RetanguloYZ : public MalhaEspecifica {
             double get_largura();
 
             double get_altura();
-
-            bool get_sentido_vetor_normal();
 
         // --- OUTROS MÉTODOS ---
 

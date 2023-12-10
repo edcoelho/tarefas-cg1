@@ -104,7 +104,7 @@ void Cone::set_altura(double a) {
 
 }
 
-double Cone::escalar_interseccao(Raio& raio) const {
+double Cone::escalar_interseccao(Raio& raio) {
 
     // w = raio.p0 - centro_base
     Vetor3 w = raio.get_ponto_inicial() - this->get_centro_base();

@@ -8,7 +8,10 @@ Triangulo::Triangulo(Material material) : Solido(material) {
     this->vertice2 = Ponto3(0.0, 1.0, 0.0);
     this->vertice3 = Ponto3(0.0, 0.0, 1.0);
 
-    this->normal = (this->vertice2 - this->vertice1).vetorial(this->vertice3 - this->vertice1).unitario();
+    this->r1 = this->vertice2 - this->vertice1;
+    this->r2 = this->vertice3 - this->vertice1;
+    this->normal = this->r1.vetorial(this->r2).unitario();
+    this->area_vezes_dois = this->r1.vetorial(this->r2).escalar(this->normal);
 
 }
 
@@ -18,7 +21,10 @@ Triangulo::Triangulo(Ponto3 vertice1, Ponto3 vertice2, Ponto3 vertice3, Material
     this->vertice2 = vertice2;
     this->vertice3 = vertice3;
 
-    this->normal = (vertice2 - vertice1).vetorial(vertice3 - vertice1).unitario();
+    this->r1 = vertice2 - vertice1;
+    this->r2 = vertice3 - vertice1;
+    this->normal = this->r1.vetorial(this->r2).unitario();
+    this->area_vezes_dois = this->r1.vetorial(this->r2).escalar(this->normal);
 
 }
 
@@ -58,7 +64,63 @@ void Triangulo::set_vertice3(Ponto3 v) {
 
 }
 
-double Triangulo::escalar_interseccao(Raio& raio) const {
+const Ponto3& Triangulo::get_coordenadas_baricentricas() const {
+
+    return this->coordenadas_baricentricas;
+
+}
+
+void Triangulo::calcular_coordenadas_baricentricas(Ponto3 ponto) {
+
+    // Erro tolerado para os cálculos.
+    double erro = 1.0e-12;
+
+    // Vetor que vai do vértice 1 ao ponto.
+    Vetor3 v;
+
+    // Coordenadas baricêntricas.
+    double c1, c2, c3;
+    
+    v = ponto - this->get_vertice1();
+
+    c1 = v.escalar(this->r2.vetorial(this->normal)) / this->area_vezes_dois;
+    if (c1 >= -erro) {
+
+        c1 = c1 < 0.0 ? 0.0 : c1;
+
+        c2 = v.escalar(this->normal.vetorial(this->r1)) / this->area_vezes_dois;
+        if (c2 >= -erro) {
+
+            c2 = c2 < 0.0 ? 0.0 : c2;
+
+            c3 = 1.0 - c1 - c2;
+            if (c3 >= -erro && std::abs(c1 + c2 + c3 - 1.0) <= erro) {
+
+                c3 = c3 < 0.0 ? 0.0 : c3;
+
+                this->coordenadas_baricentricas = Ponto3(c1, c2, c3);
+
+            } else {
+
+                this->coordenadas_baricentricas = Ponto3(-1.0);
+
+            }
+
+        } else {
+
+            this->coordenadas_baricentricas = Ponto3(-1.0);
+
+        }
+        
+    } else {
+
+        this->coordenadas_baricentricas = Ponto3(-1.0);
+
+    }
+
+}
+
+double Triangulo::escalar_interseccao(Raio& raio) {
 
     // Plano do triângulo.
     Plano plano(this->vertice1, this->normal);
@@ -66,36 +128,18 @@ double Triangulo::escalar_interseccao(Raio& raio) const {
     // Escalar distância até a intersecção.
     double t_int;
 
-    // Área do triângulo vezes dois.
-    double area_triangulo_vezes_2;
-
     // Ponto de intersecção.
     Ponto3 p_int;
 
-    // Vetores para auxiliar nos cálculos.
-    Vetor3 r1, r2, v;
-
-    // Coordenadas baricêntricas.
-    double c1, c2, c3;
-
     t_int = plano.escalar_interseccao(raio);
 
-    if (t_int >= 0) {
+    if (t_int >= 0.0) {
 
         p_int = raio.ponto_do_raio(t_int);
-        
-        r1 = this->get_vertice2() - this->get_vertice1();
-        r2 = this->get_vertice3() - this->get_vertice1();
-        v = p_int - this->get_vertice1();
 
-        area_triangulo_vezes_2 = r1.vetorial(r2).escalar(this->normal);
-
-        c1 = v.vetorial(r2).escalar(this->normal) / area_triangulo_vezes_2;
-        c2 = r1.vetorial(v).escalar(this->normal) / area_triangulo_vezes_2;
-        c3 = 1.0 - c1 - c2;
-
-        if (c1 >= 0.0 && c2 >= 0.0 && c3 >= 0.0 && std::abs(c1 + c2 + c3 - 1.0) <= 1.0e-12) {
-
+        this->calcular_coordenadas_baricentricas(p_int);
+        if (this->coordenadas_baricentricas[0] > -1.0) {
+            
             return t_int;
 
         }

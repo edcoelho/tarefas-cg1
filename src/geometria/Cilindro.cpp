@@ -105,7 +105,7 @@ void Cilindro::set_raio(double r) {
 
 }
 
-double Cilindro::escalar_interseccao(Raio& raio) const {
+double Cilindro::escalar_interseccao(Raio& raio) {
 
     // w = P0 - centro_base
     Vetor3 w = raio.get_ponto_inicial() - this->get_centro_base();

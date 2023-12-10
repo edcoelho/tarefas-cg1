@@ -38,7 +38,7 @@ void Plano::set_normal(Vetor3 n) {
 
 }
 
-double Plano::escalar_interseccao(Raio& raio) const {
+double Plano::escalar_interseccao(Raio& raio) {
     
     // Escalar distância até a intersecção.
     double t_int;

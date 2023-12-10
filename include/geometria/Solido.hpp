@@ -27,7 +27,7 @@ class Solido {
 
         // Se o sólido for intersectado pelo Raio "raio", retorna o escalar que é a distância entre o ponto inicial do raio e o ponto de intersecção mais próximo.
         // Se não houver intersecção, retorna -1.
-        virtual double escalar_interseccao(Raio& raio) const = 0;
+        virtual double escalar_interseccao(Raio& raio) = 0;
 
         // Retorna o vetor unitário normal a superfície do sólido num ponto.
         virtual Vetor3 vetor_normal_ponto(Ponto3 ponto) const = 0;

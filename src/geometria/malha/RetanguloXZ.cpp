@@ -1,14 +1,15 @@
 #include "geometria/malha/RetanguloXZ.hpp"
+#include <cmath>
 
 // --- CONSTRUTORES ---
 
-RetanguloXZ::RetanguloXZ(Ponto3 centro_base, double largura, double altura, Material material, bool sentido_vetor_normal) {
+RetanguloXZ::RetanguloXZ(Ponto3 centro_base, double largura, double altura, Material material, bool aponta_para_positivo) {
 
     this->centro_base = centro_base;
     this->largura = largura;
     this->altura = altura;
     this->set_material(material);
-    this->sentido_vetor_normal = sentido_vetor_normal;
+    this->aponta_para_positivo = aponta_para_positivo;
 
     this->calcular_estrutura();
 
@@ -34,15 +35,9 @@ double RetanguloXZ::get_altura() {
 
 }
 
-bool RetanguloXZ::get_sentido_vetor_normal() {
-
-    return this->sentido_vetor_normal;
-
-}
-
 void RetanguloXZ::calcular_estrutura() {
 
-    if (this->get_sentido_vetor_normal()) {
+    if (this->aponta_para_positivo) {
 
         // Inserindo vértices de forma que a normal da face aponte para o Y positivo.
         this->inserir_vertice(this->get_centro_base() + Vetor3(this->get_largura()/2.0, 0.0, 0.0));
@@ -80,7 +75,38 @@ void RetanguloXZ::recalcular_atributos() {
 
 }
 
-IntensidadeLuz RetanguloXZ::cor_textura(Ponto3 ponto) { return this->get_material().get_k_D(); }
+IntensidadeLuz RetanguloXZ::cor_textura(Ponto3 ponto) {
+    
+    std::size_t id_face = this->id_ultima_face_intersectada;
+    Ponto3 coordenadas_baricentricas = this->ultima_face_intersectada.get_coordenadas_baricentricas();
+    // Coordenadas de textura.
+    std::size_t u, v;
+    // Cor RGB do pixel da textura correspondende à intersecção.
+    rgb cor_pixel;
+
+    if (id_face == 1) {
+
+        u = std::floor(coordenadas_baricentricas[2] * this->get_material().get_textura()->get_largura_pixels() - 0.5);
+
+        v = std::floor(this->get_material().get_textura()->get_altura_pixels() - coordenadas_baricentricas[0] * this->get_material().get_textura()->get_altura_pixels() - 0.5);
+
+        // Obtendo a cor do pixel da textura.
+        cor_pixel = this->get_material().get_textura()->get_cor_pixel(v, u);
+
+    } else {
+
+        u = std::floor((coordenadas_baricentricas[0] + coordenadas_baricentricas[2]) * this->get_material().get_textura()->get_largura_pixels() - 0.5);
+
+        v = std::floor(this->get_material().get_textura()->get_altura_pixels() - (coordenadas_baricentricas[0] + coordenadas_baricentricas[1]) * this->get_material().get_textura()->get_altura_pixels() - 0.5);
+
+        // Obtendo a cor do pixel da textura.
+        cor_pixel = this->get_material().get_textura()->get_cor_pixel(v, u);
+
+    }
+
+    return IntensidadeLuz(cor_pixel);
+
+}
 
 void RetanguloXZ::transformar(Matriz4 const& matriz) {
 

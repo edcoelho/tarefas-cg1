@@ -41,6 +41,12 @@ int main(int argc, char* argv[]) {
 
     Cena cena(camera, I_A);
 
+    // --- CARREGAMENTO DE TEXTURAS ---
+
+        // std::shared_ptr<Textura> creto = std::make_shared<Textura>("...");
+
+    // --- FIM DO CARREGAMENTO DE TEXTURAS ---
+
     // --- INSERÇÃO DE ELEMENTOS NA CENA ---
 
         // --- INSERÇÃO DE FONTES DE LUZES NA CENA ---

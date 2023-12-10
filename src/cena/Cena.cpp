@@ -93,8 +93,6 @@ rgb Cena::cor_interseccao(Raio& raio, rgb cor_padrao) {
 
     // Índice da malha intersectada primeiro pelo raio da câmera.
     std::size_t indice_malha;
-    // ID da face intersectada de uma malha.
-    std::size_t id_face;
     // Ponteiro para cópia do solido intersectado.
     std::shared_ptr<Solido> solido(nullptr);
 
@@ -134,7 +132,6 @@ rgb Cena::cor_interseccao(Raio& raio, rgb cor_padrao) {
 
                 min_t_int = t_int;
                 indice_malha = i;
-                id_face = this->malhas.at(i)->get_id_ultima_face();
                 raio_intersectou = true;
                 raio_intersectou_malha = true;
 
@@ -157,7 +154,7 @@ rgb Cena::cor_interseccao(Raio& raio, rgb cor_padrao) {
         if (raio_intersectou_malha) {
 
             // Conseguindo o triângulo intersectado.
-            solido = std::make_shared<Triangulo>(this->malhas.at(indice_malha)->triangulo_por_id_face(id_face));
+            solido = std::make_shared<Triangulo>(this->malhas.at(indice_malha)->get_ultima_face_intersectada());
 
             // Checando se a malha tem textura.
             if (solido->tem_textura()) {

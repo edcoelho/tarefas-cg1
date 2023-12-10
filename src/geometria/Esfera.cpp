@@ -37,7 +37,7 @@ void Esfera::set_raio(double raio) {
 
 }
 
-double Esfera::escalar_interseccao(Raio& raio) const {
+double Esfera::escalar_interseccao(Raio& raio) {
 
     double delta = 0.0, // Delta da equação de 2º grau.
            a = 0.0, b = 0.0, c = 0.0, // Coscientes da equação de 2º grau.

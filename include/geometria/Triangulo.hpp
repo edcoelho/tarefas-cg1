@@ -15,8 +15,19 @@ class Triangulo : public Solido {
         Ponto3 vertice2;
         Ponto3 vertice3;
 
+        // Vetores correspondentes às arestas do triângulo.
+        Vetor3 r1, r2;
         // Vetor normal ao triângulo
         Vetor3 normal;
+        // Dobro da área do triângulo.
+        double area_vezes_dois;
+        // Últimas coordenadas baricêntricas calculadas.
+        Ponto3 coordenadas_baricentricas;
+
+        // --- MÉTODOS PRIVADOS ---
+
+            // Calcula as coordenadas baricêntricas de um ponto, assumindo que ele pertence ao plano do triângulo.
+            void calcular_coordenadas_baricentricas(Ponto3 ponto);
 
     public:
 
@@ -37,11 +48,13 @@ class Triangulo : public Solido {
             Ponto3 get_vertice3() const;
             void set_vertice3(Ponto3 v);
 
+            const Ponto3& get_coordenadas_baricentricas() const;
+
         // --- OUTROS MÉTODOS ---
 
             // Se o triângulo for intersectada pelo Raio "raio", retorna o escalar que é a distância entre o ponto inicial do raio e o ponto de intersecção mais próximo.
             // Se não houver intersecção, retorna -1.
-            double escalar_interseccao(Raio& raio) const override;
+            double escalar_interseccao(Raio& raio) override;
 
             // Retorna o vetor unitário normal a superfície do triângulo num ponto.
             Vetor3 vetor_normal_ponto(Ponto3 ponto) const override;
