@@ -13,6 +13,7 @@
 // Headers implementados
 #include "utils/tipos.hpp"
 #include "utils/Material.hpp"
+#include "utils/Textura.hpp"
 
 #include "algebra/Matriz4.hpp"
 #include "algebra/Vetor3.hpp"

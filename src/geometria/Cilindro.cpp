@@ -105,7 +105,7 @@ void Cilindro::set_raio(double r) {
 
 }
 
-double Cilindro::escalar_interseccao(Raio& raio) const {
+double Cilindro::escalar_interseccao(Raio& raio) {
 
     // w = P0 - centro_base
     Vetor3 w = raio.get_ponto_inicial() - this->get_centro_base();
@@ -358,3 +358,5 @@ Vetor3 Cilindro::vetor_normal_ponto(Ponto3 ponto) const {
     }
 
 }
+
+IntensidadeLuz Cilindro::cor_textura(Ponto3 ponto) { return this->get_material().get_k_D(); }

@@ -34,14 +34,15 @@ void Malha::set_material(Material m) {
 
 }
 
-std::size_t Malha::get_id_ultima_face() const {
+std::size_t Malha::get_id_ultima_face_intersectada() const {
 
-    return this->id_ultima_face;
+    return this->id_ultima_face_intersectada;
 
 }
-void Malha::set_id_ultima_face(std::size_t id) {
 
-    this->id_ultima_face = id;
+Triangulo Malha::get_ultima_face_intersectada() {
+
+    return this->ultima_face_intersectada;
 
 }
 
@@ -82,18 +83,22 @@ double Malha::escalar_interseccao(Raio& raio) {
 
     double t_int = -1.0;
     double min_t_int = INFINITY;
+    // Triângulo intersectado primeiro.
+    Triangulo triangulo;
 
     std::size_t id;
 
     // Itera sobre as faces. Os IDs começam a contar a partir de 1.
     for (id = 1; id <= this->faces.size(); id++) {
 
-        t_int = this->triangulo_por_id_face(id).escalar_interseccao(raio);
+        triangulo = this->triangulo_por_id_face(id);
+        t_int = triangulo.escalar_interseccao(raio);
 
         if (t_int >= 0.0 && t_int < min_t_int) {
 
             min_t_int = t_int;
-            this->set_id_ultima_face(id);
+            this->id_ultima_face_intersectada = id;
+            this->ultima_face_intersectada = triangulo;
 
         }
 
@@ -108,6 +113,22 @@ double Malha::escalar_interseccao(Raio& raio) {
     return -1.0;
 
 }
+
+bool Malha::tem_textura() const {
+
+    if (this->material.get_textura() != nullptr) {
+
+        return true;
+
+    } else {
+
+        return false;
+
+    }
+
+}
+
+IntensidadeLuz Malha::cor_textura(Ponto3 ponto) { return this->get_material().get_k_D(); }
 
 Triangulo Malha::triangulo_por_id_face(std::size_t id_face) const {
 
@@ -151,7 +172,13 @@ Triangulo Malha::triangulo_por_id_face(std::size_t id_face) const {
 
 }
 
-void Malha::transformar(Matriz4 const& matriz) {}
+void Malha::transformar(Matriz4 const& matriz) {
+
+    for (auto& vertice : this->vertices)
+
+        vertice = matriz * vertice;
+
+}
 
 void Malha::transladar(double x, double y, double z) {
 

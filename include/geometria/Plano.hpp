@@ -32,10 +32,13 @@ class Plano : public Solido {
 
         // Se o plano for intersectado pelo Raio "raio", retorna o escalar que é a distância entre o ponto inicial do raio e o ponto de intersecção mais próximo.
         // Se não houver intersecção, retorna -1.
-        double escalar_interseccao(Raio& raio) const override;
+        double escalar_interseccao(Raio& raio) override;
 
         // Retorna o vetor unitário normal a superfície do plano num ponto.
         Vetor3 vetor_normal_ponto(Ponto3 ponto) const override;
+
+        // Retorna cor em formato de IntensidadeLuz do pixel da textura correspondente a um ponto.
+        IntensidadeLuz cor_textura(Ponto3 ponto) override;
 
 };
 

@@ -104,7 +104,7 @@ void Cone::set_altura(double a) {
 
 }
 
-double Cone::escalar_interseccao(Raio& raio) const {
+double Cone::escalar_interseccao(Raio& raio) {
 
     // w = raio.p0 - centro_base
     Vetor3 w = raio.get_ponto_inicial() - this->get_centro_base();
@@ -258,3 +258,5 @@ Vetor3 Cone::vetor_normal_ponto(Ponto3 ponto) const {
     }
 
 }
+
+IntensidadeLuz Cone::cor_textura(Ponto3 ponto) { return this->get_material().get_k_D(); }

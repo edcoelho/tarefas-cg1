@@ -37,14 +37,15 @@ class Malha {
 
         Material material;
 
-        // ID da última face intersectada.
-        std::size_t id_ultima_face;
-
     protected:
 
         std::vector<Ponto3> vertices;
         std::vector<Aresta> arestas;
         std::vector<Face> faces;
+
+        // Triângulo correspondente à última face intersectada.
+        Triangulo ultima_face_intersectada;
+        std::size_t id_ultima_face_intersectada;
 
     public:
 
@@ -57,8 +58,9 @@ class Malha {
             Material get_material() const;
             void set_material(Material m);
 
-            std::size_t get_id_ultima_face() const;
-            void set_id_ultima_face(std::size_t id);
+            std::size_t get_id_ultima_face_intersectada() const;
+
+            Triangulo get_ultima_face_intersectada();
 
         // --- OUTROS MÉTODOS ---
 
@@ -74,11 +76,15 @@ class Malha {
             Face buscar_face_por_id(std::size_t id) const;
             void inserir_face(Face f);
 
-            // TODO: Lista de materiais
-
             // Se a malha for intersectada pelo raio, retorna o escalar que é a distância entre o ponto inicial do raio e o ponto de intersecção mais próximo. Além disso, salva a intersecção no histórico de intersecções.
             // Se não houver intersecção, retorna -1.
             double escalar_interseccao(Raio& raio);
+
+            // Retorna true se o material do sólido é uma textura.
+            bool tem_textura() const;
+
+            // Retorna cor em formato de IntensidadeLuz do pixel da textura correspondente a um ponto.
+            virtual IntensidadeLuz cor_textura(Ponto3 ponto);
 
             // Retorna um objeto do tipo Triangulo correspondente à face do ID passado.
             Triangulo triangulo_por_id_face(std::size_t id_face) const;

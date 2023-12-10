@@ -10,6 +10,17 @@ IntensidadeLuz::IntensidadeLuz(double r, double g, double b) {
 
 }
 
+IntensidadeLuz::IntensidadeLuz(double valor) {
+
+    for (int i = 0; i < 3; i++) {
+
+        this->operator[](i) = valor;
+
+    }
+    this->consertar();
+
+}
+
 IntensidadeLuz::IntensidadeLuz(rgb cor_rgb) {
 
     this->r = ((double) cor_rgb[0]) / 255.0;

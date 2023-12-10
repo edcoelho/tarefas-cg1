@@ -81,6 +81,8 @@ void Piramide::recalcular_atributos() {
 
 }
 
+IntensidadeLuz Piramide::cor_textura(Ponto3 ponto) { return this->get_material().get_k_D(); }
+
 void Piramide::transformar(Matriz4 const& matriz) {
 
     this->vertices.push_back(this->centro_base);

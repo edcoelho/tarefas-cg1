@@ -88,19 +88,19 @@ void Canvas::desenhar_pixels(SDL_Renderer* renderer) const {
     // Limpando o renderer antes de desenhar os pixels.
     SDL_RenderClear(renderer);
 
-    for (std::size_t l = 0; l < this->get_altura(); l++)
+    for (std::size_t l = 0; l < this->get_altura(); l++) {
         
-        for (std::size_t c = 0; c < this->get_largura(); c++) 
+        for (std::size_t c = 0; c < this->get_largura(); c++) {
 
-            if ((0 <= l && l < this->get_altura()) && (0 <= c && c < this->get_largura())) {
+            // Definindo a cor que será pintada. Essa função segue o padrão RGBA, mas o canal alpha está sendo ignorado.
+            SDL_SetRenderDrawColor(renderer, this->pixel_buffer[l][c][0], this->pixel_buffer[l][c][1], this->pixel_buffer[l][c][2], 255);
 
-                // Definindo a cor que será pintada. Essa função segue o padrão RGBA, mas o canal alpha está sendo ignorado.
-                SDL_SetRenderDrawColor(renderer, this->pixel_buffer[l][c][0], this->pixel_buffer[l][c][1], this->pixel_buffer[l][c][2], 255);
+            // Pintando o pixel.
+            SDL_RenderDrawPoint(renderer, c, l);
 
-                // Pintando o pixel.
-                SDL_RenderDrawPoint(renderer, c, l);
+        }
 
-            }
+    }
     
     // Atualizando a janela com o renderer pintado.
     SDL_RenderPresent(renderer);
