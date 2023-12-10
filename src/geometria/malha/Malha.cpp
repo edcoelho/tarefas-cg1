@@ -151,7 +151,13 @@ Triangulo Malha::triangulo_por_id_face(std::size_t id_face) const {
 
 }
 
-void Malha::transformar(Matriz4 const& matriz) {}
+void Malha::transformar(Matriz4 const& matriz) {
+
+    for (auto& vertice : this->vertices)
+
+        vertice = matriz * vertice;
+
+}
 
 void Malha::transladar(double x, double y, double z) {
 
