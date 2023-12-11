@@ -3,12 +3,11 @@
 
 // --- CONSTRUTORES ---
 
-RetanguloXZ::RetanguloXZ(Ponto3 centro_base, double largura, double altura, Material material, bool aponta_para_positivo) {
+RetanguloXZ::RetanguloXZ(Ponto3 centro_base, double largura, double altura, Material material, bool aponta_para_positivo) : MalhaEspecifica("Retângulo", material) {
 
     this->centro_base = centro_base;
     this->largura = largura;
     this->altura = altura;
-    this->set_material(material);
     this->aponta_para_positivo = aponta_para_positivo;
 
     this->calcular_estrutura();

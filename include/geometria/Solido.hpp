@@ -6,22 +6,27 @@
 #include "utils/Material.hpp"
 #include "algebra/Ponto3.hpp"
 #include "algebra/Vetor3.hpp"
+#include <string>
 
 class Solido {
 
     private:
         Material material;
+        // Nome do sólido.
+        std::string nome;
 
     public:
 
         // --- CONSTRUTORES ---
 
-        Solido(Material material = Material());
+        Solido(const char* nome, Material material = Material());
 
         // --- GETTERS E SETTERS ---
 
         Material get_material() const;
         void set_material(Material material);
+
+        std::string get_nome() const;
 
         // --- MÉTODOS ---
 

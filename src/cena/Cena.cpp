@@ -48,7 +48,7 @@ void Cena::inserir_fonte_luz(std::unique_ptr<FonteLuz> luz) {
 
 }
 
-rgb Cena::cor_interseccao(Raio& raio, rgb cor_padrao) {
+tupla_interseccao Cena::retorna_interseccao(Raio& raio, rgb cor_padrao) {
 
     // Índice do sólido intersectado primeiro pelo raio da câmera.
     std::size_t indice_solido;
@@ -95,6 +95,9 @@ rgb Cena::cor_interseccao(Raio& raio, rgb cor_padrao) {
     std::size_t indice_malha;
     // Ponteiro para cópia do solido intersectado.
     std::shared_ptr<Solido> solido(nullptr);
+
+    // Informações da intersecção.
+    tupla_interseccao interseccao;
 
     // -------------------------------------------------------------
     // --- CÁLCULO DA INTERSECÇÃO MAIS PRÓXIMA DO RAIO DA CÂMERA ---
@@ -289,12 +292,24 @@ rgb Cena::cor_interseccao(Raio& raio, rgb cor_padrao) {
 
         I_final = I_final + I_A;
 
+        if (raio_intersectou_malha) {
+
+            interseccao = std::make_tuple(I_final.cor_rgb(), nullptr, this->malhas.at(indice_malha));
+
+        } else {
+
+            interseccao = std::make_tuple(I_final.cor_rgb(), this->solidos.at(indice_solido), nullptr);
+
+        }
+
     } else {
 
         I_final = IntensidadeLuz(cor_padrao);
 
+        return tupla_interseccao(I_final.cor_rgb(), nullptr, nullptr);
+
     }
 
-    return I_final.cor_rgb();
+    return interseccao;
 
 }

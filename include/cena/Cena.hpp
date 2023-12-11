@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <vector>
+#include <tuple>
 #include "geometria/Solido.hpp"
 #include "geometria/Raio.hpp"
 #include "geometria/malha/Malha.hpp"
@@ -10,6 +11,9 @@
 #include "utils/tipos.hpp"
 #include "luz/IntensidadeLuz.hpp"
 #include "cena/Camera.hpp"
+
+// Estrutura para representar uma intersecção.
+typedef std::tuple<rgb, std::shared_ptr<Solido>, std::shared_ptr<Malha>> tupla_interseccao;
 
 class Cena {
 
@@ -52,9 +56,9 @@ class Cena {
         // Insere uma nova fonte de luz na cena.
         void inserir_fonte_luz(std::unique_ptr<FonteLuz> luz);
         
-        // Chaca qual sólido o raio intersectou primeiro, calcula a interação da luz com o sólido e retorna a cor rgb correspondente.
-        // Se o raio não intersectar nada, retorna a cor de fundo.
-        rgb cor_interseccao(Raio& raio, rgb cor_padrao = rgb{0, 0, 0});
+        // Checa se o raio intersectou algum sólido ou malha, calcula a interação da luz com os sólidos e retorna as informações da intersecção (cor captada, ponteiro para o sólido intersectado e ponteiro para a malha intersectada).
+        // Se o raio não intersectar nada, retorna a cor padrão e dois ponteiros nulos.
+        tupla_interseccao retorna_interseccao(Raio& raio, rgb cor_padrao = rgb{0, 0, 0});
 
 };
 

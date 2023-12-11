@@ -16,8 +16,37 @@ class Canvas {
         std::size_t largura;
         // Cor padrão do canvas.
         rgb cor_padrao;
+
         // Matriz de cores para serem pintadas no canvas.
         matriz_cores pixel_buffer;
+        // Matriz com ponteiros para sólidos intersectados em cada pixel.
+        std::vector<std::vector<std::shared_ptr<Solido>>> matriz_solidos;
+        // Matriz com ponteiros para malhas intersectadas em cada pixel.
+        std::vector<std::vector<std::shared_ptr<Malha>>> matriz_malhas;
+
+        // Booleano para controlar o loop principal.
+        bool repetir_loop;
+        // Booleano para controlar o cálculo do pixel buffer e das matrizes de sólidos e cores.
+        bool repetir_calculos;
+        // Booleano para controlar se o pixel buffer deve ser renderizado.
+        bool renderizar_pixel_buffer;
+
+        // --- MÉTODOS PRIVADOS ---
+
+            // Calcula a matriz de cores de acordo com uma certa cena.
+            void calcular_cores(Cena& cena);
+
+            // Desenha 
+            void desenhar_pixels(SDL_Renderer* renderer) const;
+
+            // Lida com eventos da window.
+            void processar_eventos();
+
+            // Menu para alterar sólido.
+            void menu_interativo(std::shared_ptr<Solido> solido);
+
+            // Menu para alterar malha.
+            void menu_interativo(std::shared_ptr<Malha> malha);
 
     public:
 
@@ -37,12 +66,6 @@ class Canvas {
             void set_cor_padrao(rgb c);
 
         // --- MÉTODOS ---
-
-            // Calcula a matriz de cores de acordo com uma certa cena.
-            void calcular_cores(Cena& cena);
-
-            // Desenha 
-            void desenhar_pixels(SDL_Renderer* renderer) const;
 
             // Loop principal de renderização.
             // Recebe o título da janela.

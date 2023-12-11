@@ -1,7 +1,8 @@
 #include "geometria/Solido.hpp"
 
-Solido::Solido(Material material) {
+Solido::Solido(const char* nome, Material material) {
 
+    this->nome = nome;
     this->set_material(material);
 
 }
@@ -29,5 +30,11 @@ bool Solido::tem_textura() const {
         return false;
 
     }
+
+}
+
+std::string Solido::get_nome() const {
+
+    return this->nome;
 
 }

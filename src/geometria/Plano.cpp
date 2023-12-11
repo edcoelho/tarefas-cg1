@@ -2,14 +2,14 @@
 #include "utils/tipos.hpp"
 #include <cmath>
 
-Plano::Plano(Material material) : Solido(material) {
+Plano::Plano(Material material) : Solido("Plano", material) {
 
     this->set_ponto(Ponto3(0.0, 0.0, 0.0));
     this->set_normal(Vetor3(0.0, 1.0, 0.0));
 
 }
 
-Plano::Plano(Ponto3 ponto, Vetor3 normal, Material material) : Solido(material) {
+Plano::Plano(Ponto3 ponto, Vetor3 normal, Material material) : Solido("Plano", material) {
 
     this->set_ponto(ponto);
     this->set_normal(normal);
