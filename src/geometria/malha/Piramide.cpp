@@ -2,13 +2,12 @@
 
 // --- CONSTRUTORES ---
 
-Piramide::Piramide(Ponto3 centro_base, double largura_base, double comprimento_base, double altura, Material material) {
+Piramide::Piramide(Ponto3 centro_base, double largura_base, double comprimento_base, double altura, Material material): MalhaEspecifica("Pirâmide", material) {
 
     this->centro_base = centro_base;
     this->largura_base = largura_base;
     this->comprimento_base = comprimento_base;
     this->altura = altura;
-    this->set_material(material);
 
     this->calcular_estrutura();
 

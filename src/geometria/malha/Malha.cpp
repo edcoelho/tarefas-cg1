@@ -17,9 +17,21 @@ Face::Face(std::size_t id_aresta1, std::size_t id_aresta2, std::size_t id_aresta
 
 }
 
-Malha::Malha(Material material) {
+Malha::Malha(const char* nome, Material material) {
 
-    this->set_material(material);
+    this->nome = nome;
+    this->material = material;
+
+}
+
+std::string Malha::get_nome() const {
+
+    return this->nome;
+
+}
+void Malha::set_nome(const char* nome) {
+
+    this->nome = nome;
 
 }
 

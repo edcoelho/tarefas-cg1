@@ -2,7 +2,7 @@
 #include "geometria/Plano.hpp"
 #include <cmath>
 
-Triangulo::Triangulo(Material material) : Solido(material) {
+Triangulo::Triangulo(Material material) : Solido("Triângulo", material) {
 
     this->vertice1 = Ponto3(1.0, 0.0, 0.0);
     this->vertice2 = Ponto3(0.0, 1.0, 0.0);
@@ -15,7 +15,7 @@ Triangulo::Triangulo(Material material) : Solido(material) {
 
 }
 
-Triangulo::Triangulo(Ponto3 vertice1, Ponto3 vertice2, Ponto3 vertice3, Material material) : Solido(material) {
+Triangulo::Triangulo(Ponto3 vertice1, Ponto3 vertice2, Ponto3 vertice3, Material material) : Solido("Triângulo", material) {
 
     this->vertice1 = vertice1;
     this->vertice2 = vertice2;

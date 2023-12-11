@@ -15,6 +15,12 @@ class MalhaEspecifica : public Malha {
             // Recalcula os atributos da malha específica.
             virtual void recalcular_atributos() = 0;
 
+    public:
+
+        // --- CONSTRUTORES ---
+
+            MalhaEspecifica(const char* nome = "Malha", Material material = Material());
+
 };
 
 #endif

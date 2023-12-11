@@ -1,14 +1,14 @@
 #include "geometria/Esfera.hpp"
 #include <cmath>
 
-Esfera::Esfera(Material material) : Solido(material) {
+Esfera::Esfera(Material material) : Solido("Esfera", material) {
 
     this->set_centro(Ponto3(0.0, 1.0, 0.0));
     this->set_raio(1.0);
 
 }
 
-Esfera::Esfera(Ponto3 centro, double raio, Material material) : Solido(material) {
+Esfera::Esfera(Ponto3 centro, double raio, Material material) : Solido("Esfera", material) {
 
     this->set_centro(centro);
     this->set_raio(raio);

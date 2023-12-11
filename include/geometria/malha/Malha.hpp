@@ -2,6 +2,7 @@
 #define GEOMETRIA_MALHA_MALHA_HPP
 
 #include <vector>
+#include <string>
 #include "utils/tipos.hpp"
 #include "algebra/Ponto3.hpp"
 #include "algebra/Vetor3.hpp"
@@ -35,6 +36,7 @@ class Malha {
 
     private:
 
+        std::string nome;
         Material material;
 
     protected:
@@ -51,9 +53,12 @@ class Malha {
 
         // --- CONSTRUTORES ---
 
-            Malha(Material material = Material());
+            Malha(const char* nome = "Malha", Material material = Material());
 
         // --- GETTERS E SETTERS ---
+
+            std::string get_nome() const;
+            void set_nome(const char* nome);
 
             Material get_material() const;
             void set_material(Material m);
